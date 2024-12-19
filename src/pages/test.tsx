@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
 type Post = {
