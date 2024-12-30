@@ -28,14 +28,14 @@ export function Subheading({ className, level = 2, ...props }: HeadingProps) {
   )
 }
 
-export function Eyebrow({ className, level = 2, ...props }: HeadingProps){
+export function Eyebrow({ className, level = 3, ...props }: HeadingProps){
   let Element: `h${typeof level}` = `h${level}`
   return (
     <Element
       {...props}
       className={clsx(
         className,
-        'font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500',
+        'font-inter text-xs/5 font-[800] uppercase tracking-widest text-gray-500',
       )}
     />
   )

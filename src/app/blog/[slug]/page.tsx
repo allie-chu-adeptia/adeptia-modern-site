@@ -90,7 +90,7 @@ export default async function BlogPost({
   params: { slug: string }
 }) {
   const { slug } = await params;
-  let post = await getPostData(slug) || notFound()
+  const post = await getPostData(slug) || notFound()
   
   console.log('Post content:', post.tags.nodes);
   
