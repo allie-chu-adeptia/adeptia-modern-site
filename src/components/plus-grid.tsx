@@ -1,5 +1,7 @@
 import { clsx } from 'clsx'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 export function PlusGrid({
   className = '',
   children,

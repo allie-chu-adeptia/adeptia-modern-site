@@ -6,6 +6,8 @@ import type React from 'react'
 import { Button } from './button'
 import { Link } from './link'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 export function Dropdown(props: Headless.MenuProps) {
   return <Headless.Menu {...props} />
 }

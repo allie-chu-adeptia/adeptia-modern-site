@@ -4,6 +4,8 @@ import React, { forwardRef } from 'react'
 import { TouchTarget } from './button'
 import { Link } from './link'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 const colors = {
   red: 'bg-red-500/15 text-red-700 group-data-[hover]:bg-red-500/25 dark:bg-red-500/10 dark:text-red-400 dark:group-data-[hover]:bg-red-500/20',
   orange:

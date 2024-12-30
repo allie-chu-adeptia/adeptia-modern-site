@@ -4,6 +4,8 @@ import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
 import { Fragment } from 'react'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 export function Listbox<T>({
   className,
   placeholder,

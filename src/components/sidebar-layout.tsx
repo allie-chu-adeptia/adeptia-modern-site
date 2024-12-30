@@ -4,6 +4,8 @@ import * as Headless from '@headlessui/react'
 import React, { useState } from 'react'
 import { NavbarItem } from './navbar'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 function OpenMenuIcon() {
   return (
     <svg data-slot="icon" viewBox="0 0 20 20" aria-hidden="true">

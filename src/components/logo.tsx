@@ -3,6 +3,8 @@
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 export function Logo({ className }: { className?: string }) {
   let transition = {
     duration: 0.5,

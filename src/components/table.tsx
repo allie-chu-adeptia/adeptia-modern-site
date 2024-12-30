@@ -5,6 +5,8 @@ import type React from 'react'
 import { createContext, useContext, useState } from 'react'
 import { Link } from './link'
 
+/* eslint prefer-const: "off" -- Tailwind UI component, disregarding eslint rules. */
+
 const TableContext = createContext<{ bleed: boolean; dense: boolean; grid: boolean; striped: boolean }>({
   bleed: false,
   dense: false,
