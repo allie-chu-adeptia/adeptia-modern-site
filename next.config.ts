@@ -1,3 +1,4 @@
+import { generateStaticParams } from "@/app/blog/[slug]/page";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {

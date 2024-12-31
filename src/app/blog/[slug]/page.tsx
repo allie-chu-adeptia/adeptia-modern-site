@@ -17,6 +17,8 @@ import { Navbar } from '@/components/navbar'
 import { Heading, Eyebrow } from '@/components/heading'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 
+type sParams = Promise<{ slug: string }>;
+
 // GraphQL query to fetch blog post data
 const POST_QUERY = gql`
   query GetPost($slug: ID!) {
@@ -49,6 +51,10 @@ const POST_QUERY = gql`
           slug
         }
       }
+      seo {
+        metaDesc
+        title
+      }
     }
   }
 `
@@ -58,6 +64,28 @@ const client = new ApolloClient({
   uri: 'https://www.staging14.adeptia.com/graphql',
   cache: new InMemoryCache(),
 })
+
+export async function generateStaticParams() {
+  try {
+    // Fetch only the most recent 50 posts
+    const response = await client.query({
+      query: gql`
+        query GetRecentPostSlugs {
+          posts(first: 50) {
+            nodes {
+              slug
+            }
+          }
+        }
+      `,
+    });
+
+    return response.data.posts.nodes.map((post: { slug: string }) => ({ slug: post.slug }));
+  } catch (error) {
+    console.error('Error fetching static params:', error);
+    return [];
+  }
+}
 
 // Fetch post data using the slug as identifier
 async function getPostData(slug: string) {
@@ -75,17 +103,22 @@ async function getPostData(slug: string) {
 }
 
 // Generate metadata for the blog post page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = await params
+export async function generateMetadata(props: { params: sParams }): Promise<Metadata> {
+  // console.log("params in generateMetadata:", params);
+  
+  const { slug }= await props.params
   const post = await getPostData(slug)
 
   if (!post) {
     return {}
   }
 
+  console.log("metadata title:", post.seo.title)
+  console.log("metadata description:", post.seo.metaDesc)
+
   return {
-    title: post.title,
-    description: post.excerpt.replace(/<[^>]*>/g, ''), // Strip HTML tags from excerpt
+    title: post.seo.title,
+    description: post.seo.metaDesc, // Strip HTML tags from excerpt
     openGraph: {
       images: [{ url: post.featuredImage?.node?.sourceUrl }],
     },
@@ -99,14 +132,11 @@ const cleanWordPressContent = (content: string): string => {
     .replace(/<div class="content-container">/g, '')
     .replace(/<\/div>/g, '')
 }
-
 // Main blog post component
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const { slug } = await params
+export default async function BlogPost(props: { params: sParams }) {
+  // console.log("params in BlogPost:", params);
+
+  const { slug } = await props.params
   const post = await getPostData(slug) || notFound()
   
   // Sanitize and clean WordPress content for safe rendering
