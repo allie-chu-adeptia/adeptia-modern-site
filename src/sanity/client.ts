@@ -8,6 +8,11 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: isDevelopment ? false : true,
+  perspective: 'published',
+  stega: {
+    enabled: isDevelopment,
+    studioUrl: '/studio',
+  },
 })
 
 export async function sanityFetch<const QueryString extends string>({

@@ -13,22 +13,20 @@ import type { Metadata } from 'next'
 import { PortableText } from 'next-sanity'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
-  let post = await getPost(params.slug)
+type sParams = Promise<{ slug: string }>;
+
+export async function generateMetadata(props: { params: sParams }): Promise<Metadata> {
+
+  const { slug } = await props.params
+  let post = await getPost(slug)
 
   return post ? { title: post.title, description: post.excerpt } : {}
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  let post = (await getPost(params.slug)) || notFound()
+export default async function BlogPost(props: { params: sParams }) {
+
+  const { slug } = await props.params
+  let post = (await getPost(slug)) || notFound()
 
   return (
     <main className="overflow-hidden">

@@ -25,13 +25,15 @@ import dayjs from 'dayjs'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+type sParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 export const metadata: Metadata = {
   title: 'Blog',
   description:
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 }
 
-const postsPerPage = 5
+const postsPerPage = 20
 
 async function FeaturedPosts() {
   let featuredPosts = await getFeaturedPosts(3)
@@ -272,6 +274,7 @@ export default async function Blog({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
+  
   let page =
     'page' in searchParams
       ? typeof searchParams.page === 'string' && parseInt(searchParams.page) > 1
