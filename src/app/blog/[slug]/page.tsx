@@ -15,7 +15,7 @@ import { notFound } from 'next/navigation'
 
 type sParams = Promise<{ slug: string }>;
 
-export async function generateMetadata(props: { params: sParams }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
 
   const { slug } = await props.params
   let post = await getPost(slug)
@@ -23,7 +23,7 @@ export async function generateMetadata(props: { params: sParams }): Promise<Meta
   return post ? { title: post.title, description: post.excerpt } : {}
 }
 
-export default async function BlogPost(props: { params: sParams }) {
+export default async function BlogPost(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params
   let post = (await getPost(slug)) || notFound()

@@ -269,12 +269,13 @@ async function Pagination({
   )
 }
 
-export default async function Blog({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
-  
+export default async function Blog(
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  }
+) {
+  const searchParams = await props.searchParams;
+
   let page =
     'page' in searchParams
       ? typeof searchParams.page === 'string' && parseInt(searchParams.page) > 1
