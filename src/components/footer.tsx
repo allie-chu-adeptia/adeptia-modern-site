@@ -148,7 +148,7 @@ function SocialLinks() {
 function Copyright() {
   return (
     <div className="text-sm/6 text-gray-950">
-      &copy; {new Date().getFullYear()} Radiant Inc.
+      &copy; {new Date().getFullYear()} Adeptia Inc.
     </div>
   )
 }
@@ -157,7 +157,7 @@ export function Footer() {
   return (
     <footer>
       <Gradient className="relative">
-        <div className="absolute inset-2 rounded-4xl bg-white/80" />
+        <div className="absolute inset-3 rounded-xl bg-white/80" />
         <Container>
           <CallToAction />
           <PlusGrid className="pb-16">

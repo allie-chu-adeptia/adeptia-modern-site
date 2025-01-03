@@ -28,10 +28,10 @@ export function PlusGridRow({
         aria-hidden="true"
         className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2"
       >
-        <div className="absolute inset-x-0 top-0 border-t border-black/5"></div>
-        <div className="absolute inset-x-0 top-2 border-t border-black/5"></div>
-        <div className="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block"></div>
-        <div className="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block"></div>
+        <div className="absolute inset-x-0 top-0 border-t border-black/5 rounded-lg"></div>
+        <div className="absolute inset-x-0 top-2 border-t border-black/5 rounded-lg"></div>
+        <div className="absolute inset-x-0 bottom-0 hidden border-b border-black/5 rounded-lg group-last/row:block"></div>
+        <div className="absolute inset-x-0 bottom-2 hidden border-b border-black/5 rounded-lg group-last/row:block"></div>
       </div>
       {children}
     </div>
@@ -72,23 +72,40 @@ export function PlusGridIcon({
   className?: string
   placement: `${'top' | 'bottom'} ${'right' | 'left'}`
 }) {
+  if (placement === 'bottom left' || placement === 'top right') {
+    return null;
+  }
+
   let [yAxis, xAxis] = placement.split(' ')
 
   let yClass = yAxis === 'top' ? '-top-2' : '-bottom-2'
   let xClass = xAxis === 'left' ? '-left-2' : '-right-2'
 
+  let rotation = {
+    'top left': 'rotate-0',
+    'top right': 'rotate-[180deg]',
+    'bottom left': 'rotate-[0deg]',
+    'bottom right': 'rotate-[180deg]',
+  }[placement]
+
   return (
     <svg
-      viewBox="0 0 15 15"
+      xmlns="http://www.w3.org/2000/svg"
+      width="8"
+      height="10" 
+      viewBox="0 0 8 10"
       aria-hidden="true"
       className={clsx(
         className,
-        'absolute size-[15px] fill-black/10',
+        'absolute size-[15px]',
         yClass,
         xClass,
+        rotation,
+        'transform'
       )}
+      fill="none"
     >
-      <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z" />
+      <path d="M0.75 1.10289L7.5 5L0.75 8.89712L0.75 1.10289Z" stroke="black" strokeOpacity="0.1" strokeWidth="0.5"/>
     </svg>
   )
 }

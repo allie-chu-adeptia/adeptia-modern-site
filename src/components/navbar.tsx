@@ -22,14 +22,13 @@ function DesktopNav() {
   return (
     <nav className="relative hidden lg:flex">
       {links.map(({ href, label }) => (
-        <PlusGridItem key={href} className="relative flex">
-          <Link
-            href={href}
-            className="flex items-center px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply data-[hover]:bg-black/[2.5%]"
-          >
-            {label}
-          </Link>
-        </PlusGridItem>
+        <Link
+        key={href}
+          href={href}
+          className="flex items-center px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply data-[hover]:bg-black/[2.5%]"
+        >
+          {label}
+        </Link>
       ))}
     </nav>
   )
