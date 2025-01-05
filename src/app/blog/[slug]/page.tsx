@@ -10,8 +10,10 @@ import { getPost } from '@/sanity/queries'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import type { Metadata } from 'next'
-import { PortableText } from 'next-sanity'
+import { PortableText, PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
+import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
+import StylePortableText from '@/lib/stylePortableText'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -26,7 +28,8 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
 export default async function BlogPost(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params
-  let post = (await getPost(slug)) || notFound()
+  let post = (await getPost(slug) as ExpandedPost) || notFound()
+  console.log(post.content)
 
   return (
     <main className="overflow-hidden">
@@ -34,7 +37,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
       <Container>
         <Navbar />
         <Subheading className="mt-16">
-          {dayjs(post.publishedAt).format('dddd, MMMM D, YYYY')}
+          {dayjs(post.date).format('dddd, MMMM D, YYYY')}
         </Subheading>
         <Heading as="h1" className="mt-2">
           {post.title}
@@ -43,12 +46,16 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
           <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
             {post.author && (
               <div className="flex items-center gap-3">
-                {post.author.image && (
-                  <img
-                    alt=""
-                    src={image(post.author.image).size(64, 64).url()}
-                    className="aspect-square size-6 rounded-full object-cover"
-                  />
+                {post.author.avatarUrl && (
+                  <>
+                    {console.log('Avatar URL:', post.author.avatarUrl)}
+                    {console.log('Processed URL:', image(post.author.avatarUrl).width(64).height(64).url())}
+                    <img
+                      alt=""
+                      src={image(post.author.avatarUrl).width(64).height(64).url()}
+                      className="aspect-square size-6 rounded-full object-cover"
+                    />
+                  </>
                 )}
                 <div className="text-sm/5 text-gray-700">
                   {post.author.name}
@@ -57,13 +64,13 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
             )}
             {Array.isArray(post.categories) && (
               <div className="flex flex-wrap gap-2">
-                {post.categories.map((category) => (
+                {post.categories.map((category: ExpandedCategory) => (
                   <Link
-                    key={category.slug}
+                    key={category._id}
                     href={`/blog?category=${category.slug}`}
                     className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                   >
-                    {category.title}
+                    {category.name}
                   </Link>
                 ))}
               </div>
@@ -71,115 +78,17 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
           </div>
           <div className="text-gray-700">
             <div className="max-w-2xl xl:mx-auto">
-              {post.mainImage && (
+              {post.featuredMedia && (
                 <img
-                  alt={post.mainImage.alt || ''}
-                  src={image(post.mainImage).size(2016, 1344).url()}
+                  alt={post.featuredMediaAlt || ''}
+                  src={image(post.featuredMedia).size(2016, 1344).url()}
                   className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                 />
               )}
-              {post.body && (
-                <PortableText
-                  value={post.body}
-                  components={{
-                    block: {
-                      normal: ({ children }) => (
-                        <p className="my-10 text-base/8 first:mt-0 last:mb-0">
-                          {children}
-                        </p>
-                      ),
-                      h2: ({ children }) => (
-                        <h2 className="mb-10 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
-                          {children}
-                        </h2>
-                      ),
-                      h3: ({ children }) => (
-                        <h3 className="mb-10 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
-                          {children}
-                        </h3>
-                      ),
-                      blockquote: ({ children }) => (
-                        <blockquote className="my-10 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950 first:mt-0 last:mb-0">
-                          {children}
-                        </blockquote>
-                      ),
-                    },
-                    types: {
-                      image: ({ value }) => (
-                        <img
-                          alt={value.alt || ''}
-                          src={image(value).width(2000).url()}
-                          className="w-full rounded-2xl"
-                        />
-                      ),
-                      separator: ({ value }) => {
-                        switch (value.style) {
-                          case 'line':
-                            return (
-                              <hr className="my-8 border-t border-gray-200" />
-                            )
-                          case 'space':
-                            return <div className="my-8" />
-                          default:
-                            return null
-                        }
-                      },
-                    },
-                    list: {
-                      bullet: ({ children }) => (
-                        <ul className="list-disc pl-4 text-base/8 marker:text-gray-400">
-                          {children}
-                        </ul>
-                      ),
-                      number: ({ children }) => (
-                        <ol className="list-decimal pl-4 text-base/8 marker:text-gray-400">
-                          {children}
-                        </ol>
-                      ),
-                    },
-                    listItem: {
-                      bullet: ({ children }) => {
-                        return (
-                          <li className="my-2 pl-2 has-[br]:mb-8">
-                            {children}
-                          </li>
-                        )
-                      },
-                      number: ({ children }) => {
-                        return (
-                          <li className="my-2 pl-2 has-[br]:mb-8">
-                            {children}
-                          </li>
-                        )
-                      },
-                    },
-                    marks: {
-                      strong: ({ children }) => (
-                        <strong className="font-semibold text-gray-950">
-                          {children}
-                        </strong>
-                      ),
-                      code: ({ children }) => (
-                        <>
-                          <span aria-hidden>`</span>
-                          <code className="text-[15px]/8 font-semibold text-gray-950">
-                            {children}
-                          </code>
-                          <span aria-hidden>`</span>
-                        </>
-                      ),
-                      link: ({ value, children }) => {
-                        return (
-                          <Link
-                            href={value.href}
-                            className="font-medium text-gray-950 underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600"
-                          >
-                            {children}
-                          </Link>
-                        )
-                      },
-                    },
-                  }}
+              {post.content && (
+                <StylePortableText 
+                  value={post.content as PortableTextBlock[]} 
+                  className="blog-post-content"
                 />
               )}
               <div className="mt-10">

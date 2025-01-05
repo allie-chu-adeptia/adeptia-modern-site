@@ -1,0 +1,6 @@
+{
+    "path": "./studio-refreshed25/schemaTypes/**/*.{ts,tsx}",
+    "schema": "./studio-refreshed25/schema.json",
+    "generates": "./src/sanity/types.ts",
+    "overloadClientMethods": true
+  }

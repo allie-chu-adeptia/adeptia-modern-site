@@ -5,13 +5,13 @@ import { GradientBackground } from '@/components/gradient'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Heading, Lead, Subheading } from '@/components/text'
-import { image } from '@/sanity/image'
+import { image } from '../../sanity/image'
 import {
   getCategories,
   getFeaturedPosts,
   getPosts,
   getPostsCount,
-} from '@/sanity/queries'
+} from '../../sanity/queries'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   CheckIcon,
@@ -24,13 +24,24 @@ import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-
-type sParams = Promise<{ [key: string]: string | string[] | undefined }>;
+import { Category } from '@/sanity/types/sanity.types'
+import { ExpandedPost } from '@/sanity/types/local.types'
+import StylePortableText from '@/lib/stylePortableText'
+import { PortableTextBlock } from 'next-sanity'
+import {toHTML} from '@portabletext/to-html'
 
 export const metadata: Metadata = {
   title: 'Blog',
   description:
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
+}
+
+function excerptToHTML(excerpt: PortableTextBlock[]) {
+  if (!excerpt || excerpt.length === 0) {
+    return ''
+  }
+  const html = toHTML(excerpt)
+  return html.replace(/<[^>]*>/g, '').substring(0, 200) + '...'
 }
 
 const postsPerPage = 20
@@ -47,21 +58,21 @@ async function FeaturedPosts() {
       <Container>
         <h2 className="text-2xl font-medium tracking-tight">Featured</h2>
         <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {featuredPosts.map((post) => (
+          {featuredPosts.map((post: ExpandedPost) => (
             <div
-              key={post.slug}
+              key={post._id}
               className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md shadow-black/5 ring-1 ring-black/5"
             >
-              {post.mainImage && (
+              {post.featuredMedia && (
                 <img
-                  alt={post.mainImage.alt || ''}
-                  src={image(post.mainImage).size(1170, 780).url()}
+                  alt={post.featuredMediaAlt || ''}
+                  src={image(post.featuredMedia).size(1170, 780).url()}
                   className="aspect-[3/2] w-full rounded-2xl object-cover"
                 />
               )}
               <div className="flex flex-1 flex-col p-8">
                 <div className="text-sm/5 text-gray-700">
-                  {dayjs(post.publishedAt).format('dddd, MMMM D, YYYY')}
+                  {dayjs(post.date).format('dddd, MMMM D, YYYY')}
                 </div>
                 <div className="mt-2 text-base/7 font-medium">
                   <Link href={`/blog/${post.slug}`}>
@@ -69,15 +80,15 @@ async function FeaturedPosts() {
                     {post.title}
                   </Link>
                 </div>
-                <div className="mt-2 flex-1 text-sm/6 text-gray-500">
-                  {post.excerpt}
-                </div>
+                <p className="mt-3 text-sm/6 text-gray-500">
+                  {excerptToHTML(post.excerpt as PortableTextBlock[])}
+                </p>
                 {post.author && (
                   <div className="mt-6 flex items-center gap-3">
-                    {post.author.image && (
+                    {post.author.avatarUrl && (
                       <img
                         alt=""
-                        src={image(post.author.image).size(64, 64).url()}
+                        src={image(post.author.avatarUrl).width(64).height(64).url()}
                         className="aspect-square size-6 rounded-full object-cover"
                       />
                     )}
@@ -106,7 +117,7 @@ async function Categories({ selected }: { selected?: string }) {
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
         <MenuButton className="flex items-center justify-between gap-2 font-medium">
-          {categories.find(({ slug }) => slug === selected)?.title ||
+          {categories.find(({ slug }: { slug: string }) => slug === selected)?.name ||
             'All categories'}
           <ChevronUpDownIcon className="size-4 fill-slate-900" />
         </MenuButton>
@@ -124,15 +135,15 @@ async function Categories({ selected }: { selected?: string }) {
               <p className="col-start-2 text-sm/6">All categories</p>
             </Link>
           </MenuItem>
-          {categories.map((category) => (
-            <MenuItem key={category.slug}>
+          {categories.map((category: Category) => (
+            <MenuItem key={category._id}>
               <Link
                 href={`/blog?category=${category.slug}`}
                 data-selected={category.slug === selected ? true : undefined}
                 className="group grid grid-cols-[16px,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
               >
                 <CheckIcon className="hidden size-4 group-data-[selected]:block" />
-                <p className="col-start-2 text-sm/6">{category.title}</p>
+                <p className="col-start-2 text-sm/6">{category.name}</p>
               </Link>
             </MenuItem>
           ))}
@@ -163,21 +174,21 @@ async function Posts({ page, category }: { page: number; category?: string }) {
 
   return (
     <div className="mt-6">
-      {posts.map((post) => (
+      {posts.map((post: ExpandedPost) => (
         <div
-          key={post.slug}
+          key={post._id}
           className="relative grid grid-cols-1 border-b border-b-gray-100 py-10 first:border-t first:border-t-gray-200 max-sm:gap-3 sm:grid-cols-3"
         >
           <div>
             <div className="text-sm/5 max-sm:text-gray-700 sm:font-medium">
-              {dayjs(post.publishedAt).format('dddd, MMMM D, YYYY')}
+              {dayjs(post.date).format('dddd, MMMM D, YYYY')}
             </div>
             {post.author && (
               <div className="mt-2.5 flex items-center gap-3">
-                {post.author.image && (
+                {post.author.avatarUrl && (
                   <img
                     alt=""
-                    src={image(post.author.image).width(64).height(64).url()}
+                    src={image(post.author.avatarUrl).width(64).height(64).url()}
                     className="aspect-square size-6 rounded-full object-cover"
                   />
                 )}
@@ -188,8 +199,10 @@ async function Posts({ page, category }: { page: number; category?: string }) {
             )}
           </div>
           <div className="sm:col-span-2 sm:max-w-2xl">
-            <h2 className="text-sm/5 font-medium">{post.title}</h2>
-            <p className="mt-3 text-sm/6 text-gray-500">{post.excerpt}</p>
+            <h2 className="text-md/6 font-medium">{post.title}</h2>
+            <p className="mt-3 text-sm/6 text-gray-500">
+              {excerptToHTML(post.excerpt as PortableTextBlock[])}
+            </p>
             <div className="mt-4">
               <Link
                 href={`/blog/${post.slug}`}
@@ -234,6 +247,39 @@ async function Pagination({
     return
   }
 
+  function getVisiblePages() {
+    const pages = []
+    
+    // Always show first page
+    pages.push(1)
+
+    if (page <= 3) {
+      // Show 1 2 3 ... lastPage
+      for (let i = 2; i <= Math.min(4, pageCount - 1); i++) {
+        pages.push(i)
+      }
+      if (pageCount > 4) pages.push(-1) // Ellipsis
+    } else if (page >= pageCount - 2) {
+      // Show 1 ... thirdLast secondLast lastPage
+      pages.push(-1) // Ellipsis
+      for (let i = pageCount - 3; i < pageCount; i++) {
+        pages.push(i)
+      }
+    } else {
+      // Show 1 ... page-1 page page+1 ... lastPage
+      pages.push(-1) // First ellipsis
+      pages.push(page - 1)
+      pages.push(page)
+      pages.push(page + 1)
+      pages.push(-1) // Second ellipsis
+    }
+
+    // Always show last page
+    pages.push(pageCount)
+
+    return pages
+  }
+
   return (
     <div className="mt-6 flex items-center justify-between gap-2">
       <Button
@@ -245,21 +291,25 @@ async function Pagination({
         Previous
       </Button>
       <div className="flex gap-2 max-sm:hidden">
-        {Array.from({ length: pageCount }, (_, i) => (
-          <Link
-            key={i + 1}
-            href={url(i + 1)}
-            data-active={i + 1 === page ? true : undefined}
-            className={clsx(
-              'size-7 rounded-lg text-center text-sm/7 font-medium',
-              'data-[hover]:bg-gray-100',
-              'data-[active]:shadow data-[active]:ring-1 data-[active]:ring-black/10',
-              'data-[active]:data-[hover]:bg-gray-50',
-            )}
-          >
-            {i + 1}
-          </Link>
-        ))}
+        {getVisiblePages().map((pageNum, i) => 
+          pageNum === -1 ? (
+            <span key={`ellipsis-${i}`} className="text-sm/7">...</span>
+          ) : (
+            <Link
+              key={pageNum}
+              href={url(pageNum)}
+              data-active={pageNum === page ? true : undefined}
+              className={clsx(
+                'size-7 rounded-lg text-center text-sm/7 font-medium',
+                'data-[hover]:bg-gray-100',
+                'data-[active]:shadow data-[active]:ring-1 data-[active]:ring-black/10',
+                'data-[active]:data-[hover]:bg-gray-50',
+              )}
+            >
+              {pageNum}
+            </Link>
+          )
+        )}
       </div>
       <Button variant="outline" href={nextPageUrl} disabled={!nextPageUrl}>
         Next

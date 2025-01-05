@@ -1,6 +1,7 @@
 import { defineQuery } from 'next-sanity'
 import { sanityFetch } from './client'
 
+// Fixed
 const TOTAL_POSTS_QUERY = defineQuery(/* groq */ `count(*[
   _type == "post"
   && defined(slug.current)
@@ -15,20 +16,30 @@ export async function getPostsCount(category?: string) {
   })
 }
 
+// Fixed
 const POSTS_QUERY = defineQuery(/* groq */ `*[
-  _type == "post"
+  _type == "post" 
   && defined(slug.current)
-  && (isFeatured != true || defined($category))
   && select(defined($category) => $category in categories[]->slug.current, true)
-]|order(publishedAt desc)[$startIndex...$endIndex]{
+]|order(date desc)[$startIndex...$endIndex]{
+  _id,
   title,
   "slug": slug.current,
-  publishedAt,
+  date,
   excerpt,
-  author->{
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
+  "author": author->{
+    _id,
     name,
-    image,
+    link,
+    "avatarUrl": avatar.asset->url
   },
+  categories[]->{
+    _id,
+    name,
+    "slug": slug.current
+  }
 }`)
 
 export async function getPosts(
@@ -45,20 +56,22 @@ export async function getPosts(
     },
   })
 }
-
 const FEATURED_POSTS_QUERY = defineQuery(/* groq */ `*[
   _type == "post"
-  && isFeatured == true
+  && featured == true
   && defined(slug.current)
-]|order(publishedAt desc)[0...$quantity]{
+]|order(featured, date desc){
   title,
   "slug": slug.current,
-  publishedAt,
-  mainImage,
+  date,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  author->{
+  "author": author->{
+    _id,
     name,
-    image,
+    link,
+    "avatarUrl": avatar.asset->url
   },
 }`)
 
@@ -69,17 +82,22 @@ export async function getFeaturedPosts(quantity: number) {
   })
 }
 
+// Fixed
 const FEED_POSTS_QUERY = defineQuery(/* groq */ `*[
   _type == "post"
   && defined(slug.current)
-]|order(isFeatured, publishedAt desc){
+]|order(isFeatured, date desc){
   title,
   "slug": slug.current,
-  publishedAt,
-  mainImage,
+  date,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  author->{
+  "author": author->{
+    _id,
     name,
+    link,
+    "avatarUrl": avatar.asset->url
   },
 }`)
 
@@ -89,38 +107,49 @@ export async function getPostsForFeed() {
   })
 }
 
+// fixed
 const POST_QUERY = defineQuery(/* groq */ `*[
   _type == "post"
   && slug.current == $slug
 ][0]{
-  publishedAt,
+  date,
   title,
-  mainImage,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  body,
-  author->{
+  content,
+  "author": author->{
+    _id,
     name,
-    image,
+    link,
+    "avatarUrl": avatar.asset->url
   },
-  categories[]->{
-    title,
+  "categories": categories[]->{
+    name,
     "slug": slug.current,
   }
 }
 `)
 
 export async function getPost(slug: string) {
-  return await sanityFetch({
+  const post = await sanityFetch({
     query: POST_QUERY,
     params: { slug },
   })
+  
+  if (!post) {
+    console.error(`Post not found for slug: ${slug}`)
+  }
+
+  return post
 }
 
+// Fixed
 const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
   _type == "category"
   && count(*[_type == "post" && defined(slug.current) && ^._id in categories[]._ref]) > 0
-]|order(title asc){
-  title,
+]|order(name asc){
+  name,
   "slug": slug.current,
 }`)
 

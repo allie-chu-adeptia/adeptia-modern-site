@@ -3,6 +3,8 @@ import { getPostsForFeed } from '@/sanity/queries'
 import { Feed } from 'feed'
 import assert from 'node:assert'
 
+import { ExpandedPost } from '@/sanity/types/local.types'
+
 export async function GET(req: Request) {
   let siteUrl = new URL(req.url).origin
 
@@ -26,12 +28,12 @@ export async function GET(req: Request) {
 
   let posts = await getPostsForFeed()
 
-  posts.forEach((post) => {
+  posts.forEach((post: ExpandedPost) => {
     try {
       assert(typeof post.title === 'string')
       assert(typeof post.slug === 'string')
       assert(typeof post.excerpt === 'string')
-      assert(typeof post.publishedAt === 'string')
+      assert(typeof post.date === 'string')
     } catch (error) {
       console.log('Post is missing required fields for RSS feed:', post)
       return
@@ -42,8 +44,8 @@ export async function GET(req: Request) {
       id: post.slug,
       link: `${siteUrl}/blog/${post.slug}`,
       content: post.excerpt,
-      image: post.mainImage
-        ? image(post.mainImage)
+      image: post.featuredMedia
+        ? image(post.featuredMedia)
             .size(1200, 800)
             .format('jpg')
             .url()
@@ -51,7 +53,7 @@ export async function GET(req: Request) {
         : undefined,
       author: post.author?.name ? [{ name: post.author.name }] : [],
       contributor: post.author?.name ? [{ name: post.author.name }] : [],
-      date: new Date(post.publishedAt),
+      date: new Date(post.date),
     })
   })
 
