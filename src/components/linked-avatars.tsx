@@ -1,3 +1,5 @@
+/* eslint prefer-const: 0 */
+
 'use client'
 
 import { CheckIcon } from '@heroicons/react/16/solid'

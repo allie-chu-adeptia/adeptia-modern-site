@@ -1,3 +1,5 @@
+/* eslint prefer-const: 0 */
+
 import * as Headless from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Link } from './link'

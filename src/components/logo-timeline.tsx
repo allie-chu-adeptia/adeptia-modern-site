@@ -1,3 +1,5 @@
+/* eslint prefer-const: 0 */
+
 import { clsx } from 'clsx'
 import { Mark } from './logo'
 

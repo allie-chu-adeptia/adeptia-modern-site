@@ -6,6 +6,8 @@ import { Link } from './link'
 import { Logo } from './logo'
 import { Subheading } from './text'
 
+/* eslint prefer-const: 0 */
+
 function CallToAction() {
   return (
     <div className="relative pb-16 pt-20 text-center sm:py-24">

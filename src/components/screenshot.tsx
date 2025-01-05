@@ -1,3 +1,7 @@
+/* eslint prefer-const: 0 */
+
+'use client'
+
 import { clsx } from 'clsx'
 
 export function Screenshot({

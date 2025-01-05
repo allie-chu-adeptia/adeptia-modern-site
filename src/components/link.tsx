@@ -1,3 +1,5 @@
+/* eslint prefer-const: 0 */
+
 import * as Headless from '@headlessui/react'
 import NextLink, { type LinkProps } from 'next/link'
 import { forwardRef } from 'react'

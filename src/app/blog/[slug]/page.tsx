@@ -10,7 +10,7 @@ import { getPost } from '@/sanity/queries'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import type { Metadata } from 'next'
-import { PortableText, PortableTextBlock } from 'next-sanity'
+import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/lib/stylePortableText'
@@ -20,7 +20,7 @@ type sParams = Promise<{ slug: string }>;
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
 
   const { slug } = await props.params
-  let post = await getPost(slug)
+  const post = await getPost(slug)
 
   return post ? { title: post.title, description: post.excerpt } : {}
 }
@@ -28,8 +28,7 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
 export default async function BlogPost(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params
-  let post = (await getPost(slug) as ExpandedPost) || notFound()
-  console.log(post.content)
+  const post = (await getPost(slug) as ExpandedPost) || notFound()
 
   return (
     <main className="overflow-hidden">
@@ -47,15 +46,11 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
             {post.author && (
               <div className="flex items-center gap-3">
                 {post.author.avatarUrl && (
-                  <>
-                    {console.log('Avatar URL:', post.author.avatarUrl)}
-                    {console.log('Processed URL:', image(post.author.avatarUrl).width(64).height(64).url())}
-                    <img
-                      alt=""
-                      src={image(post.author.avatarUrl).width(64).height(64).url()}
-                      className="aspect-square size-6 rounded-full object-cover"
-                    />
-                  </>
+                  <img
+                    alt=""
+                    src={image(post.author.avatarUrl).width(64).height(64).url()}
+                    className="aspect-square size-6 rounded-full object-cover"
+                  />
                 )}
                 <div className="text-sm/5 text-gray-700">
                   {post.author.name}

@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint prefer-const: 0 */
+
 import {
   motion,
   useInView,

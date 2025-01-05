@@ -1,3 +1,5 @@
+/* eslint prefer-const: 0 */
+
 'use client'
 
 import {
