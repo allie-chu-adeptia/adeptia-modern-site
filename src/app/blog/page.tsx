@@ -5,13 +5,13 @@ import { GradientBackground } from '@/components/gradient'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Heading, Lead, Subheading } from '@/components/text'
-import { image } from '../../sanity/image'
+import { image } from '@/sanity/image'
 import {
   getCategories,
   getFeaturedPosts,
   getPosts,
   getPostsCount,
-} from '../../sanity/queries'
+} from '@/sanity/queries/blog'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   CheckIcon,
@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 }
 
+// Converts Portable Text excerpt to plain text HTML with 200 char limit
 function excerptToHTML(excerpt: PortableTextBlock[]) {
   if (!excerpt || excerpt.length === 0) {
     return ''
@@ -45,6 +46,7 @@ function excerptToHTML(excerpt: PortableTextBlock[]) {
 
 const postsPerPage = 20
 
+// Renders featured blog posts section with the 3 most recent featured posts
 async function FeaturedPosts() {
   const featuredPosts = await getFeaturedPosts(3)
 
@@ -105,6 +107,7 @@ async function FeaturedPosts() {
   )
 }
 
+// Renders category dropdown menu with all available blog categories
 async function Categories({ selected }: { selected?: string }) {
   const categories = await getCategories()
 
@@ -156,6 +159,7 @@ async function Categories({ selected }: { selected?: string }) {
   )
 }
 
+// Renders paginated list of blog posts, filtered by category if specified
 async function Posts({ page, category }: { page: number; category?: string }) {
   const posts = await getPosts(
     (page - 1) * postsPerPage,
@@ -219,6 +223,7 @@ async function Posts({ page, category }: { page: number; category?: string }) {
   )
 }
 
+// Renders pagination controls with page numbers and prev/next buttons
 async function Pagination({
   page,
   category,
@@ -318,6 +323,7 @@ async function Pagination({
   )
 }
 
+// Main blog page component that combines all the above components
 export default async function Blog(
   props: {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -344,7 +350,7 @@ export default async function Blog(
         <Navbar />
         <Subheading className="mt-16">Blog</Subheading>
         <Heading as="h1" className="mt-2">
-          What’s happening at Adeptia.
+          What's happening at Adeptia.
         </Heading>
         <Lead className="mt-6 max-w-3xl">
           Stay informed with product updates, company news, and insights on how

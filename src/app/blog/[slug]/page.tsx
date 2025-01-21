@@ -6,7 +6,7 @@ import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Heading, Subheading } from '@/components/text'
 import { image } from '@/sanity/image'
-import { getPost } from '@/sanity/queries'
+import { getPost } from '@/sanity/queries/blog'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import type { Metadata } from 'next'
@@ -17,6 +17,7 @@ import StylePortableText from '@/lib/stylePortableText'
 
 type sParams = Promise<{ slug: string }>;
 
+// Generated metadata for the blog post
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
 
   const { slug } = await props.params
@@ -25,6 +26,7 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
   return post ? { title: post.title, description: post.excerpt } : {}
 }
 
+// Styles and returns the blog post page
 export default async function BlogPost(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params

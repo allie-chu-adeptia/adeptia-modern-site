@@ -1,5 +1,5 @@
 import { image } from '@/sanity/image'
-import { getPostsForFeed } from '@/sanity/queries'
+import { getPostsForFeed } from '@/sanity/queries/blog'
 import { Feed } from 'feed'
 import assert from 'node:assert'
 

@@ -1,7 +1,6 @@
 import { defineQuery } from 'next-sanity'
-import { sanityFetch } from './client'
+import { sanityFetch } from '../client'
 
-// Fixed
 const TOTAL_POSTS_QUERY = defineQuery(/* groq */ `count(*[
   _type == "post"
   && defined(slug.current)
@@ -16,7 +15,6 @@ export async function getPostsCount(category?: string) {
   })
 }
 
-// Fixed
 const POSTS_QUERY = defineQuery(/* groq */ `*[
   _type == "post" 
   && defined(slug.current)
@@ -82,7 +80,6 @@ export async function getFeaturedPosts(quantity: number) {
   })
 }
 
-// Fixed
 const FEED_POSTS_QUERY = defineQuery(/* groq */ `*[
   _type == "post"
   && defined(slug.current)
@@ -107,7 +104,6 @@ export async function getPostsForFeed() {
   })
 }
 
-// fixed
 const POST_QUERY = defineQuery(/* groq */ `*[
   _type == "post"
   && slug.current == $slug
@@ -144,7 +140,6 @@ export async function getPost(slug: string) {
   return post
 }
 
-// Fixed
 const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
   _type == "category"
   && count(*[_type == "post" && defined(slug.current) && ^._id in categories[]._ref]) > 0
