@@ -33,7 +33,10 @@ const RESOURCES_QUERY = defineQuery(/* groq */ `*[
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
 }`)
 
 export async function getResources(
@@ -64,7 +67,10 @@ const FEATURED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
-  featuredImage
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
 }`)
 
 export async function getFeaturedResources(quantity: number) {
@@ -81,7 +87,10 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
 ][0]{
   publishDate,
   title,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
   excerpt,
   body[]{
     ...,
@@ -134,4 +143,3 @@ const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
       query: CATEGORIES_QUERY,
     })
   }
-  

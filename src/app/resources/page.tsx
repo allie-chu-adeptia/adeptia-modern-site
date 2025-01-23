@@ -76,7 +76,7 @@ async function FeaturedResources() {
             >
               {resource.featuredImage && (
                 <img
-                  // alt={resource.featuredMediaAlt || ''}
+                  alt={resource.featuredImage.altText || ''}
                   src={image(resource.featuredImage).size(1170, 780).url()}
                   className="aspect-[3/2] w-full rounded-2xl object-cover"
                 />

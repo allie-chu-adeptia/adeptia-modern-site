@@ -66,7 +66,7 @@ async function FeaturedPosts() {
             >
               {post.featuredImage && (
                 <img
-                  // alt={post.featuredMediaAlt || ''}
+                  alt={post.featuredImage.altText || ''}
                   src={image(post.featuredImage).size(1170, 780).url()}
                   className="aspect-[3/2] w-full rounded-2xl object-cover"
                 />
@@ -88,7 +88,7 @@ async function FeaturedPosts() {
                   <div className="mt-6 flex items-center gap-3">
                     {post.author.profilePic && (
                       <img
-                        alt=""
+                        alt={`Picture of ${post.author.name}`}
                         src={image(post.author.profilePic).width(64).height(64).url()}
                         className="aspect-square size-6 rounded-full object-cover"
                       />
@@ -190,7 +190,7 @@ async function Posts({ page, category }: { page: number; category?: string }) {
               <div className="mt-2.5 flex items-center gap-3">
                 {post.author.profilePic && (
                   <img
-                    alt=""
+                    alt={`Picture of ${post.author.name}`}
                     src={image(post.author.profilePic).width(64).height(64).url()}
                     className="aspect-square size-6 rounded-full object-cover"
                   />

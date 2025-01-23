@@ -27,7 +27,10 @@ const POSTS_QUERY = defineQuery(/* groq */ `*[
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
   "author": author->{
     _id,
     name,
@@ -65,7 +68,10 @@ const FEATURED_POSTS_QUERY = defineQuery(/* groq */ `*[
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
   featured,
   "author": author->{
     _id,
@@ -91,7 +97,10 @@ const FEED_POSTS_QUERY = defineQuery(/* groq */ `*[
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
   "author": author->{
     _id,
     name,
@@ -112,7 +121,10 @@ const POST_QUERY = defineQuery(/* groq */ `*[
 ][0]{
   date,
   title,
-  featuredImage,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
   excerpt,
   body[]{
     ...,
