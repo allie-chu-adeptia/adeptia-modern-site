@@ -1,10 +1,9 @@
-import { Post } from "./sanity.types"
+import { Resource } from "./sanity.types"
 
 interface ExpandedAuthor {
     _id: string
     name?: string
-    link?: string
-    avatarUrl?: string
+    profilePic?: typeof Image
   }
   
   export interface ExpandedCategory {
@@ -13,7 +12,8 @@ interface ExpandedAuthor {
     slug?: string
   }
   
-  export interface ExpandedPost extends Omit<Post, 'author' | 'categories'> {
+  export interface ExpandedPost extends Omit<Resource, 'author' | 'categories'> {
     author?: ExpandedAuthor
     categories?: ExpandedCategory[]
+    slug: string
   }

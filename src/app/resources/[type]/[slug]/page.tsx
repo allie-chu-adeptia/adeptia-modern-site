@@ -6,7 +6,7 @@ import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Heading, Subheading } from '@/components/text'
 import { image } from '@/sanity/image'
-import { getPost } from '@/sanity/queries/blog'
+import { getResource } from '@/sanity/queries/resources'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import type { Metadata } from 'next'
@@ -17,20 +17,20 @@ import StylePortableText from '@/lib/stylePortableText'
 
 type sParams = Promise<{ slug: string }>;
 
-// Generated metadata for the blog post
+// Generated metadata for the resource page
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
 
   const { slug } = await props.params
-  const post = await getPost(slug)
+  const resource = await getResource(slug)
 
-  return post ? { title: post.title, description: post.excerpt } : {}
+  return resource ? { title: resource.title, description: resource.excerpt } : {}
 }
 
-// Styles and returns the blog post page
-export default async function BlogPost(props: { params: Promise<sParams> }) {
+// Styles and returns the resource page
+export default async function ResourcePage(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params
-  const post = (await getPost(slug) as ExpandedPost) || notFound()
+  const resource = (await getResource(slug) as ExpandedPost) || notFound()
 
   return (
     <main className="overflow-hidden">
@@ -38,33 +38,19 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
       <Container>
         <Navbar />
         <Subheading className="mt-16">
-          {dayjs(post.publishDate).format('dddd, MMMM D, YYYY')}
+          {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
         </Subheading>
         <Heading as="h1" className="mt-2">
-          {post.title}
+          {resource.title}
         </Heading>
         <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
           <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
-            {post.author && (
-              <div className="flex items-center gap-3">
-                {post.author.profilePic && (
-                  <img
-                    alt=""
-                    src={image(post.author.profilePic).width(64).height(64).url()}
-                    className="aspect-square size-6 rounded-full object-cover"
-                  />
-                )}
-                <div className="text-sm/5 text-gray-700">
-                  {post.author.name}
-                </div>
-              </div>
-            )}
-            {Array.isArray(post.categories) && (
+            {Array.isArray(resource.categories) && (
               <div className="flex flex-wrap gap-2">
-                {post.categories.map((category: ExpandedCategory) => (
+                {resource.categories.map((category: ExpandedCategory) => (
                   <Link
                     key={category._id}
-                    href={`/blog?category=${category.slug}`}
+                    href={`/resources?category=${category.slug}`}
                     className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                   >
                     {category.name}
@@ -75,23 +61,23 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
           </div>
           <div className="text-gray-700">
             <div className="max-w-2xl xl:mx-auto">
-              {post.featuredImage && (
+              {resource.featuredImage && (
                 <img
                   // alt={post.featuredImageAlt || ''}
-                  src={image(post.featuredImage).size(2016, 1344).url()}
+                  src={image(resource.featuredImage).size(2016, 1344).url()}
                   className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                 />
               )}
-              {post.body && (
+              {resource.body && (
                 <StylePortableText 
-                  value={post.body as PortableTextBlock[]} 
-                  className="blog-post-content"
+                  value={resource.body as PortableTextBlock[]} 
+                  className="resource-post-content"
                 />
               )}
               <div className="mt-10">
-                <Button variant="outline" href="/blog">
+                <Button variant="outline" href="/resources">
                   <ChevronLeftIcon className="size-4" />
-                  Back to blog
+                  Back to all resources
                 </Button>
               </div>
             </div>

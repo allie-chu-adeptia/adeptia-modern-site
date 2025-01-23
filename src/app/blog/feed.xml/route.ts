@@ -33,7 +33,7 @@ export async function GET(req: Request) {
       assert(typeof post.title === 'string')
       assert(typeof post.slug === 'string')
       assert(typeof post.excerpt === 'string')
-      assert(typeof post.date === 'string')
+      assert(typeof post.publishDate === 'string')
     } catch {
       console.log('Post is missing required fields for RSS feed:', post)
       return
@@ -44,8 +44,8 @@ export async function GET(req: Request) {
       id: post.slug,
       link: `${siteUrl}/blog/${post.slug}`,
       content: post.excerpt,
-      image: post.featuredMedia
-        ? image(post.featuredMedia)
+      image: post.featuredImage
+        ? image(post.featuredImage)
             .size(1200, 800)
             .format('jpg')
             .url()
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
         : undefined,
       author: post.author?.name ? [{ name: post.author.name }] : [],
       contributor: post.author?.name ? [{ name: post.author.name }] : [],
-      date: new Date(post.date),
+      date: new Date(post.publishDate),
     })
   })
 

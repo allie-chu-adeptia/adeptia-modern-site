@@ -2,11 +2,10 @@ import { defineQuery } from 'next-sanity'
 import { sanityFetch } from '../client'
 
 const TOTAL_POSTS_QUERY = defineQuery(/* groq */ `count(*[
-  _type == "resource"
-  && type == "Blog"
-  && defined(metadata.slug.current)
-  && (featured != true || defined($category))
-  && select(defined($category) => $category in category[]->slug.current, true)
+  _type == "post"
+  && defined(slug.current)
+  && (isFeatured != true || defined($category))
+  && select(defined($category) => $category in categories[]->slug.current, true)
 ])`)
 
 export async function getPostsCount(category?: string) {
@@ -17,23 +16,24 @@ export async function getPostsCount(category?: string) {
 }
 
 const POSTS_QUERY = defineQuery(/* groq */ `*[
-  _type == "resource"
-  && type == "Blog"
-  && defined(metadata.slug.current)
-  && select(defined($category) => $category in category[]->slug.current, true)
-]|order(publishDate desc)[$startIndex...$endIndex]{
+  _type == "post" 
+  && defined(slug.current)
+  && select(defined($category) => $category in categories[]->slug.current, true)
+]|order(date desc)[$startIndex...$endIndex]{
   _id,
   title,
-  "slug": metadata.slug.current,
-  publishDate,
+  "slug": slug.current,
+  date,
   excerpt,
-  featuredImage,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   "author": author->{
     _id,
     name,
-    profilePic
+    link,
+    "avatarUrl": avatar.asset->url
   },
-  category[]->{
+  categories[]->{
     _id,
     name,
     "slug": slug.current
@@ -55,23 +55,22 @@ export async function getPosts(
   })
 }
 const FEATURED_POSTS_QUERY = defineQuery(/* groq */ `*[
-  _type == "resource"
-  && type == "Blog" 
+  _type == "post"
   && featured == true
-  && defined(metadata.slug.current)
-]|order(publishDate desc)[0...$quantity]{
-  _id,
+  && defined(slug.current)
+]|order(featured, date desc){
   title,
-  "slug": metadata.slug.current,
-  publishDate,
+  "slug": meta.current,
+  date,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  featuredImage,
-  featured,
   "author": author->{
     _id,
     name,
-    profilePic
-  }
+    link,
+    "avatarUrl": avatar.asset->url
+  },
 }`)
 
 export async function getFeaturedPosts(quantity: number) {
@@ -82,20 +81,20 @@ export async function getFeaturedPosts(quantity: number) {
 }
 
 const FEED_POSTS_QUERY = defineQuery(/* groq */ `*[
-  _type == "resource"
-  && type == "Blog"
-  && defined(metadata.slug.current)
-]|order(featured, publishDate desc){
-  _id,
+  _type == "post"
+  && defined(slug.current)
+]|order(isFeatured, date desc){
   title,
-  "slug": metadata.slug.current,
-  publishDate,
+  "slug": slug.current,
+  date,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  featuredImage,
   "author": author->{
     _id,
     name,
-    profilePic
+    link,
+    "avatarUrl": avatar.asset->url
   },
 }`)
 
@@ -106,35 +105,27 @@ export async function getPostsForFeed() {
 }
 
 const POST_QUERY = defineQuery(/* groq */ `*[
-  _type == "resource"
-  && type == "Blog"
-  && metadata.slug.current == $slug
+  _type == "post"
+  && slug.current == $slug
 ][0]{
   date,
   title,
-  featuredImage,
+  featuredMedia,
+  "featuredMediaAlt": featuredMedia.alt,
   excerpt,
-  body[]{
-    ...,
-    markDefs[]{
-      ...,
-      _type == "internalLink" => {
-        ...,
-        "reference": reference->
-      }
-    }
-  },
-  featured,
+  content,
   "author": author->{
     _id,
     name,
-    profilePic
+    link,
+    "avatarUrl": avatar.asset->url
   },
-  "categories": category[]->{
+  "categories": categories[]->{
     name,
     "slug": slug.current,
   }
-}`)
+}
+`)
 
 export async function getPost(slug: string) {
   const post = await sanityFetch({
@@ -151,7 +142,7 @@ export async function getPost(slug: string) {
 
 const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
   _type == "category"
-  && count(*[_type == "resource" && type == "Blog" && defined(metadata.slug.current) && ^._id in category[]._ref]) > 0
+  && count(*[_type == "post" && defined(slug.current) && ^._id in categories[]._ref]) > 0
 ]|order(name asc){
   name,
   "slug": slug.current,

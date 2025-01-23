@@ -53,7 +53,7 @@ export default function StylePortableText({
               <img
                 alt={value.alt || ''}
                 src={image(value).width(2000).url()}
-                className="w-full rounded-2xl"
+                className="w-full rounded-2xl my-5"
               />
             ),
             separator: ({ value }) => {
@@ -108,6 +108,11 @@ export default function StylePortableText({
                 {children}
               </Link>
             ),
+            internalLink: ({value, children}) => {
+              const {slug = {}} = value
+              const href = `/${slug.current}`
+              return <a href={href}>{children}</a>
+            },
           },
     }
 

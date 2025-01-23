@@ -39,33 +39,25 @@ export type SanityImageDimensions = {
   aspectRatio?: number
 }
 
-export type SanityFileAsset = {
-  _id: string
-  _type: 'sanity.fileAsset'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  originalFilename?: string
-  label?: string
-  title?: string
-  description?: string
-  altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
-  uploadId?: string
-  path?: string
-  url?: string
-  source?: SanityAssetSourceData
-}
-
 export type Geopoint = {
   _type: 'geopoint'
   lat?: number
   lng?: number
   alt?: number
+}
+
+export type ProductPricing = {
+  _type: 'productPricing'
+  name?: string
+  button?: Button
+  description?: string
+  content?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'content'
+  }>
 }
 
 export type PortableText = Array<
@@ -109,6 +101,24 @@ export type ExternalImage = {
   url?: string
 }
 
+export type Content = {
+  _type: 'content'
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  header?: string
+  subheader?: string
+  button?: Button
+}
+
 export type Tag = {
   _id: string
   _type: 'tag'
@@ -117,6 +127,117 @@ export type Tag = {
   _rev: string
   name?: string
   slug?: Slug
+}
+
+export type Resource = {
+  _id: string
+  _type: 'resource'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  metadata?: Metadata
+  title?: string
+  type?:
+    | 'Datasheet'
+    | 'White Paper'
+    | 'eBook'
+    | 'Infographic'
+    | 'News'
+    | 'Blog'
+    | 'Video'
+    | 'Tutorial'
+  publishDate?: string
+  status?: 'Published' | 'Draft' | 'Pending' | 'Private'
+  featured?: boolean
+  featuredImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  excerpt?: string
+  category?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'category'
+  }>
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  body?: PortableText
+  HSForm?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'hubspotForm'
+  }
+  downloadFile?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+    }
+    _type: 'file'
+  }
+  video?: VideoEmbed
+  author?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'teamMember'
+  }
+}
+
+export type VideoEmbed = {
+  _type: 'videoEmbed'
+  platform?: 'vimeo' | 'youtube'
+  youtubeId?: string
+  vimeoId?: string
+}
+
+export type SanityFileAsset = {
+  _id: string
+  _type: 'sanity.fileAsset'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  originalFilename?: string
+  label?: string
+  title?: string
+  description?: string
+  altText?: string
+  sha1hash?: string
+  extension?: string
+  mimeType?: string
+  size?: number
+  assetId?: string
+  uploadId?: string
+  path?: string
+  url?: string
+  source?: SanityAssetSourceData
+}
+
+export type HubspotForm = {
+  _id: string
+  _type: 'hubspotForm'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  description?: string
+  formID?: string
+  sfdcCampaignId?: string
 }
 
 export type Post = {
@@ -157,7 +278,7 @@ export type Post = {
     _ref: string
     _type: 'reference'
     _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'author'
+    [internalGroqTypeReferenceTo]?: 'teamMember'
   }
   categories?: Array<{
     _ref: string
@@ -175,28 +296,16 @@ export type Post = {
   }>
 }
 
-export type Page = {
+export type TeamMember = {
   _id: string
-  _type: 'page'
+  _type: 'teamMember'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
+  name?: string
   slug?: Slug
-  date?: string
-  modified?: string
-  status?:
-    | 'publish'
-    | 'future'
-    | 'draft'
-    | 'pending'
-    | 'private'
-    | 'trash'
-    | 'auto-draft'
-    | 'inherit'
-  content?: PortableText
-  excerpt?: PortableText
-  featuredMedia?: {
+  title?: string
+  profilePic?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -207,11 +316,237 @@ export type Page = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  author?: {
+  displayInManagement?: boolean
+  body?: PortableText
+  linkedIn?: string
+}
+
+export type Customer = {
+  _id: string
+  _type: 'customer'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  metadata?: Metadata
+  title?: string
+  companyName?: string
+  logo?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  hideIdentifiableInfo?: boolean
+  size?: 'Small Business' | 'Mid Market' | 'Enterprise'
+  industry?: string
+  description?: PortableText
+  connector?: Array<{
     _ref: string
     _type: 'reference'
     _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'author'
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'connector'
+  }>
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  category?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'category'
+  }>
+  testimonial?: Array<
+    {
+      _key: string
+    } & Testimonial
+  >
+  hasCaseStudy?: boolean
+  challenge?: PortableText
+  solution?: PortableText
+  body?: PortableText
+}
+
+export type Cta = {
+  _id: string
+  _type: 'cta'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  campaignTitle?: string
+  buttonText?: string
+  pageReference?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
+}
+
+export type Connector = {
+  _id: string
+  _type: 'connector'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  logo?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  slug?: Slug
+  featured?: boolean
+  tags?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+}
+
+export type Company = {
+  _id: string
+  _type: 'company'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  companyName?: string
+  body?: PortableText
+  locations?: Array<{
+    locationName?: string
+    address?: string
+    _key: string
+  }>
+  termsOfService?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
+  privacyPolicy?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
+  socials?: {
+    linkedIn?: string
+    twitter?: string
+  }
+}
+
+export type Page = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  metadata?: Metadata
+  title?: string
+  parent?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
+  icon?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  category?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'category'
+  }>
+  block?: Array<
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'testimonial'
+      }
+    | ({
+        _key: string
+      } & CaseStudy)
+    | ({
+        _key: string
+      } & RelatedResource)
+    | ({
+        _key: string
+      } & RelatedConnector)
+    | ({
+        _key: string
+      } & Faq)
+    | ({
+        _key: string
+      } & Pricing)
+    | ({
+        _key: string
+      } & ContentSection)
+    | ({
+        _key: string
+      } & CtaSection)
+    | ({
+        _key: string
+      } & HeaderSection)
+    | ({
+        _key: string
+      } & StatSection)
+    | ({
+        _key: string
+      } & LogoSection)
+    | ({
+        _key: string
+      } & BentoSection)
+  >
+}
+
+export type Metadata = {
+  _type: 'metadata'
+  seoTitle?: string
+  description?: string
+  focusKeyprase?: string
+  slug?: Slug
+  advanced?: {
+    breadcrumbsTitle?: string
+    canonicalUrl?: string
+    allowSearchResults?: boolean
+    followLinks?: boolean
   }
 }
 
@@ -225,16 +560,17 @@ export type Category = {
   slug?: Slug
 }
 
-export type Author = {
-  _id: string
-  _type: 'author'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
+export type Slug = {
+  _type: 'slug'
+  current?: string
+  source?: string
+}
+
+export type Testimonial = {
+  _type: 'testimonial'
   name?: string
-  slug?: Slug
-  link?: string
-  avatar?: {
+  title?: string
+  picture?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -245,6 +581,233 @@ export type Author = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  layout?: 'simpleCentered' | 'largeAvatar'
+  quote?: PortableText
+}
+
+export type StatSection = {
+  _type: 'statSection'
+  header?: HeaderStyle
+  background?: BackgroundStyle
+  stats?: Array<{
+    statName?: string
+    statValue?: string
+    _key: string
+  }>
+}
+
+export type RelatedResource = {
+  _type: 'relatedResource'
+  header?: HeaderStyle
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  type?: 'latest' | 'selected'
+  resource?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'resource'
+  }>
+}
+
+export type RelatedConnector = {
+  _type: 'relatedConnector'
+  header?: HeaderStyle
+  connector?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'connector'
+  }>
+}
+
+export type Pricing = {
+  _type: 'pricing'
+  header?: HeaderStyle
+  productPricing?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'productPricing'
+  }>
+}
+
+export type LogoSection = {
+  _type: 'logoSection'
+  logo?: Array<{
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+    _key: string
+  }>
+}
+
+export type HeaderSection = {
+  _type: 'headerSection'
+  header?: HeaderStyle
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  background?: BackgroundStyle
+  content?: Array<{
+    icon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    title?: string
+    subhead?: string
+    _key: string
+  }>
+}
+
+export type Faq = {
+  _type: 'faq'
+  header?: HeaderStyle
+  displayStyle?: 'accordion' | 'inline'
+  content?: Array<{
+    question?: string
+    answer?: string
+    _key: string
+  }>
+}
+
+export type CtaSection = {
+  _type: 'ctaSection'
+  header?: HeaderStyle
+  styleAndLayout?: {
+    layout?: 'centered' | 'left-aligned' | 'split'
+    background?: BackgroundStyle
+  }
+  cta?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'cta'
+  }>
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+}
+
+export type ContentSection = {
+  _type: 'contentSection'
+  header?: HeaderStyle
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  body?: PortableText
+  button?: Button
+  styleAndLayout?: {
+    layout?: 'image-left' | 'image-right' | 'image-center'
+    background?: BackgroundStyle
+  }
+  subPoints?: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    header?: string
+    subheader?: string
+    button?: Button
+    _key: string
+  }>
+}
+
+export type Button = {
+  _type: 'button'
+  title?: string
+  url?: string
+}
+
+export type CaseStudy = {
+  _type: 'caseStudy'
+  customer?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'customer'
+  }>
+}
+
+export type BentoSection = {
+  _type: 'bentoSection'
+  header?: HeaderStyle
+  styleAndLayout?: {
+    layout?: 'Large Horizontal' | 'Large Vertical' | 'Evenly Spaced'
+    background?: BackgroundStyle
+  }
+  content?: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    eyebrow?: string
+    header?: string
+    text?: string
+    link?: string
+    _key: string
+  }>
 }
 
 export type SanityImageCrop = {
@@ -304,29 +867,60 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
-export type Slug = {
-  _type: 'slug'
-  current?: string
-  source?: string
+export type BackgroundStyle = {
+  _type: 'backgroundStyle'
+  style?: 'light' | 'medium' | 'dark'
+}
+
+export type HeaderStyle = {
+  _type: 'headerStyle'
+  eyebrow?: string
+  header?: string
+  subheader?: string
 }
 
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
-  | SanityFileAsset
   | Geopoint
+  | ProductPricing
   | PortableText
   | ExternalImage
+  | Content
   | Tag
+  | Resource
+  | VideoEmbed
+  | SanityFileAsset
+  | HubspotForm
   | Post
+  | TeamMember
+  | Customer
+  | Cta
+  | Connector
+  | Company
   | Page
+  | Metadata
   | Category
-  | Author
+  | Slug
+  | Testimonial
+  | StatSection
+  | RelatedResource
+  | RelatedConnector
+  | Pricing
+  | LogoSection
+  | HeaderSection
+  | Faq
+  | CtaSection
+  | ContentSection
+  | Button
+  | CaseStudy
+  | BentoSection
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
-  | Slug
+  | BackgroundStyle
+  | HeaderStyle
 export declare const internalGroqTypeReferenceTo: unique symbol
