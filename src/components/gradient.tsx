@@ -19,7 +19,7 @@ export function Gradient({
 
 export function GradientBackground() {
   return (
-    <div className="relative mx-auto max-w-7xl">
+    <div className="relative mx-auto max-w-7xl overflow-hidden">
       <div
         className={clsx(
           'absolute -right-60 -top-44 h-60 w-[36rem] transform-gpu md:right-0',

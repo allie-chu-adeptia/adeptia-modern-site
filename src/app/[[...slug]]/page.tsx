@@ -1,6 +1,33 @@
 import { notFound } from 'next/navigation'
 import { getPage, getPath } from '@/sanity/queries/page'
 import type { Page } from '@/sanity/types/sanity.types'
+import { ExpandedBentoSection, BentoSectionComponent } from '@/components/bentoSection'
+import { ExpandedLogoSection, LogoSectionComponent } from '@/components/logoSection'
+import { StatSectionComponent } from '@/components/statSection'
+import { FaqComponent } from '@/components/faq'
+import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection'
+import { HeaderSectionComponent } from '@/components/headerSection'
+import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
+import { 
+    BentoSection, 
+    CaseStudy, 
+    ContentSection, 
+    CtaSection, 
+    Faq, 
+    HeaderSection, 
+    LogoSection, 
+    Pricing, 
+    RelatedConnector, 
+    RelatedResource, 
+    StatSection, 
+    Testimonial,
+    BackgroundStyle
+} from "@/sanity/types/sanity.types";
+import { clsx } from 'clsx'
+import { BackgroundColor } from '@/lib/backgroundColorWrapper'
+import { Container } from '@/components/container'
+
+
 
 // Recursively builds an array of slugs representing the path from root to current page
 async function getPagePath(page: Page): Promise<string[]> {
@@ -54,44 +81,108 @@ async function getPagePath(page: Page): Promise<string[]> {
 }
 
 function PageContent({ page }: { page: Page }) {
-    return <div>
-        <h1>{page.title}</h1>
-    </div>
+    const lightBackground: BackgroundStyle = {
+        _type: 'backgroundStyle',
+        style: 'light'
+    }
+    
+    return (
+        <main className="overflow-hidden">             
+            {page.block?.map((block, index, array) => (
+                <div 
+                    key={index}
+                >
+                    {block._type === 'bentoSection' && (
+                        <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
+                            <Container className="py-8 sm:py-16 lg:py-24">
+                                <BentoSectionComponent bentoSection={block as ExpandedBentoSection} />
+                            </Container>
+                        </BackgroundColor>
+                    )}
+                    {/* block._type === 'caseStudy' && (
+                        // TODO: Implement CaseStudy component
+                        null
+                    ) */}
+                    {block._type === 'contentSection' && (
+                        console.log("displaying content section"),
+                        console.log(block),
+                        <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
+                            <Container className="py-8 sm:py-16 lg:py-24">
+                                <ContentSectionComponent contentSection={block as ExpandedContentSection} />
+                            </Container>
+                        </BackgroundColor>
+                    )}
+                    {block._type === 'ctaSection' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <CtaSectionComponent ctaSection={block as ExpandedCtaSection} />
+                        </Container>
+                    )}
+                    {block._type === 'faq' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">  
+                            <FaqComponent faq={block as Faq}/>
+                        </Container>
+                    )}
+                    {block._type === 'headerSection' && (
+                        <BackgroundColor color={block.background ?? lightBackground}>
+                            <Container className="py-8 sm:py-16 lg:py-24">
+                                <HeaderSectionComponent headerSection={block as HeaderSection} />
+                            </Container>
+                        </BackgroundColor>
+                    )}
+                    {block._type === 'logoSection' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <LogoSectionComponent logoSection={block as ExpandedLogoSection} />
+                        </Container>
+                    )}
+                    {/* block._type === 'relatedConnector' && (
+                        // TODO: Implement RelatedConnector component
+                        null
+                    ) */}
+                    {/* block._type === 'relatedResource' && (
+                        // TODO: Implement RelatedResource component
+                        null
+                    ) */}
+                    {block._type === 'statSection' && (
+                        <BackgroundColor color={block.background ?? lightBackground}>
+                            <Container className="py-8 sm:py-16 lg:py-24">
+                                <StatSectionComponent statSection={block as StatSection} />
+                            </Container>
+                        </BackgroundColor>
+                    )}
+                    {/* block._type === 'reference' && block._ref && block._ref.startsWith('testimonial') && (
+                        // TODO: Implement Testimonial component
+                        null
+                    ) */}
+                </div>
+            ))}
+        </main>
+    )
 }
 
-export default async function Page({ params }: { params: { slug?: string[] } }) {
-    console.log('Page component called with params:', params)
+export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
+    const params = await props.params;
 
     if (!params.slug) {
-        console.log('No slug provided, fetching home page')
         const homePage = await getPage('home')
         if (!homePage) {
-            console.log('Home page not found')
             return notFound()
         }
-        console.log('Rendering home page')
         return <PageContent page={homePage} />
     }
 
     const lastSlug = params.slug[params.slug.length - 1]
-    console.log('Getting page with last slug:', lastSlug)
     const page = await getPage(lastSlug)
 
     if (!page) {
-        console.log('Page not found for slug:', lastSlug)
         return notFound()
     }
 
-    console.log('Getting actual path for page:', page._id)
     const actualPath = await getPagePath(page)
     const requestedPath = params.slug.join('/')
-    console.log('Comparing paths:', { actualPath: actualPath.join('/'), requestedPath })
-    
+
     if (actualPath.join('/') !== requestedPath) {
-        console.log('Path mismatch - actual:', actualPath.join('/'), 'requested:', requestedPath)
         return notFound()
     }
 
-    console.log('Rendering page:', page._id)
     return <PageContent page={page} />
 }

@@ -17,7 +17,7 @@ const links = [
   { href: '/pricing', label: 'Pricing' },
   { href: '/company', label: 'Company' },
   { href: '/blog', label: 'Blog' },
-  { href: '/login', label: 'Login' },
+  { href: '/resources', label: 'Resources' },
 ]
 
 function DesktopNav() {

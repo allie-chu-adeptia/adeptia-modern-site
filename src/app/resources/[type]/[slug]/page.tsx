@@ -34,9 +34,7 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
 
   return (
     <main className="overflow-hidden">
-      <GradientBackground />
       <Container>
-        <Navbar />
         <Subheading className="mt-16">
           {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
         </Subheading>
@@ -84,7 +82,6 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
           </div>
         </div>
       </Container>
-      <Footer />
     </main>
   )
 }

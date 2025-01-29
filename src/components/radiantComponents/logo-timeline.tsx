@@ -1,7 +1,7 @@
 /* eslint prefer-const: 0 */
 
 import { clsx } from 'clsx'
-import { Mark } from './logo'
+import { Mark } from '../logo'
 
 function Row({ children }: { children: React.ReactNode }) {
   return (

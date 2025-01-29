@@ -345,9 +345,7 @@ export default async function Blog(
 
   return (
     <main className="overflow-hidden">
-      <GradientBackground />
       <Container>
-        <Navbar />
         <Subheading className="mt-16">Blog</Subheading>
         <Heading as="h1" className="mt-2">
           What&apos;s happening at Adeptia.
@@ -363,7 +361,6 @@ export default async function Blog(
         <Posts page={page} category={category} />
         <Pagination page={page} category={category} />
       </Container>
-      <Footer />
     </main>
   )
 }

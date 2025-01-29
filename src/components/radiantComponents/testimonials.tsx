@@ -15,9 +15,9 @@ import {
 } from 'framer-motion'
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import useMeasure, { type RectReadOnly } from 'react-use-measure'
-import { Container } from './container'
-import { Link } from './link'
-import { Heading, Subheading } from './text'
+import { Container } from '../container'
+import { Link } from '../link'
+import { Heading, Subheading } from '../text'
 
 const testimonials = [
   {

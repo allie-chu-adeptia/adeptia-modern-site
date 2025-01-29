@@ -129,6 +129,7 @@ async function CategoriesFilter({ selected, type }: { selected?: string; type?: 
         <MenuItems
           anchor="bottom start"
           className="min-w-40 rounded-lg bg-white p-1 shadow-lg ring-1 ring-gray-200 [--anchor-gap:6px] [--anchor-offset:-4px] [--anchor-padding:10px]"
+          key="categories-menu"
         >
           <MenuItem key="all-categories">
             <Link
@@ -386,9 +387,7 @@ export default async function Resource(
 
   return (
     <main className="overflow-hidden">
-      <GradientBackground />
       <Container>
-        <Navbar />
         <Subheading className="mt-16">Resources</Subheading>
         <Heading as="h1" className="mt-2">
           What&apos;s happening at Adeptia.
@@ -407,7 +406,6 @@ export default async function Resource(
         <Resources page={page} category={category} type={type} />
         <Pagination page={page} category={category} type={type} />
       </Container>
-      <Footer />
     </main>
   )
 }

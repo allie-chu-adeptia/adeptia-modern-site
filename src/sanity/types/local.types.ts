@@ -1,4 +1,5 @@
-import { Resource } from "./sanity.types"
+import { ReactElement } from "react"
+import { BentoSection, Resource, SanityImageHotspot, SanityImageCrop } from "./sanity.types"
 
 interface ExpandedAuthor {
     _id: string
@@ -21,6 +22,7 @@ interface ExpandedImage {
   altText?: string
 }
 
+
 export interface ExpandedPost extends Omit<Resource, 'author' | 'categories'> {
   author?: ExpandedAuthor
   categories?: ExpandedCategory[]
@@ -28,3 +30,9 @@ export interface ExpandedPost extends Omit<Resource, 'author' | 'categories'> {
   slug: string
 }
 
+export interface IconObject {
+  provider: string;
+  name: string;
+  component: () => ReactElement;
+  tags: string[];
+}
