@@ -1,10 +1,9 @@
-import { Button, ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker } from "../sanity/types/sanity.types";
+import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker } from "../sanity/types/sanity.types";
 import { HeaderStyle } from "../lib/headerStyle";
 import IconRender from "@/lib/iconRender";
 import Link from "next/link";
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
-import { features } from "process";
 import { image } from '@/sanity/image'
 
 type spacing = 'tight' | 'loose'

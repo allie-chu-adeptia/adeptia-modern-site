@@ -2,19 +2,9 @@ import cleanString from "@/lib/cleanString";
 import { DarkModeWrapper } from "@/lib/darkModeWrapper";
 import { HeaderStyle } from "@/lib/headerStyle";
 import { HeaderSection } from "@/sanity/types/sanity.types";
-import { CalendarIcon, ChartBarIcon, ChartPieIcon, CpuChipIcon, CubeTransparentIcon, NewspaperIcon, PaperAirplaneIcon } from "@heroicons/react/20/solid";
 import React from "react";
-import { Heading, Subheading } from "./text";
+import { Heading } from "./text";
 import clsx from "clsx";
-const iconMap = {
-    'calendar': CalendarIcon,
-    'chart-bar': ChartBarIcon,
-    'chart-pie': ChartPieIcon,
-    'cpu-chip': CpuChipIcon,
-    'cube-transparent': CubeTransparentIcon,
-    'newspaper': NewspaperIcon,
-    'paper-airplane': PaperAirplaneIcon
-}
 
 export function HeaderSectionComponent({ headerSection }: { headerSection: HeaderSection }) {
     const cleanStyle = cleanString(headerSection.background?.style || '')
@@ -22,7 +12,7 @@ export function HeaderSectionComponent({ headerSection }: { headerSection: Heade
 
     return (
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <HeaderStyle header={headerSection.header} style={headerSection.background} className="mx-0" />
+            <HeaderStyle header={headerSection.header} style={headerSection.background} />
             <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
 
             {headerSection.content?.map((card, index) => (

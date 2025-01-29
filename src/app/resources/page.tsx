@@ -1,14 +1,9 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
-import { Footer } from '@/components/footer'
-import { GradientBackground } from '@/components/gradient'
 import { Link } from '@/components/link'
-import { Navbar } from '@/components/navbar'
 import { Heading, Lead, Subheading } from '@/components/text'
-import { image } from '@/sanity/image'
 import {
   getCategories,
-  getFeaturedResources,
   getResources,
   getResourcesCount,
 } from '@/sanity/queries/resources'
@@ -56,52 +51,52 @@ function getTypeSlug(type: string) {
   return slugs[type]
 }
 
-// Renders featured resource posts section with the 3 most recent featured posts
-async function FeaturedResources() {
-  const featuredResources = await getFeaturedResources(3)
+// // Renders featured resource posts section with the 3 most recent featured posts
+// async function FeaturedResources() {
+//   const featuredResources = await getFeaturedResources(3)
 
-  if (featuredResources.length === 0) {
-    return
-  }
+//   if (featuredResources.length === 0) {
+//     return
+//   }
 
-  return (
-    <div className="mt-16 bg-gradient-to-t from-gray-100 pb-14">
-      <Container>
-        <h2 className="text-2xl font-medium tracking-tight">Featured</h2>
-        <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {featuredResources.map((resource: ExpandedPost) => (
-            <div
-              key={resource._id}
-              className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md shadow-black/5 ring-1 ring-black/5"
-            >
-              {resource.featuredImage && (
-                <img
-                  alt={resource.featuredImage.altText || ''}
-                  src={image(resource.featuredImage).size(1170, 780).url()}
-                  className="aspect-[3/2] w-full rounded-2xl object-cover"
-                />
-              )}
-              <div className="flex flex-1 flex-col p-8">
-                <div className="text-sm/5 text-gray-700">
-                  {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
-                </div>
-                <div className="mt-2 text-base/7 font-medium">
-                  <Link href={`/resources/${getTypeSlug(resource.type as string)}/${resource.slug}`}>
-                    <span className="absolute inset-0" />
-                    {resource.title}
-                  </Link>
-                </div>
-                <p className="mt-3 text-sm/6 text-gray-500">
-                  {excerptToHTML(resource.excerpt as string)}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </div>
-  )
-}
+//   return (
+//     <div className="mt-16 bg-gradient-to-t from-gray-100 pb-14">
+//       <Container>
+//         <h2 className="text-2xl font-medium tracking-tight">Featured</h2>
+//         <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
+//           {featuredResources.map((resource: ExpandedPost) => (
+//             <div
+//               key={resource._id}
+//               className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md shadow-black/5 ring-1 ring-black/5"
+//             >
+//               {resource.featuredImage && (
+//                 <img
+//                   alt={resource.featuredImage.altText || ''}
+//                   src={image(resource.featuredImage).size(1170, 780).url()}
+//                   className="aspect-[3/2] w-full rounded-2xl object-cover"
+//                 />
+//               )}
+//               <div className="flex flex-1 flex-col p-8">
+//                 <div className="text-sm/5 text-gray-700">
+//                   {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
+//                 </div>
+//                 <div className="mt-2 text-base/7 font-medium">
+//                   <Link href={`/resources/${getTypeSlug(resource.type as string)}/${resource.slug}`}>
+//                     <span className="absolute inset-0" />
+//                     {resource.title}
+//                   </Link>
+//                 </div>
+//                 <p className="mt-3 text-sm/6 text-gray-500">
+//                   {excerptToHTML(resource.excerpt as string)}
+//                 </p>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </Container>
+//     </div>
+//   )
+// }
 
 // Renders category dropdown menu with all available blog categories
 async function CategoriesFilter({ selected, type }: { selected?: string; type?: string }) {

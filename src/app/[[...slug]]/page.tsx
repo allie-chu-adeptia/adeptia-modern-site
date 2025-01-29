@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getPage, getPath } from '@/sanity/queries/page'
+import { getPage } from '@/sanity/queries/page'
 import type { Page } from '@/sanity/types/sanity.types'
 import { ExpandedBentoSection, BentoSectionComponent } from '@/components/bentoSection'
 import { ExpandedLogoSection, LogoSectionComponent } from '@/components/logoSection'
@@ -9,21 +9,11 @@ import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection
 import { HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
 import { 
-    BentoSection, 
-    CaseStudy, 
-    ContentSection, 
-    CtaSection, 
     Faq, 
     HeaderSection, 
-    LogoSection, 
-    Pricing, 
-    RelatedConnector, 
-    RelatedResource, 
     StatSection, 
-    Testimonial,
     BackgroundStyle
 } from "@/sanity/types/sanity.types";
-import { clsx } from 'clsx'
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { Container } from '@/components/container'
 
@@ -88,7 +78,7 @@ function PageContent({ page }: { page: Page }) {
     
     return (
         <main className="overflow-hidden">             
-            {page.block?.map((block, index, array) => (
+            {page.block?.map((block, index) => (
                 <div 
                     key={index}
                 >

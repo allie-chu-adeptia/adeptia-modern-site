@@ -11,7 +11,6 @@ interface HeaderStyleProps {
     layout?: string
   }
   style?: BackgroundStyle
-  className?: string
 }
 
 const lightBackground: BackgroundStyle = {
@@ -22,7 +21,6 @@ const lightBackground: BackgroundStyle = {
 export function HeaderStyle({
   header,
   style = lightBackground,
-  className
 }: HeaderStyleProps) {
   const textAlignment: { [key: string]: string } = {
     'centered': 'text-center',

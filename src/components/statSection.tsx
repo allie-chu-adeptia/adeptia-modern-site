@@ -12,7 +12,6 @@ import { StatSection } from '@/sanity/types/sanity.types'
 import { HeaderStyle } from '../lib/headerStyle'
 import clsx from 'clsx'
 import { DarkModeWrapper } from '../lib/darkModeWrapper'
-import cleanString from '@/lib/cleanString'
 
 export function ClimbingNumber({
   numValue,
@@ -21,13 +20,13 @@ export function ClimbingNumber({
   numValue: number
   decimals?: number
 }) {
-  let ref = useRef(null)
-  let isInView = useInView(ref, { once: true, amount: 0.5 })
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.5 })
   const start = Math.round(numValue * 0.5)
 
-  let value = useMotionValue(start)
-  let spring = useSpring(value, { damping: 30, stiffness: 100 })
-  let display = useTransform(spring, (num) => num.toFixed(decimals))
+  const value = useMotionValue(start)
+  const spring = useSpring(value, { damping: 30, stiffness: 100 })
+  const display = useTransform(spring, (num) => num.toFixed(decimals))
 
   useEffect(() => {
     value.set(isInView ? numValue : start)

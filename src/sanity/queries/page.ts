@@ -1,22 +1,5 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from '../client'
-import { Page } from "../types/sanity.types";
-import {
-    // BENTO_QUERY,
-    CASE_STUDY_QUERY,
-    CONTENT_SECTION_QUERY,
-    CTA_QUERY,
-    FAQ_QUERY,
-    HEADER_QUERY,
-    LOGO_CLUSTER_QUERY,
-    PRICING_QUERY,
-    RELATED_CONNECTOR_QUERY,
-    RELATED_RESOURCE_QUERY,
-    STAT_QUERY,
-    TESTIMONIAL_QUERY
-} from './blocks'
-
-
 
 // Fetches a single page by its slug, including:
 // - Basic page info (id, title, metadata)

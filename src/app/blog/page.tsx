@@ -1,9 +1,6 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
-import { Footer } from '@/components/footer'
-import { GradientBackground } from '@/components/gradient'
 import { Link } from '@/components/link'
-import { Navbar } from '@/components/navbar'
 import { Heading, Lead, Subheading } from '@/components/text'
 import { image } from '@/sanity/image'
 import {

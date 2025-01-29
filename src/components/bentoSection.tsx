@@ -2,9 +2,8 @@
 
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
-import { Heading, Eyebrow, Subheading } from './text'
+import { Subheading } from './text'
 import { BackgroundStyle, SanityImageCrop, SanityImageHotspot } from '@/sanity/types/sanity.types'
-import { Container } from './container'
 import { image } from '@/sanity/image'
 import Link from 'next/link'
 import { BentoSection } from '@/sanity/types/sanity.types'
