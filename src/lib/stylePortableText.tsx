@@ -5,6 +5,7 @@ import {
   } from "next-sanity";
 import { image } from '@/sanity/image'
 import { Link } from '@/components/link'
+import { CheckCircleIcon } from '@heroicons/react/20/solid'
 
 export default function StylePortableText({
     className,
@@ -18,43 +19,53 @@ export default function StylePortableText({
     const components: PortableTextComponents = {
         block: {
             normal: ({ children }) => (
-              <p className={styleOverride || "my-4 text-base/8 first:mt-0 last:mb-0"}>
+              <p className={styleOverride || "mt-6 text-base/7 text-gray-700"}>
                 {children}
               </p>
             ),
             h2: ({ children }) => (
-              <h2 className={styleOverride || "mb-2 mt-10 text-2xl/8 font-bold tracking-tight text-gray-950 first:mt-0 last:mb-0"}>
+              <h2 className={styleOverride || "mt-16 text-pretty text-3xl font-semibold tracking-tight text-gray-900"}>
                 {children}
               </h2>
             ),
             h3: ({ children }) => (
-              <h3 className={styleOverride || "mb-2 mt-10 text-xl/8 font-semibold tracking-tight text-gray-950 first:mt-0 last:mb-0"}>
+              <h3 className={styleOverride || "mt-10 text-pretty text-2xl font-semibold tracking-tight text-gray-900"}>
                 {children}
               </h3>
             ),
             h4: ({ children }) => (
-              <h4 className={styleOverride || "mb-2 mt-10 text-lg/8 font-semibold tracking-tight text-gray-950 first:mt-0 last:mb-0"}>
+              <h4 className={styleOverride || "mt-8 text-pretty text-xl font-semibold tracking-tight text-gray-900"}>
                 {children}
               </h4>
             ),
             h5: ({ children }) => (
-              <h5 className={styleOverride || "mb-2 mt-10 text-base/8 font-semibold tracking-tight text-gray-950 first:mt-0 last:mb-0"}>
+              <h5 className={styleOverride || "mt-6 text-pretty text-lg font-semibold tracking-tight text-gray-900"}>
                 {children}
               </h5>
             ),
             blockquote: ({ children }) => (
-              <blockquote className={styleOverride || "my-10 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950 first:mt-0 last:mb-0"}>
-                {children}
-              </blockquote>
+              <figure className="mt-10 border-l border-indigo-600 pl-9">
+                <blockquote className="font-semibold text-gray-900">
+                  {children}
+                </blockquote>
+              </figure>
             ),
           },
           types: {
             image: ({ value }) => (
-              <img
-                alt={value.alt || ''}
-                src={image(value).width(2000).url()}
-                className="w-full rounded-2xl my-5"
-              />
+              <figure className="mt-16">
+                <img
+                  alt={value.alt || ''}
+                  src={image(value).width(2000).url()}
+                  className="aspect-video rounded-xl bg-gray-50 object-cover"
+                />
+                {value.alt && (
+                  <figcaption className="mt-4 flex gap-x-2 text-sm/6 text-gray-500">
+                    <CheckCircleIcon aria-hidden="true" className="mt-0.5 size-5 flex-none text-gray-300" />
+                    {value.alt}
+                  </figcaption>
+                )}
+              </figure>
             ),
             separator: ({ value }) => {
               switch (value.style) {
@@ -69,41 +80,42 @@ export default function StylePortableText({
           },
           list: {
             bullet: ({ children }) => (
-              <ul className="list-disc pl-4 text-base/8 marker:text-gray-400">
+              <ul className="mt-8 max-w-xl space-y-8 text-gray-600">
                 {children}
               </ul>
             ),
             number: ({ children }) => (
-              <ol className="list-decimal pl-4 text-base/8 marker:text-gray-400">
+              <ol className="mt-8 max-w-xl space-y-8 text-gray-600">
                 {children}
               </ol>
             ),
           },
           listItem: {
             bullet: ({ children }) => (
-              <li className="my-2 pl-2 has-[br]:mb-8">{children}</li>
+              <li className="flex gap-x-3">
+                <span className="mt-2 size-2 flex-none rounded-full bg-indigo-600" />
+                <span>{children}</span>
+              </li>
             ),
             number: ({ children }) => (
-              <li className="my-2 pl-2 has-[br]:mb-8">{children}</li>
+              <li className="flex gap-x-3">
+                <span>{children}</span>
+              </li>
             ),
           },
           marks: {
             strong: ({ children }) => (
-              <strong className="font-semibold text-gray-950">{children}</strong>
+              <strong className="font-semibold text-gray-900">{children}</strong>
             ),
             code: ({ children }) => (
-              <>
-                <span aria-hidden>`</span>
-                <code className="text-[15px]/8 font-semibold text-gray-950">
-                  {children}
-                </code>
-                <span aria-hidden>`</span>
-              </>
+              <code className="rounded-md bg-gray-100 px-2 py-1 text-sm/6 font-medium text-gray-900">
+                {children}
+              </code>
             ),
             link: ({ value, children }) => (
               <Link
                 href={value.href}
-                className="font-medium text-gray-950 underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600"
+                className="font-medium text-indigo-600 hover:text-indigo-700"
               >
                 {children}
               </Link>
@@ -111,13 +123,20 @@ export default function StylePortableText({
             internalLink: ({value, children}) => {
               const {slug = {}} = value
               const href = `/${slug.current}`
-              return <a href={href}>{children}</a>
+              return (
+                <Link
+                  href={href}
+                  className="font-medium text-indigo-600 hover:text-indigo-700"
+                >
+                  {children}
+                </Link>
+              )
             },
           },
     }
 
     return (
-        <div className={["prose", className].filter(Boolean).join(" ")}>
+        <div className={["mx-auto max-w-3xl text-base/7 text-gray-700", className].filter(Boolean).join(" ")}>
           <PortableText components={components} value={value} />
         </div>
       );

@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { Resource } from "./sanity.types"
+import { Resource, CaseStudy } from "./sanity.types"
 
 interface ExpandedAuthor {
     _id: string
@@ -36,3 +36,5 @@ export interface IconObject {
   component: () => ReactElement;
   tags: string[];
 }
+
+export type AggregatorType = 'blog' | 'news' | 'resources';
