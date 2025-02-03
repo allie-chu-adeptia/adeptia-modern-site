@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getPage } from '@/sanity/queries/page'
-import type { Page } from '@/sanity/types/sanity.types'
+import type { Page, TextSection } from '@/sanity/types/sanity.types'
 import { ExpandedBentoSection, BentoSectionComponent } from '@/components/bentoSection'
 import { ExpandedLogoSection, LogoSectionComponent } from '@/components/logoSection'
 import { StatSectionComponent } from '@/components/statSection'
@@ -8,6 +8,7 @@ import { FaqComponent } from '@/components/faq'
 import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection'
 import { HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
+import TextSectionComponent from '@/components/textSection'
 import { 
     Faq, 
     HeaderSection, 
@@ -17,14 +18,20 @@ import {
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { Container } from '@/components/container'
 
-
+type ExtendedPage = Page & {
+    _id: string,
+    parent: {
+        _id: string,
+        link: string
+    }
+}
 
 // Recursively builds an array of slugs representing the path from root to current page
-async function getPagePath(page: Page): Promise<string[]> {
+async function getPagePath(page: ExtendedPage): Promise<string[]> {
     console.log('Starting getPagePath for page:', page._id)
 
     // If page has no parent, it's a root level page
-    if (!page.parent) {
+    if (!page.parent?._id) {
         console.log('No parent found for page:', page._id)
         // If page has a slug, return it as single item array
         if (page.metadata?.slug?.current) {
@@ -37,13 +44,13 @@ async function getPagePath(page: Page): Promise<string[]> {
         }
     }
 
-    console.log('Fetching parent page with ID:', page.parent._ref)
+    console.log('Fetching parent page with ID:', page.parent._id)
     // Fetch the parent page document using its reference ID
-    const parent = await getPage(page.parent._ref)
+    const parent = await getPage(page.parent.link)
     
     // If parent fetch fails, treat current page as root
     if (!parent) {
-        console.log('Parent fetch failed for ID:', page.parent._ref)
+        console.log('Parent fetch failed for ID:', page.parent._id)
         // Return current page slug if it exists
         if (page.metadata?.slug?.current) {
             console.log('Returning current page slug as root:', page.metadata.slug.current)
@@ -138,6 +145,11 @@ function PageContent({ page }: { page: Page }) {
                                 <StatSectionComponent statSection={block as StatSection} />
                             </Container>
                         </BackgroundColor>
+                    )}
+                    {block._type === 'textSection' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <TextSectionComponent textSection={block as TextSection} />
+                        </Container>
                     )}
                     {/* block._type === 'reference' && block._ref && block._ref.startsWith('testimonial') && (
                         // TODO: Implement Testimonial component

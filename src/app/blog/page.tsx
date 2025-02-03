@@ -16,17 +16,6 @@ export const metadata: Metadata = {
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 }
 
-// Cleans and trims the excerpt to 200 characters
-function excerptToHTML(excerpt: string) {
-  if (!excerpt) {
-    return ''
-  }
-  // Remove any HTML tags from the excerpt
-  const plainText = typeof excerpt === 'string' ? excerpt.replace(/(<([^>]+)>)/gi, '') : ''
-  // Trim to 200 chars and add ellipsis
-  return plainText.substring(0, 200) + '...'
-}
-
 // Main blog page component that combines all the above components
 export default async function Blog(
   props: {

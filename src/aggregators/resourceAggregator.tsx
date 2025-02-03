@@ -15,8 +15,8 @@ import dayjs from 'dayjs'
 interface AggregatorProps {
     getItems: (startIndex: number, endIndex: number, category?: string, type?: string) => Promise<ExpandedPost[]>
     getItemsCount: (category?: string, type?: string) => Promise<number>
-    getCategories?: (selected?: string, category?: string) => Promise<any[]>
-    getFeaturedItems?: (quantity: number) => Promise<any>
+    getCategories?: (selected?: string, category?: string) => Promise<Category[]>
+    getFeaturedItems?: (quantity: number) => Promise<ExpandedPost[]>
     itemsPerPage: number
     currPage: number
     filterCategory?: string
@@ -60,11 +60,11 @@ export async function Aggregator({
                 filterCategory,
                 filterType
             ).then(items => {
-                return RenderResources({ items })
+                return RenderResources({ items, aggregatorType })
             })}
             {getFeaturedItems && currPage === 1 && !filterCategory && !filterType && (
                 getFeaturedItems(3).then(items => {
-                    return RenderResources({ items })
+                    return RenderFeaturedResources({ items, aggregatorType })
                 })
             )}
             <Pagination 
@@ -99,7 +99,7 @@ export async function CategoriesFilter({
 }: { 
     selected?: string; 
     type?: string; 
-    getCategories: () => Promise<any>; 
+    getCategories: () => Promise<Category[]>; 
     basePath: AggregatorType 
 }) {
   const categories = await getCategories()
@@ -119,7 +119,7 @@ export async function CategoriesFilter({
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
         <MenuButton className="flex items-center justify-between gap-2 font-medium">
-          {categories.find(({ slug }: { slug: string }) => slug === selected)?.name ||
+          {categories.find((category: Category) => category.slug?.toString() === selected)?.name ||
             'All categories'}
           <ChevronUpDownIcon className="size-4 fill-slate-900" />
         </MenuButton>
@@ -187,6 +187,7 @@ export async function TypesFilter({
         <MenuItems
           anchor="bottom start"
           className="min-w-40 rounded-lg bg-white p-1 shadow-lg ring-1 ring-gray-200 [--anchor-gap:6px] [--anchor-offset:-4px] [--anchor-padding:10px]"
+          key="types-menu"
         >
           <MenuItem key="all-types">
             <Link
@@ -229,7 +230,7 @@ export async function Pagination({
     category?: string
     type?: string
     itemsPerPage: number,
-    getItemsCount: (category?: string, type?: string) => Promise<any>
+    getItemsCount: (category?: string, type?: string) => Promise<number>
     basePath: AggregatorType
 }) {
   function url(page: number) {
@@ -339,10 +340,13 @@ function getTypeSlug(type: string) {
 
 // Renders paginated list of resource posts, filtered by category if specified
 export async function RenderResources({ 
-  items
+  items,
+  aggregatorType
 }: { 
   items: ExpandedPost[]
+  aggregatorType: AggregatorType
 }) {
+
   return (
     <div>
       {items.map((item, index) => (
@@ -363,7 +367,7 @@ export async function RenderResources({
           </p>
           <div className="mt-4">
             <Link
-              href={`/resources/${getTypeSlug(item.type as string)}/${item.slug}`}
+              href={aggregatorType === 'resources' ? `/resources/${getTypeSlug(item.type as string)}/${item.slug}` : `/${aggregatorType}/${item.slug}`}
               className="flex items-center gap-1 text-sm/5 font-medium"
             >
               <span className="absolute inset-0" />
@@ -379,9 +383,11 @@ export async function RenderResources({
 }
 
 export async function RenderFeaturedResources({ 
-  items
+  items,
+  aggregatorType
 }: { 
   items: ExpandedPost[]
+  aggregatorType: AggregatorType
 }) {
   return (
     <div>
@@ -403,7 +409,7 @@ export async function RenderFeaturedResources({
             </p>
             <div className="mt-4">
               <Link
-                href={`/resources/${getTypeSlug(item.type as string)}/${item.slug}`}
+                href={aggregatorType === 'resources' ? `/resources/${getTypeSlug(item.type as string)}/${item.slug}` : `/${aggregatorType}/${item.slug}`}
                 className="flex items-center gap-1 text-sm/5 font-medium"
               >
                 <span className="absolute inset-0" />

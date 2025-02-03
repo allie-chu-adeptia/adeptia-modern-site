@@ -3,7 +3,8 @@ import { Heading } from "../components/text"
 import { BackgroundStyle } from "@/sanity/types/sanity.types"
 import cleanString from "./cleanString"
 import clsx from "clsx"
-interface HeaderStyleProps {
+
+export interface HeaderStyleProps {
   header?: {
     eyebrow?: string
     header?: string

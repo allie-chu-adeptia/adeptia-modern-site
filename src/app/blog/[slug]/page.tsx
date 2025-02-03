@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
-import StylePortableText from '@/lib/stylePortableText'
+import StylePortableText from '@/components/stylePortableText'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -69,7 +69,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
             )}
           </div>
           <div className="text-gray-700">
-            <div className="max-w-2xl xl:mx-auto">
+            <div className="max-w-3xl xl:mx-auto">
               {post.featuredImage && (
                 <img
                   alt={post.featuredImage.altText || ''}

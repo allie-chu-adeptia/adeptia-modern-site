@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
-import StylePortableText from '@/lib/stylePortableText'
+import StylePortableText from '@/components/stylePortableText'
 
 type sParams = Promise<{ slug: string }>;
 

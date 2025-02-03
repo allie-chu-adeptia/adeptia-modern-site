@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { Resource, CaseStudy } from "./sanity.types"
+import { Resource } from "./sanity.types"
 
 interface ExpandedAuthor {
     _id: string

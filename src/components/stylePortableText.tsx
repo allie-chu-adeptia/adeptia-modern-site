@@ -6,6 +6,7 @@ import {
 import { image } from '@/sanity/image'
 import { Link } from '@/components/link'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
+import { buildTable } from "../lib/buildTable";
 
 export default function StylePortableText({
     className,
@@ -77,15 +78,18 @@ export default function StylePortableText({
                   return null
               }
             },
+            table: ({ value }) => {
+              return buildTable(value)
+            }
           },
           list: {
             bullet: ({ children }) => (
-              <ul className="mt-8 max-w-xl space-y-8 text-gray-600">
+              <ul className="mt-8 max-w-2xl space-y-3 text-gray-600">
                 {children}
               </ul>
             ),
             number: ({ children }) => (
-              <ol className="mt-8 max-w-xl space-y-8 text-gray-600">
+              <ol className="mt-8 max-w-2xl space-y-3 text-gray-600">
                 {children}
               </ol>
             ),
@@ -93,12 +97,13 @@ export default function StylePortableText({
           listItem: {
             bullet: ({ children }) => (
               <li className="flex gap-x-3">
-                <span className="mt-2 size-2 flex-none rounded-full bg-indigo-600" />
+                <span className="mt-2.5 size-1.5 flex-none rounded-full bg-gray-600" />
                 <span>{children}</span>
               </li>
             ),
-            number: ({ children }) => (
+            number: ({ children, index }) => (
               <li className="flex gap-x-3">
+                <span>{index + 1}.</span>
                 <span>{children}</span>
               </li>
             ),
@@ -116,6 +121,7 @@ export default function StylePortableText({
               <Link
                 href={value.href}
                 className="font-medium text-indigo-600 hover:text-indigo-700"
+                target={value.blank ? '_blank' : undefined}
               >
                 {children}
               </Link>
@@ -131,7 +137,7 @@ export default function StylePortableText({
                   {children}
                 </Link>
               )
-            },
+            }
           },
     }
 

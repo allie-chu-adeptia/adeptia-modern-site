@@ -12,7 +12,7 @@ export default async function ManagementTeam() {
           <div className="mx-auto max-w-2xl">
             <Heading as="h2" className="text-balance text-gray-950">Meet the team</Heading>
             <p className="mt-6 text-lg/8 text-gray-400">
-            Adeptia software simplifies and speeds the complex steps of implementing multi-enterprise business data ecosystems. Meet the team that's making it happen.
+            Adeptia software simplifies and speeds the complex steps of implementing multi-enterprise business data ecosystems. Meet the team that&apos;s making it happen.
             </p>
           </div>
           <ul

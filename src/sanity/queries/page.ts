@@ -15,11 +15,10 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
     title,
     metadata,
     icon,
-    tag,
     category,
     "parent": parent->{
         _id,
-        metadata,
+        "link": metadata.slug.current,
         parent->
     },
     "block": block[]{ 
@@ -133,6 +132,11 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
             "link": link->metadata.slug.current
           }
         }
+      },
+      _type == "textSection" => {
+        _type,
+        header,
+        text
       }
     }
 }`)

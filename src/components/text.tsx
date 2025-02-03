@@ -21,12 +21,12 @@ export function Heading({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'text-pretty font-medium tracking-tighter data-[dark=true]:text-white',
+        'text-pretty font-medium data-[dark=true]:text-white',
         Element === 'h2' && 'text-gray-950',
         Element !== 'h2' && 'text-gray-900',
-        Element === 'h3' && 'text-3xl sm:text-4xl',
-        Element === 'h4' && 'text-2xl sm:text-3xl',
-        Element !== 'h3' && Element !== 'h4' && 'text-4xl sm:text-5xl'
+        Element === 'h3' && 'text-xl sm:text-2xl',
+        Element === 'h4' && 'text-lg sm:text-xl',
+        Element !== 'h3' && Element !== 'h4' && 'text-3xl sm:text-4xl'
       )}
     />
   )
