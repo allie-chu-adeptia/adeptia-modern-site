@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
-import { Resource } from "./sanity.types"
+import { Page, Resource } from "./sanity.types"
 
-interface ExpandedAuthor {
+export interface ExpandedAuthor {
     _id: string
     name?: string
     profilePic?: typeof Image
@@ -13,7 +13,7 @@ export interface ExpandedCategory {
   slug?: string
 }
 
-interface ExpandedImage {
+export interface ExpandedImage {
   _type: 'image'
   asset: {
     _ref: string
@@ -23,11 +23,13 @@ interface ExpandedImage {
 }
 
 
-export interface ExpandedPost extends Omit<Resource, 'author' | 'categories'> {
+export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | 'category'> {
   author?: ExpandedAuthor
   categories?: ExpandedCategory[]
+  category?: ExpandedCategory[]
   featuredImage?: ExpandedImage
   slug: string
+  pathName: string
 }
 
 export interface IconObject {
@@ -37,4 +39,12 @@ export interface IconObject {
   tags: string[];
 }
 
-export type AggregatorType = 'blog' | 'news' | 'resources';
+export interface ExpandedPage extends Omit<Page, 'category' | 'parent'> {
+  category?: ExpandedCategory[]
+  slug: string
+  pathName: string
+  parent: {
+    _id: string,
+    link: string
+  }
+}

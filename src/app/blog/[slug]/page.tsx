@@ -1,6 +1,5 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
-import { Link } from '@/components/link'
 import { Heading, Subheading } from '@/components/text'
 import { image } from '@/sanity/image'
 import { getPost } from '@/sanity/queries/blog'
@@ -9,8 +8,9 @@ import dayjs from 'dayjs'
 import type { Metadata } from 'next'
 import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
-import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
+import { ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
+import { CategoryChip } from '@/lib/categoryChip'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -54,19 +54,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
                 </div>
               </div>
             )}
-            {Array.isArray(post.categories) && (
-              <div className="flex flex-wrap gap-2">
-                {post.categories.map((category: ExpandedCategory) => (
-                  <Link
-                    key={category._id}
-                    href={`/blog?category=${category.slug}`}
-                    className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <CategoryChip categories={post.categories} pathName="blog" />
           </div>
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">

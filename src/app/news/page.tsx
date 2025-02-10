@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/container'
 import { Heading, Lead, Subheading } from '@/components/text'
-import { Aggregator } from '@/aggregators/resourceAggregator'
+import { Aggregator } from '@/aggregators/aggregator'
 import {
   getNews,
   getNewsCount,
@@ -40,7 +40,7 @@ export default async function NewsPage(
           getItemsCount={getNewsCount}
           itemsPerPage={20}
           currPage={page}
-          aggregatorType="news"
+          pathName="news"
         />
       </Container>
     </main>

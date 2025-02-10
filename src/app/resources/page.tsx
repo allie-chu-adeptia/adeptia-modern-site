@@ -1,21 +1,13 @@
-import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/container'
 import { Heading, Lead, Subheading } from '@/components/text'
-import { Aggregator } from '@/aggregators/resourceAggregator'
+import { Aggregator } from '@/aggregators/aggregator'
 import {
   getCategories,
   getResources,
   getResourcesCount,
 } from '@/sanity/queries/resources'
 
-export const metadata: Metadata = {
-  title: 'Resources',
-  description:
-    'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
-}
-
-// Main resource page component that combines all the above components
 export default async function Resource(
   props: {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -61,7 +53,7 @@ export default async function Resource(
           currPage={page}
           filterCategory={category}
           filterType={type}
-          aggregatorType="resources"
+          pathName={'resources'}
         />
       </Container>
     </main>

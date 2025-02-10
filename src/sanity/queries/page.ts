@@ -15,7 +15,11 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
     title,
     metadata,
     icon,
-    category,
+    category[]->{
+      _id,
+      name,
+      "slug": slug.current
+    },
     "parent": parent->{
         _id,
         "link": metadata.slug.current,
@@ -72,10 +76,10 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
       },
       _type == "ctaSection" => {
         _type,
-        header,
         cta[]-> {
           _type,
           _id,
+          header,
           campaignTitle,
           buttonText,
           displayStyle,
@@ -137,9 +141,79 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         _type,
         header,
         text
+      },
+      _type == "relatedResource" => {
+        _type,
+        type,
+        resourceTypes,
+        resource[] -> {
+          _type,
+          title,
+          publishDate,
+          excerpt,
+          "featuredImage": featuredImage{
+            ...,
+            "altText": asset->altText,
+          },
+          "link": metadata.slug.current
+        },
       }
     }
 }`)
+const RELATED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
+  _type == "resource" && 
+  (count($resourceTypes) == 0 || type in $resourceTypes) &&
+  $category in category[]->slug.current &&
+  _id != $currentPageId
+] | order(publishedAt desc)[0...3] {
+  _type,
+  type,
+  publishDate,
+  title,
+  excerpt,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
+  "slug": metadata.slug.current,
+}`)
+
+export async function getRelatedResources(category: string, currentPageId: string, resourceTypes: string[]) {
+  console.log('Query params:', { category, currentPageId, resourceTypes });
+  const result = await sanityFetch({
+    query: RELATED_RESOURCES_QUERY,
+    params: { 
+      category,
+      currentPageId,
+      resourceTypes
+    }
+  });
+  console.log('Query result:', result);
+  return result;
+}
+
+const FALLBACK_RESOURCES_QUERY = defineQuery(/* groq */ `*[
+  _type == "resource"
+  && (count($resourceTypes) == 0 || type in $resourceTypes)
+] | order(publishedAt desc)[0...3] {
+  _type,
+  type,
+  publishDate,
+  title,
+  excerpt,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
+  "slug": metadata.slug.current,
+}`)
+
+export async function getFallbackResources(resourceTypes: string[]) {
+  return await sanityFetch({
+    query: FALLBACK_RESOURCES_QUERY,
+    params: { resourceTypes }
+  })
+}
 
 // Fetches a single page by its slug, including:
 export async function getPage(slug: string) {
@@ -173,5 +247,23 @@ export async function getPath(lastSlug: string) {
   return await sanityFetch({
     query: PATH_QUERY,
     params: { lastSlug }
+  })
+}
+
+// Fetches all pages for sitemap generation
+const ALL_PAGES_QUERY = defineQuery(/* groq */ `*[_type == "page"] {
+  _id,
+  metadata {
+    slug {
+      current
+    }
+  },
+  _updatedAt,
+  "slug": metadata.slug.current
+}`)
+
+export async function getAllPages() {
+  return await sanityFetch({
+    query: ALL_PAGES_QUERY
   })
 }

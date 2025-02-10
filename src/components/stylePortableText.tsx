@@ -24,23 +24,23 @@ export default function StylePortableText({
                 {children}
               </p>
             ),
-            h2: ({ children }) => (
-              <h2 className={styleOverride || "mt-16 text-pretty text-3xl font-semibold tracking-tight text-gray-900"}>
+            h2: ({ children, index }) => (
+              <h2 className={styleOverride || `${index === 0 ? '' : 'mt-16'} text-pretty text-3xl font-semibold tracking-tight text-gray-900`}>
                 {children}
               </h2>
             ),
-            h3: ({ children }) => (
-              <h3 className={styleOverride || "mt-10 text-pretty text-2xl font-semibold tracking-tight text-gray-900"}>
+            h3: ({ children, index }) => (
+              <h3 className={styleOverride || `${index === 0 ? '' : 'mt-10'} text-pretty text-2xl font-semibold tracking-tight text-gray-900`}>
                 {children}
               </h3>
             ),
-            h4: ({ children }) => (
-              <h4 className={styleOverride || "mt-8 text-pretty text-xl font-semibold tracking-tight text-gray-900"}>
+            h4: ({ children, index }) => (
+              <h4 className={styleOverride || `${index === 0 ? '' : 'mt-8'} text-pretty text-xl font-semibold tracking-tight text-gray-900`}>
                 {children}
               </h4>
             ),
-            h5: ({ children }) => (
-              <h5 className={styleOverride || "mt-6 text-pretty text-lg font-semibold tracking-tight text-gray-900"}>
+            h5: ({ children, index }) => (
+              <h5 className={styleOverride || `${index === 0 ? '' : 'mt-6'} text-pretty text-lg font-semibold tracking-tight text-gray-900`}>
                 {children}
               </h5>
             ),

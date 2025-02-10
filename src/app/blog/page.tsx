@@ -2,13 +2,12 @@ import { Container } from '@/components/container'
 import { Heading, Lead, Subheading } from '@/components/text'
 import {
   getCategories,
-  getFeaturedPosts,
   getPosts,
   getPostsCount,
 } from '@/sanity/queries/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Aggregator } from '@/aggregators/resourceAggregator'
+import { Aggregator } from '@/aggregators/aggregator'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -36,16 +35,6 @@ export default async function Blog(
       ? searchParams.category
       : undefined
 
-
-      {console.log('getItems:', getPosts)}
-      {console.log('getItemsCount:', getPostsCount)}
-      {console.log('getCategories:', getCategories)}
-      {console.log('getFeaturedItems:', getFeaturedPosts)}
-      {console.log('itemsPerPage:', 20)}
-      {console.log('currPage:', page)}
-      {console.log('filterCategory:', category)}
-      {console.log('aggregatorType:', 'blog')}
-
   return (
     <main className="overflow-hidden">
       <Container>
@@ -63,11 +52,11 @@ export default async function Blog(
           getItems={getPosts}
           getItemsCount={getPostsCount}
           getCategories={getCategories}
-          getFeaturedItems={getFeaturedPosts}
+          // getFeaturedItems={getFeaturedPosts}
           itemsPerPage={20}
           currPage={page}
           filterCategory={category}
-          aggregatorType="blog"
+          pathName="blog"
         />
       </Container>
     </main>

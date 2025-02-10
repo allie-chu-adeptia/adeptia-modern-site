@@ -7,23 +7,23 @@ import { HeaderSection, HeaderStyle as HeaderStyleType } from '@/sanity/types/sa
 import { HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
 
-const SolutionsHeader: HeaderStyleType = {
+const UseCaseHeader: HeaderStyleType = {
     _type: "headerStyle",
-    header: "Solutions",
+    eyebrow: "Solutions",
+    header: "Use Case",
     subheader: "Our solutions are designed to help you connect with your business partners in minutes",
     layout: "left-aligned"
   }
   
-  const SolutionsHeaderSection: HeaderSection = {
+  const UseCaseHeaderSection: HeaderSection = {
     _type: "headerSection",
-    header: SolutionsHeader
+    header: UseCaseHeader
   } 
 
-
-const SOLUTION_QUERY = defineQuery(/* groq */ `*[
+const USE_CASE_QUERY = defineQuery(/* groq */ `*[
   _type == "page" && 
   defined(parent) && 
-  parent._ref in *[_type == "page" && metadata.slug.current == "solutions"]._id
+  parent._ref in *[_type == "page" && metadata.slug.current == "use-case"]._id
 ] {
   _id,
   _type,
@@ -36,8 +36,13 @@ const SOLUTION_QUERY = defineQuery(/* groq */ `*[
   }
 }`)
 
-async function getItems(startIndex: number, endIndex: number) {
-    const pages = await client.fetch(SOLUTION_QUERY)
+async function getUseCaseItemsCount() {
+    const pages = await client.fetch(USE_CASE_QUERY)
+    return pages.length
+}
+
+async function getUseCaseItems(startIndex: number, endIndex: number) {
+    const pages = await client.fetch(USE_CASE_QUERY)
     
     // Get full paths for each page
     const pagesWithPaths = await Promise.all(pages.map(async (page: ExpandedPage) => {
@@ -52,30 +57,25 @@ async function getItems(startIndex: number, endIndex: number) {
     return pagesWithPaths.slice(startIndex, endIndex)
 }
 
-async function getItemsCount() {
-    const pages = await client.fetch(SOLUTION_QUERY)
-    return pages.length
-}
-
-export default async function SolutionPage(
+export default async function UseCasePage(
     props: {
         searchParams: Promise<{ [key: string]: string | string[] | undefined }>
     }
 ) {
     const searchParams = await props.searchParams;
     const page = Number(searchParams.page) || 1
-    const itemsPerPage = 9
+    const itemsPerPage = 20
 
     return (
         <Container>
             <div className="py-24">
-                <HeaderSectionComponent headerSection={SolutionsHeaderSection} />
+                <HeaderSectionComponent headerSection={UseCaseHeaderSection} />
                 <Aggregator
-                    getItems={getItems}
-                    getItemsCount={getItemsCount}
+                    getItems={getUseCaseItems}
+                    getItemsCount={getUseCaseItemsCount}
                     itemsPerPage={itemsPerPage}
                     currPage={page}
-                    pathName="solutions"
+                    pathName={"solutions/use-case"}
                 />
             </div>
         </Container>

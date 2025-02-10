@@ -95,6 +95,26 @@ export function Logo({ className }: { className?: string }) {
   )
 }
 
+export function LogoLight({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1455 1258" fill="none" className={className}>
+    <g filter="url(#filter0_b_402_2556)">
+      <path d="M618.43 527.746L54.8657 1147.52L720.501 0L990.067 838.099L618.43 527.746Z" fill="white" fillOpacity="0.6"/>
+      <path d="M0 1257.25L593.481 604.558L509.423 1079.61L1332.51 1257.25H0Z" fill="white" fillOpacity="0.9"/>
+      <path d="M588.409 1062.74L1044 897.624L787.789 101.036L1454.04 1249.7L588.409 1062.74Z" fill="white" fillOpacity="0.75"/>
+    </g>
+    <defs>
+      <filter id="filter0_b_402_2556" x="-4" y="-4" width="1462.04" height="1265.25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feGaussianBlur in="BackgroundImageFix" stdDeviation="2"/>
+          <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_402_2556"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_402_2556" result="shape"/>
+        </filter>
+      </defs> 
+    </svg>
+  )
+}
+
 export function Mark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 34 34" fill="none" className={className}>

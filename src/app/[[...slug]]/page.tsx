@@ -8,6 +8,7 @@ import { FaqComponent } from '@/components/faq'
 import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection'
 import { HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
+import { RelatedResourceSection } from '@/components/relatedResourceSection'
 import TextSectionComponent from '@/components/textSection'
 import { 
     Faq, 
@@ -15,69 +16,12 @@ import {
     StatSection, 
     BackgroundStyle
 } from "@/sanity/types/sanity.types";
+import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types";
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { Container } from '@/components/container'
+import { getPagePath } from '@/lib/buildPagePath'
 
-type ExtendedPage = Page & {
-    _id: string,
-    parent: {
-        _id: string,
-        link: string
-    }
-}
-
-// Recursively builds an array of slugs representing the path from root to current page
-async function getPagePath(page: ExtendedPage): Promise<string[]> {
-    console.log('Starting getPagePath for page:', page._id)
-
-    // If page has no parent, it's a root level page
-    if (!page.parent?._id) {
-        console.log('No parent found for page:', page._id)
-        // If page has a slug, return it as single item array
-        if (page.metadata?.slug?.current) {
-            console.log('Returning root level slug:', page.metadata.slug.current)
-            return [page.metadata.slug.current]
-        } else {
-            // Log error if page is missing required slug
-            console.error('Page has no slug:', page._id)
-            return []
-        }
-    }
-
-    console.log('Fetching parent page with ID:', page.parent._id)
-    // Fetch the parent page document using its reference ID
-    const parent = await getPage(page.parent.link)
-    
-    // If parent fetch fails, treat current page as root
-    if (!parent) {
-        console.log('Parent fetch failed for ID:', page.parent._id)
-        // Return current page slug if it exists
-        if (page.metadata?.slug?.current) {
-            console.log('Returning current page slug as root:', page.metadata.slug.current)
-            return [page.metadata.slug.current]
-        } else {
-            // Log error if parent page is missing slug
-            console.error('Parent page has no slug:', page._id)
-            return []
-        }
-    }
-
-    console.log('Recursively getting path for parent:', parent._id)
-    // Recursively get path array from parent
-    const parentPath = await getPagePath(parent)
-    
-    if (!page.metadata?.slug?.current) {
-        console.error('Page has no slug:', page._id)
-        console.log('Returning parent path:', parentPath)
-        return parentPath
-    }
-
-    const fullPath = [...parentPath, page.metadata.slug.current]
-    console.log('Returning full path:', fullPath)
-    return fullPath
-}
-
-function PageContent({ page }: { page: Page }) {
+function PageContent({ page }: { page: ExpandedPage }) {
     const lightBackground: BackgroundStyle = {
         _type: 'backgroundStyle',
         style: 'light'
@@ -135,10 +79,17 @@ function PageContent({ page }: { page: Page }) {
                         // TODO: Implement RelatedConnector component
                         null
                     ) */}
-                    {/* block._type === 'relatedResource' && (
-                        // TODO: Implement RelatedResource component
-                        null
-                    ) */}
+                    {block._type === 'relatedResource' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <RelatedResourceSection 
+                                type={block.type ?? 'latest'} 
+                                resourceTypes={block.resourceTypes as string[]} 
+                                resources={block.resource as unknown as ExpandedPost[]} 
+                                pageCategory={page.category as ExpandedCategory[]} 
+                                pageID={page._id}
+                            />
+                        </Container>
+                    )}
                     {block._type === 'statSection' && (
                         <BackgroundColor color={block.background ?? lightBackground}>
                             <Container className="py-8 sm:py-16 lg:py-24">

@@ -1,6 +1,6 @@
 import { HeaderStyle } from "@/lib/headerStyle";
 import { Button } from "@/components/button";
-import { BackgroundStyle, CtaSection } from "@/sanity/types/sanity.types";
+import { BackgroundStyle, CtaSection, HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types";
 import clsx from 'clsx';
 import { image } from "@/sanity/image";
 import { Heading } from "./text";
@@ -9,6 +9,7 @@ export interface ExpandedCtaSection extends Omit<CtaSection, 'cta' | 'image'> {
     cta?: Array<{
         _type: 'cta'
         _id: string
+        header?: HeaderStyleType
         campaignTitle: string
         buttonText: string
         link: string
@@ -62,9 +63,9 @@ function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection 
               </svg>
               <div className={clsx(
                 "mx-auto max-w-md lg:mx-0 lg:flex-auto lg:py-32",
-                textAlignment[ctaSection.header?.layout || 'centered']
+                textAlignment[ctaSection.cta?.[0]?.header?.layout || 'centered']
               )}>
-                <HeaderStyle header={ctaSection.header} style={lightBackground} />
+                <HeaderStyle header={ctaSection.cta?.[0]?.header} style={lightBackground} />
                 <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                   {ctaSection.cta?.map((cta, index) => (
                     <Button
@@ -99,7 +100,7 @@ function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) 
         <div className="rounded-4xl bg-[linear-gradient(276deg,var(--tw-gradient-stops))] from-[#3C7BEF] from-[-17.59%] via-[#0A4ECD] via-[29.8%] to-[#3B25E0] to-[90.12%]">
           <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <HeaderStyle header={ctaSection.header} style={darkBackground} />
+              <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkBackground} />
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 {ctaSection.cta?.map((cta, index) => (
                   <Button
@@ -124,10 +125,10 @@ function SplitCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
           <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
             <div className="flex flex-col gap-4">
               <Heading as="h2">
-                {ctaSection.header?.header}
+                {ctaSection.cta?.[0]?.header?.header}
               </Heading>
               <Heading as="h3">
-                {ctaSection.header?.subheader}
+                {ctaSection.cta?.[0]?.header?.subheader}
               </Heading>
             </div>
             <div className="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">

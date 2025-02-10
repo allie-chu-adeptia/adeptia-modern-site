@@ -235,13 +235,6 @@ export type Post = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'category'
   }>
-  tags?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
 }
 
 export type Cta = {
@@ -251,6 +244,7 @@ export type Cta = {
   _updatedAt: string
   _rev: string
   campaignTitle?: string
+  header?: HeaderStyle
   buttonText?: string
   displayStyle?: 'primary' | 'secondary' | 'tertiary'
   pageReference?: {
@@ -293,10 +287,25 @@ export type Category = {
 }
 
 export type Testimonial = {
+  _id: string
   _type: 'testimonial'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
   name?: string
   title?: string
   picture?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  companyLogo?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -326,15 +335,8 @@ export type StatSection = {
 
 export type RelatedResource = {
   _type: 'relatedResource'
-  header?: HeaderStyle
-  tag?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
   type?: 'latest' | 'selected'
+  resourceTypes?: Array<string>
   resource?: Array<{
     _ref: string
     _type: 'reference'
@@ -388,6 +390,13 @@ export type HeaderSection = {
   _type: 'headerSection'
   header?: HeaderStyle
   background?: BackgroundStyle
+  cta?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'cta'
+  }>
   content?: Array<{
     title?: string
     subhead?: string
@@ -408,7 +417,6 @@ export type Faq = {
 
 export type CtaSection = {
   _type: 'ctaSection'
-  header?: HeaderStyle
   cta?: Array<{
     _ref: string
     _type: 'reference'
@@ -525,13 +533,6 @@ export type Page = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  tag?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
   category?: Array<{
     _ref: string
     _type: 'reference'
@@ -625,13 +626,6 @@ export type Resource = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'category'
   }>
-  tag?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
   body?: PortableText
   HSForm?: {
     _ref: string
@@ -682,6 +676,12 @@ export type TeamMember = {
   linkedIn?: string
 }
 
+export type Slug = {
+  _type: 'slug'
+  current?: string
+  source?: string
+}
+
 export type VideoEmbed = {
   _type: 'videoEmbed'
   platform?: 'vimeo' | 'youtube'
@@ -722,6 +722,37 @@ export type HubspotForm = {
   sfdcCampaignId?: string
 }
 
+export type Connector = {
+  _id: string
+  _type: 'connector'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  metadata?: Metadata
+  name?: string
+  logo?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  featured?: boolean
+  subpage?: boolean
+  categories?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'category'
+  }>
+  body?: PortableText
+}
+
 export type Customer = {
   _id: string
   _type: 'customer'
@@ -753,13 +784,6 @@ export type Customer = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'connector'
   }>
-  tag?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
   category?: Array<{
     _ref: string
     _type: 'reference'
@@ -767,62 +791,36 @@ export type Customer = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'category'
   }>
-  testimonial?: Array<
-    {
-      _key: string
-    } & Testimonial
-  >
+  testimonial?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'testimonial'
+  }>
   hasCaseStudy?: boolean
   challenge?: PortableText
   solution?: PortableText
   body?: PortableText
 }
 
-export type Connector = {
-  _id: string
-  _type: 'connector'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  logo?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
-  slug?: Slug
-  featured?: boolean
-  tags?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'tag'
-  }>
-}
-
-export type Slug = {
-  _type: 'slug'
-  current?: string
-  source?: string
-}
-
 export type Button = {
   _type: 'button'
   title?: string
   url?: string
-  link?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'page'
-  }
+  link?:
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'page'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'resource'
+      }
 }
 
 export type Metadata = {
@@ -947,12 +945,12 @@ export type AllSanitySchemaTypes =
   | Page
   | Resource
   | TeamMember
+  | Slug
   | VideoEmbed
   | SanityFileAsset
   | HubspotForm
-  | Customer
   | Connector
-  | Slug
+  | Customer
   | Button
   | Metadata
   | SanityImageCrop

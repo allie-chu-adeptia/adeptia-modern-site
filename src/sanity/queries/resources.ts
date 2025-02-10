@@ -26,13 +26,18 @@ const RESOURCES_QUERY = defineQuery(/* groq */ `*[
   && defined(metadata.slug.current)
   && select(defined($category) => $category in category[]->slug.current, true)
   && select(defined($type) => type == $type, true)
-]|order(publishedDate desc)[$startIndex...$endIndex]{
+]|order(publishedDate asc)[$startIndex...$endIndex]{
   _id,
   type,
   title,
   "slug": metadata.slug.current,
   publishDate,
   excerpt,
+  category[]->{
+    _id,
+    name,
+    "slug": slug.current
+  },
   "featuredImage": featuredImage{
     ...,
     "altText": asset->altText,
@@ -143,3 +148,21 @@ const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
       query: CATEGORIES_QUERY,
     })
   }
+
+  // Fetches all pages for sitemap generation
+const ALL_RESOURCES_QUERY = defineQuery(/* groq */ `*[_type == "resource"] {
+  _id,
+  metadata {
+    slug {
+      current
+    }
+  },
+  _updatedAt,
+  "slug": metadata.slug.current
+}`)
+
+export async function getAllResources() {
+  return await sanityFetch({
+    query: ALL_RESOURCES_QUERY
+  })
+}
