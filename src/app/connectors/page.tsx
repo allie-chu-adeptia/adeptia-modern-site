@@ -1,22 +1,11 @@
 import { getCategories, getConnectors } from "@/sanity/queries/connectors"
 import { Container } from '@/components/container'
-import { Connector } from '@/sanity/types/sanity.types'
 import { HeaderStyle as HeaderStyleType, HeaderSection } from "@/sanity/types/sanity.types"
 import { HeaderSectionComponent } from "@/components/headerSection"
 import { image } from '@/sanity/image'
-import { LinkedConnectorLogo } from '@/components/linkedConnectorLogo'
-import { ExpandedCategory } from '@/sanity/types/local.types'
+import { LinkedSubpageConnectorLogo } from '@/components/linkedConnectorLogo'
 import { CategoriesFilter } from "@/aggregators/renderCategories"
-
-export interface ExpandedConnector extends Omit<Connector, ('logo' | 'categories')> {
-    slug: string
-    logo: {
-        asset: {
-            url: string
-        }
-    }
-    categories: ExpandedCategory[]
-}
+import { ExpandedConnector } from '@/sanity/types/local.types'
 
 const ConnectorsHeader: HeaderStyleType = {
   _type: "headerStyle",
@@ -63,7 +52,7 @@ export default async function ConnectorsPage(
                             <div className="w-32 flex justify-start flex-col">
                                 <div className="w-32 h-32 flex items-center justify-center border border-gray-200 rounded-lg bg-white p-4">
                                     {connector.subpage ? (
-                                        <LinkedConnectorLogo connector={connector} />
+                                        <LinkedSubpageConnectorLogo connector={connector} size={100} />
                                     ) : (
                                         <img
                                             src={image(connector.logo).size(1000, 1000).url()}

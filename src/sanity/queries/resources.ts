@@ -27,6 +27,7 @@ const RESOURCES_QUERY = defineQuery(/* groq */ `*[
   && select(defined($category) => $category in category[]->slug.current, true)
   && select(defined($type) => type == $type, true)
 ]|order(publishedDate asc)[$startIndex...$endIndex]{
+  _type,
   _id,
   type,
   title,
@@ -67,6 +68,7 @@ const FEATURED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   && defined(metadata.slug.current)
   && featured == true
 ]|order(publishDate desc)[0...$quantity]{
+  _type,
   _id,
   title,
   "slug": metadata.slug.current,
@@ -90,6 +92,7 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
   && (type == "Datasheet" || type == "White Paper" || type == "Video" || type == "eBook" || type == "Infographic")
   && metadata.slug.current == $slug
 ][0]{
+  _type,
   publishDate,
   title,
   "featuredImage": featuredImage{

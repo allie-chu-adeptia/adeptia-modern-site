@@ -1,5 +1,5 @@
 import { getConnector } from "@/sanity/queries/connectors"
-import { ExpandedConnector } from "@/app/connectors/page"
+import { ExpandedConnector } from "@/sanity/types/local.types"
 import { notFound } from "next/navigation"
 import { Container } from "@/components/container"
 import { HeaderStyle as HeaderStyleType, HeaderSection } from "@/sanity/types/sanity.types"

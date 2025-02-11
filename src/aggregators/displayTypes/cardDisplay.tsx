@@ -11,35 +11,13 @@ function buildDefaultCoverImage(title: string, pathName: string) {
                 <div className="text-sm font-medium text-white/80 uppercase tracking-wider">
                     {pathName.split('/').pop()?.replace(/-/g, ' ')}
                 </div>
-                <div className="mt-4 text-2xl font-medium text-white">
+                <div className="mt-4 font-semibold text-xl text-2xl md:text-xl md:font-normal text-white">
                     {title}
                 </div>
                 <div className="absolute bottom-8 right-8">
                     <LogoLight className="h-8 text-white" />
                 </div>
             </div>
-        </div>
-    )
-}
-
-export function CoverImageNoText(
-    {
-        title,
-        slug,
-        pathName
-    }: {
-        title?: string,
-        slug: string,
-        pathName: string
-    }
-) {
-    return (
-        <div className="w-full">
-            <Link href={`/${pathName}/${slug}`}>
-                <div className="relative w-full">
-                    {buildDefaultCoverImage(title || '', pathName)}
-                </div>
-            </Link>
         </div>
     )
 }
@@ -54,7 +32,8 @@ export function CoverImageWText(
         author,
         coverImage,
         slug,
-        pathName
+        pathName,
+        logo
     }: {
         date?: string;
         categories?: ExpandedCategory[];
@@ -63,6 +42,7 @@ export function CoverImageWText(
         excerpt?: string;
         author?: ExpandedAuthor;
         coverImage?: ExpandedImage;
+        logo?: ExpandedImage;
         slug: string,
         pathName: string
     }
@@ -72,13 +52,18 @@ export function CoverImageWText(
         <div className="w-full">
             <Link href={`/${pathName}/${slug}`}>
                 <div className="relative w-full">
-                
-                        {coverImage ? (
+                    {coverImage ? (
+                        <div className="relative">
                             <img
                                 alt={coverImage?.altText || ''}
                                 src={image(coverImage).size(2016, 1344).url()}
                                 className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#3C7BEF]/50 via-[#0A4ECD]/50 to-[#3B25E0]/50 rounded-2xl" />
+                            <div className="absolute bottom-8 right-8">
+                                <LogoLight className="h-8 text-white" />
+                            </div>
+                        </div>
                         ) : (
                             buildDefaultCoverImage(title || '', pathName)
                         )}
@@ -86,16 +71,25 @@ export function CoverImageWText(
                 </div>
             </Link>
             <div className="max-w-xl">
-                <div className="mt-8 flex items-center gap-x-4 text-xs">
-                    {type && (
-                        <div className="text-xs font-bold text-blue-600 tracking-wider uppercase">{type}</div>
-                    )}
-                    {date && (
-                        <time dateTime={date} className="text-gray-500">
-                            {date}
-                        </time>
-                    )}
-                </div>
+                {type || date ? (
+                    <div className="mt-8 flex items-center gap-x-4 text-xs">
+                        {type && (
+                            <div className="text-xs font-bold text-blue-600 tracking-wider uppercase">{type}</div>
+                        )}
+                        {date && (
+                            <time dateTime={date} className="text-gray-500">
+                                {date}
+                            </time>
+                        )}
+                    </div>
+                ) : <div className="mt-6" />}
+                {logo && (
+                    <img
+                        alt={logo?.altText || ''}
+                        src={image(logo).url()}
+                        className="h-[75px] max-w-[200px] bg-white object-contain"
+                    />
+                )}  
                 <div className="group relative">
                     <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                         <Link href={`/${pathName}/${slug}`}>
@@ -120,7 +114,7 @@ export function CoverImageWText(
                         className="size-10 rounded-full bg-gray-100"
                         />
                     <div className="text-sm/6">
-                        <p className="font-semibold text-gray-900">
+                        <p className="font-normal text-gray-900">
                             {author.name}
                         </p>
                         </div>

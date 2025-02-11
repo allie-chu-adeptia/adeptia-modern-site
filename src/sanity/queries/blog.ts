@@ -22,6 +22,7 @@ const POSTS_QUERY = defineQuery(/* groq */ `*[
   && defined(metadata.slug.current)
   && select(defined($category) => $category in category[]->slug.current, true)
 ]|order(publishDate desc)[$startIndex...$endIndex]{
+  _type,
   _id,
   title,
   "slug": metadata.slug.current,
@@ -63,6 +64,7 @@ const FEATURED_POSTS_QUERY = defineQuery(/* groq */ `*[
   && featured == true
   && defined(metadata.slug.current)
 ]|order(publishDate desc)[0...$quantity]{
+  _type,
   _id,
   title,
   "slug": metadata.slug.current,
@@ -92,6 +94,7 @@ const FEED_POSTS_QUERY = defineQuery(/* groq */ `*[
   && type == "Blog"
   && defined(metadata.slug.current)
 ]|order(featured, publishDate desc){
+  _type,
   _id,
   title,
   "slug": metadata.slug.current,

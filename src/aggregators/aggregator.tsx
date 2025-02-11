@@ -1,4 +1,4 @@
-import { ExpandedPage, ExpandedPost } from '@/sanity/types/local.types'
+import { ExpandedPage, ExpandedPost, ExpandedCustomer } from '@/sanity/types/local.types'
 import { Category } from '@/sanity/types/sanity.types'
 import { CategoriesFilter } from './renderCategories'
 import { TypesFilter } from './renderResourceTypes'
@@ -7,7 +7,7 @@ import { Pagination } from './pagination'
 import { getTypeSlug } from './renderItem'
 
 
-export type ExpandedAggregatorItem = ExpandedPost | ExpandedPage
+export type ExpandedAggregatorItem = ExpandedPost | ExpandedPage | ExpandedCustomer
 
 interface AggregatorProps {
     getItems: (startIndex: number, endIndex: number, category?: string, type?: string) => Promise<ExpandedAggregatorItem[]>
@@ -61,7 +61,7 @@ export async function Aggregator({
                 filterType
             ).then(items => {
                 items.map((item: ExpandedAggregatorItem) => {
-                    if (item._type === 'page') {
+                    if (item._type === 'page' || item._type === 'customer') {
                         item.pathName = pathName
                     } else {
                         item.pathName = pathName === 'resources' ? `${pathName}/${getTypeSlug(item.type as string)}` : `${pathName}`

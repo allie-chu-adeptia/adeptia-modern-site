@@ -1,43 +1,41 @@
 import { PlusGrid, PlusGridItem, PlusGridRow } from '@/components/plus-grid'
-import { Button } from './button'
 import { Container } from './container'
 import { Gradient } from './gradient'
 import { Link } from './link'
 import { Logo } from './logo'
-import { Subheading } from './text'
 
 /* eslint prefer-const: 0 */
 
-function CallToAction() {
-  return (
-    <div className="relative pb-16 pt-20 text-center sm:py-24">
-      <hgroup>
-        <Subheading>Get started</Subheading>
-        <p className="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">
-          Ready to dive in?
-          <br />
-          Start your free trial today.
-        </p>
-      </hgroup>
-      <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">
-        Get the cheat codes for selling and unlock your team&apos;s revenue
-        potential.
-      </p>
-      <div className="mt-6">
-        <Button className="w-full sm:w-auto" href="#">
-          Get started
-        </Button>
-      </div>
-    </div>
-  )
-}
+// function CallToAction() {
+//   return (
+//     <div className="relative pb-16 pt-20 text-center sm:py-24">
+//       <hgroup>
+//         <Subheading>Get started</Subheading>
+//         <p className="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">
+//           Ready to dive in?
+//           <br />
+//           Start your free trial today.
+//         </p>
+//       </hgroup>
+//       <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">
+//         Get the cheat codes for selling and unlock your team&apos;s revenue
+//         potential.
+//       </p>
+//       <div className="mt-6">
+//         <Button className="w-full sm:w-auto" href="#">
+//           Get started
+//         </Button>
+//       </div>
+//     </div>
+//   )
+// }
 
-function SitemapHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-sm/6 font-medium text-gray-950/50">{children}</h3>
+function SitemapHeading({ children, className }: { children: React.ReactNode, className?: string }) {
+  return <h3 className={`text-sm/6 font-medium text-gray-950/50 ${className}`}>{children}</h3>
 }
 
 function SitemapLinks({ children }: { children: React.ReactNode }) {
-  return <ul className="mt-6 space-y-4 text-sm/6">{children}</ul>
+  return <ul className="mt-4 space-y-4 text-sm/tight">{children}</ul>
 }
 
 function SitemapLink(props: React.ComponentPropsWithoutRef<typeof Link>) {
@@ -55,31 +53,66 @@ function Sitemap() {
   return (
     <>
       <div>
-        <SitemapHeading>Product</SitemapHeading>
+        <SitemapHeading>Platform</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="/pricing">Pricing</SitemapLink>
-          <SitemapLink href="#">Analysis</SitemapLink>
-          <SitemapLink href="#">API</SitemapLink>
+          <SitemapLink href="#">How it Works</SitemapLink>
+          <SitemapLink href="#">Why Adeptia Connect</SitemapLink>
+        </SitemapLinks>
+        <SitemapHeading className="mt-8">Capabilities</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">Connections</SitemapLink>
+          <SitemapLink href="#">AI Processing</SitemapLink>
+          <SitemapLink href="#">AI Alignment</SitemapLink>
+          <SitemapLink href="#">AI Management</SitemapLink>
+          <SitemapLink href="#">Enterprise Grade</SitemapLink>
         </SitemapLinks>
       </div>
       <div>
-        <SitemapHeading>Company</SitemapHeading>
+        <SitemapHeading>Solutions by Industry</SitemapHeading>
         <SitemapLinks>
+          <SitemapLink href="#">Insurance</SitemapLink>
+          <SitemapLink href="#">Financial Services</SitemapLink>
+          <SitemapLink href="#">Specialty Manufacturing and Distribution</SitemapLink>
+          <SitemapLink href="#">Software and Service Providers</SitemapLink>
+        </SitemapLinks>
+        <SitemapHeading className="mt-8">Solutions by Capability</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">Intelligent Document Processing</SitemapLink>
+          <SitemapLink href="#">AI Data Mapping</SitemapLink>
+          <SitemapLink href="#">Low-Code Integrations and Automations</SitemapLink>
+        </SitemapLinks>
+      </div>
+      <div>
+        <SitemapHeading>Solutions by Initiative</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">Digital Transformation</SitemapLink>
+          <SitemapLink href="#">Business Process Automation</SitemapLink>
+          <SitemapLink href="#">AI Data Readiness</SitemapLink>
+          <SitemapLink href="#">First Mile Data Problems</SitemapLink>
+        </SitemapLinks>
+        <SitemapHeading className="mt-8">Solutions by Application</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">SAP</SitemapLink>
+          <SitemapLink href="#">Salesforce</SitemapLink>
+          <SitemapLink href="#">Netsuite</SitemapLink>
+          <SitemapLink href="#">Workday</SitemapLink>
+          <SitemapLink href="#">ADP</SitemapLink>
+          <SitemapLink href="#">See All Integrations</SitemapLink>
+        </SitemapLinks>
+      </div>      
+      <div>
+      <SitemapHeading>Resources</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">Blog</SitemapLink>
+          <SitemapLink href="#">Resources</SitemapLink>
+          <SitemapLink href="#">Product Support</SitemapLink>
+        </SitemapLinks>
+        <SitemapHeading className="mt-8">Company</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="#">About Adeptia</SitemapLink>
+          <SitemapLink href="#">Leadership</SitemapLink>
           <SitemapLink href="#">Careers</SitemapLink>
-          <SitemapLink href="/blog">Blog</SitemapLink>
-          <SitemapLink href="/company">Company</SitemapLink>
-        </SitemapLinks>
-      </div>
-      <div>
-        <SitemapHeading>Support</SitemapHeading>
-        <SitemapLinks>
-          <SitemapLink href="#">Help center</SitemapLink>
-          <SitemapLink href="#">Community</SitemapLink>
-        </SitemapLinks>
-      </div>
-      <div>
-        <SitemapHeading>Company</SitemapHeading>
-        <SitemapLinks>
+          <SitemapLink href="#">Contact Us</SitemapLink>
           <SitemapLink href="#">Terms of service</SitemapLink>
           <SitemapLink href="#">Privacy policy</SitemapLink>
         </SitemapLinks>
@@ -161,8 +194,8 @@ export function Footer() {
       <Gradient className="relative">
         <div className="absolute inset-3 rounded-xl bg-white/80" />
         <Container>
-          <CallToAction />
-          <PlusGrid className="pb-16">
+          {/* <CallToAction /> */}
+          <PlusGrid className="pt-16 pb-16">
             <PlusGridRow>
               <div className="grid grid-cols-2 gap-y-10 pb-6 lg:grid-cols-6 lg:gap-8">
                 <div className="col-span-2 flex">

@@ -1,6 +1,6 @@
 import { ExpandedAggregatorItem } from './aggregator'
 import dayjs from 'dayjs'
-import { CoverImageNoText, CoverImageWText } from './displayTypes/cardDisplay'
+import { CoverImageWText } from './displayTypes/cardDisplay'
 
 // Cleans and trims the excerpt to 200 characters
 export function excerptToHTML(excerpt: string) {
@@ -39,12 +39,12 @@ export async function RenderItem({
             className="flex flex-col items-start justify-between"
           >
             {item._type === 'page' ? (
-                <CoverImageNoText
+                <CoverImageWText
                     title={item.title}
-                    slug={item.metadata?.slug?.current || ''}
+                    slug={item.slug}
                     pathName={item.pathName}
                 />
-            ) : (
+            ) : item._type === 'resource' ? (
                 <CoverImageWText 
                     date={dayjs(item.publishDate).format('dddd, MMMM D, YYYY')}
                     categories={item.category}
@@ -56,7 +56,16 @@ export async function RenderItem({
                     slug={item.slug}
                     pathName={item.pathName}
                 />
-            )}
+            ) : item._type === 'customer' ? (
+              <CoverImageWText 
+                title={item.title}
+                slug={item.slug}
+                pathName={item.pathName}
+                coverImage={item.featuredImage}
+                excerpt={excerptToHTML(item.description as string)}
+                logo={item.logo}
+              />
+            ) : (null)}
           </div>
         ))}
       </div>

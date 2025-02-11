@@ -773,10 +773,21 @@ export type Customer = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  featuredImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   hideIdentifiableInfo?: boolean
   size?: 'Small Business' | 'Mid Market' | 'Enterprise'
   industry?: string
-  description?: PortableText
+  description?: string
   connector?: Array<{
     _ref: string
     _type: 'reference'
