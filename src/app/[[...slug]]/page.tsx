@@ -20,6 +20,8 @@ import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/loc
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { Container } from '@/components/container'
 import { getPagePath } from '@/lib/buildPagePath'
+import { ExpandedTestimonialSection, TestimonialSectionComponent } from '@/components/testimonialSection'
+
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const lightBackground: BackgroundStyle = {
@@ -102,15 +104,16 @@ function PageContent({ page }: { page: ExpandedPage }) {
                             <TextSectionComponent textSection={block as TextSection} />
                         </Container>
                     )}
-                    {/* block._type === 'reference' && block._ref && block._ref.startsWith('testimonial') && (
-                        // TODO: Implement Testimonial component
-                        null
-                    ) */}
+                    {block._type === 'testimonialSection' && (
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <TestimonialSectionComponent testimonialSection={block as ExpandedTestimonialSection} />
+                        </Container>
+                    )}
                 </div>
             ))}
         </main>
     )
-}
+}   
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
     const params = await props.params;

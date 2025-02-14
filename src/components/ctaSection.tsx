@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { image } from "@/sanity/image";
 import { Heading } from "./text";
 import cleanString from "@/lib/cleanString";
+
 export interface ExpandedCtaSection extends Omit<CtaSection, 'cta' | 'image'> {
     cta?: Array<{
         _type: 'cta'

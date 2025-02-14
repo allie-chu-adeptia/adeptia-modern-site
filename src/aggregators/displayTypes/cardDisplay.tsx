@@ -1,7 +1,7 @@
 import { ExpandedCategory, ExpandedImage, ExpandedAuthor } from "@/sanity/types/local.types";
 import { CategoryChip } from "@/lib/categoryChip";
 import { image } from '@/sanity/image'
-import { LogoLight } from "@/components/logo";
+import { LogoTriangleLight } from "@/components/logo";
 import { Link } from '@/components/link'
 
 function buildDefaultCoverImage(title: string, pathName: string) {
@@ -15,7 +15,7 @@ function buildDefaultCoverImage(title: string, pathName: string) {
                     {title}
                 </div>
                 <div className="absolute bottom-8 right-8">
-                    <LogoLight className="h-8 text-white" />
+                    <LogoTriangleLight className="h-8 text-white" />
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ export function CoverImageWText(
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-[#3C7BEF]/50 via-[#0A4ECD]/50 to-[#3B25E0]/50 rounded-2xl" />
                             <div className="absolute bottom-8 right-8">
-                                <LogoLight className="h-8 text-white" />
+                                <LogoTriangleLight className="h-8 text-white" />
                             </div>
                         </div>
                         ) : (

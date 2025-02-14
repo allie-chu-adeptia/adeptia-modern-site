@@ -286,6 +286,17 @@ export type Category = {
   slug?: Slug
 }
 
+export type TestimonialSection = {
+  _type: 'testimonialSection'
+  testimonial?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'testimonial'
+  }
+  layout?: 'simpleCentered' | 'largeAvatar'
+}
+
 export type Testimonial = {
   _id: string
   _type: 'testimonial'
@@ -316,8 +327,7 @@ export type Testimonial = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  layout?: 'simpleCentered' | 'largeAvatar'
-  quote?: PortableText
+  quote?: string
 }
 
 export type StatSection = {
@@ -541,13 +551,6 @@ export type Page = {
     [internalGroqTypeReferenceTo]?: 'category'
   }>
   block?: Array<
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        _key: string
-        [internalGroqTypeReferenceTo]?: 'testimonial'
-      }
     | ({
         _key: string
       } & CaseStudy)
@@ -584,6 +587,9 @@ export type Page = {
     | ({
         _key: string
       } & TextSection)
+    | ({
+        _key: string
+      } & TestimonialSection)
   >
 }
 
@@ -941,6 +947,7 @@ export type AllSanitySchemaTypes =
   | Cta
   | Company
   | Category
+  | TestimonialSection
   | Testimonial
   | StatSection
   | RelatedResource

@@ -1,0 +1,766 @@
+'use client'
+
+import { Container } from "@/components/container";
+import { Link } from "@/components/link";
+import { LogoLight } from "@/components/logo";
+import { Button } from "@/components/button";
+import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import { PlayCircleIcon, PhoneIcon, RectangleGroupIcon, ChevronRightIcon, Bars2Icon, XMarkIcon } from '@heroicons/react/20/solid'
+import clsx from "clsx";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+import {
+    TruckIcon,
+    CurrencyDollarIcon,
+    BuildingOfficeIcon,
+} from '@heroicons/react/20/solid'
+
+type Page = {
+    name: string
+    href: string
+    description?: string
+    icon?: React.ElementType
+}
+
+type SubMenu = {
+    name: string
+    items: (Page)[]
+}
+
+type TopLevelMenu = {
+    header: string
+    submenus: SubMenu[]
+}
+
+const PlatformMenu: TopLevelMenu = {
+    header: 'Platform',
+    submenus: [
+        {
+            name: 'Platform', items: [
+                { name: 'How it Works', href: '#' },
+                { name: 'Why Adeptia Connect', href: '#' },
+            ]
+        },
+        {
+            name: 'Connections', items: [
+                { name: 'API', href: '#' },
+                { name: 'EDI', href: '#' },
+                { name: 'ETL/ELT', href: '#' },
+                { name: 'iPaaS', href: '#' },
+                { name: 'Files', href: '#' },
+                { name: 'App Connectors', href: '#' },
+            ]
+        },
+        {
+            name: 'AI Alignment', items: [
+                { name: 'AI Data Mapping', href: '#' },
+                { name: 'Pre-Built Automations', href: '#' },
+                { name: 'Agentic Connectors', href: '#' },
+            ]
+        },
+        {
+            name: 'AI Processing', items: [
+                { name: 'AI Business Rules', href: '#' },
+                { name: 'Intelligent Document Processing', href: '#' },
+                { name: 'No-Code Automation Builder', href: '#' },
+            ]
+        },
+        {
+            name: 'AI Management', items: [
+                { name: 'Custom Notifications', href: '#' },
+                { name: 'Error Monitoring and RCA', href: '#' },
+                { name: 'Data Observability', href: '#' },
+            ]
+        },
+    ]
+}
+
+const SolutionsMenu: TopLevelMenu = {
+    header: 'Solutions',
+    submenus: [
+        {
+            name: 'By Industry', items: [
+                { name: 'Insurance', href: '#', icon: BuildingOfficeIcon },
+                { name: 'Financial Services', href: '#', icon: CurrencyDollarIcon },
+                { name: 'Manufacturing and Distribution', href: '#', icon: TruckIcon },
+                // { name: 'Software and Service Providers', href: '#', icon: CpuChipIcon },
+            ]
+        },
+        {
+            name: 'By Initiative', items: [
+                { name: 'Digital Transformation', href: '#' },
+                { name: 'Business Process Automation', href: '#' },
+                { name: 'AI Data Readiness', href: '#' },
+                { name: 'First Mile Data Problems', href: '#' },
+            ]
+        },
+        {
+            name: 'By Capability', items: [
+                { name: 'Intelligent Document Processing', href: '#' },
+                { name: 'AI Data Mapping', href: '#' },
+                { name: 'Low-Code Integration and Automations', href: '#' },
+            ]
+        },
+        {
+            name: 'By Application', items: [
+                { name: 'SAP', href: '#' },
+                { name: 'Salesforce', href: '#' },
+                { name: 'Netsuite', href: '#' },
+                { name: 'Workday', href: '#' },
+                { name: 'ADP', href: '#' },
+                { name: 'See All Integrations', href: '#' },
+            ]
+        },
+    ]
+}
+
+const ResourcesMenu: TopLevelMenu = {
+    header: 'Resources',
+    submenus: [
+        {
+            name: 'Resources', items: [
+                { name: 'Blog', href: '#' },
+                { name: 'Customer Stories', href: '#' },
+                { name: 'All Resources', href: '#' },
+            ]
+        },
+        {
+            name: 'Support', items: [
+                { name: 'Product Support', href: '#' },
+                { name: 'Product Documentation', href: '#' },
+                { name: 'Training', href: '#' },
+            ]
+        }
+    ]
+}
+
+const CompanyMenu: TopLevelMenu = {
+    header: 'Company',
+    submenus: [
+        {
+            name: 'Company', items: [
+                { name: 'About', href: '#' },
+                { name: 'News', href: '#' },
+                { name: 'Leadership', href: '#' },
+                { name: 'Careers', href: '#' },
+                { name: 'Contact', href: '#' },
+            ]
+        },
+        {
+            name: 'Legal', items: [
+                { name: 'Privacy Policy', href: '#' },
+                { name: 'Terms of Service', href: '#' },
+            ]
+        },
+    ]
+}
+
+const menu = [PlatformMenu, SolutionsMenu, ResourcesMenu, CompanyMenu]
+
+const callsToAction = [
+    { name: 'Schedule a Demo', href: '#', icon: PlayCircleIcon },
+    { name: 'Speak to Sales', href: '#', icon: PhoneIcon },
+    { name: 'Begin Free Trial', href: '#', icon: RectangleGroupIcon },
+]
+
+const recentPosts = [
+    {
+        id: 1,
+        title: 'Welcome to a New Era of Adeptia Connect',
+        href: '#',
+        date: 'Feb 12, 2025',
+        datetime: '2025-02-12',
+        category: { title: 'Adeptia Connect', href: '#' },
+        imageUrl:
+            'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/1-10-2025-Data-Formats-Accelerate-Revenue-Social-image-1-e1739374770497-600x346.png.webp',
+        description:
+            'Today, Adeptia launched the latest version of Adeptia Connect, which includes several exciting new enhancements! Hear from CTO and cofounder Deepak Singh what this means for our customers and prospects.',
+    },
+    {
+        id: 2,
+        title: 'What is Data Mapping?',
+        href: '#',
+        date: 'Dec 20, 2024',
+        datetime: '2024-12-20',
+        category: { title: 'AI', href: '#' },
+        imageUrl:
+            'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/Blog-data-mapping-600x353.jpg.webp',
+        description: 'Data mapping is a crucial design step in data migration, data integration, and data transformation projects. Modern-day data mapping solutions leverage artificial intelligence (AI) to map data fields from a source format to a target format.',
+    },
+]
+
+const recentReviews = [
+    {
+        id: 1,
+        title: 'Gartner Peer Insights Reviews',
+        href: '#',
+        imageUrl:
+            'https://cdn.sanity.io/images/5ujtwa6a/production/60e4b6bfa0e5bacc85a5c11859a8798de206cece-1872x2172.png',
+    },
+    {
+        id: 2,
+        title: 'G2 Reviews',
+        href: '#',
+        imageUrl:
+            'https://cdn.sanity.io/images/5ujtwa6a/production/b05460e0c29abf9cfafe14631f0691576ba02c63-1872x2172.png',
+    },
+]
+
+function renderPageItem(item: Page) {
+    return (
+        <div key={item.name} className="group relative py-2 flex gap-x-3 items-center">
+            {item.icon &&
+                <div className="mt-1 flex flex-none items-center justify-center">
+                    <item.icon aria-hidden="true" className="flex items-center gap-x-1 size-6 text-gray-400 group-hover:text-gray-900" />
+                </div>
+            }
+            <div>
+                <a href={item.href} className="flex items-center gap-x-1 font-regular text-sm text-gray-700 group-hover:text-gray-900">
+                    {item.name}
+                    <span className="absolute inset-0" />
+                    <ChevronRightIcon className="size-4 opacity-0 transform translate-x-2 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />
+                </a>
+            </div>
+        </div>
+    )
+}
+
+function renderSubMenu(subMenu: SubMenu, className?: string) {
+    return (
+        <div>
+            <h3 className={clsx("text-sm/6 font-semibold text-gray-800 uppercase", className)}>{subMenu.name}</h3>
+            <div className="mt-3 flow-root">
+                <div className="-my-2">
+                    {subMenu.items.map((item) => (
+                        renderPageItem(item)
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function renderMobileSubMenu(subMenu: SubMenu, index: number, className?: string) {
+    return (
+        <div key={index} className="mb-1 bg-white/20 p-2 rounded-md">
+            <h3 className={clsx("text-sm/6 font-semibold text-gray-200 uppercase", className)}>{subMenu.name}</h3>
+            <div className="my-4 flow-root">
+                <div className="-my-2">
+                    {subMenu.items.map((item) => (
+                        renderMobilePageItem(item)
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function renderMobilePageItem(item: Page) {
+    return (
+        <div key={item.name} className="group relative py-2 flex gap-x-3 items-center text-white">
+            {item.icon &&
+                <div className="mt-1 flex flex-none items-center justify-center">
+                    <item.icon aria-hidden="true" className="flex items-center gap-x-1 size-6" />
+                </div>
+            }
+            <div>
+                <a href={item.href} className="flex items-center gap-x-1 font-regular text-sm">
+                    {item.name}
+                    <span className="absolute inset-0" />
+                </a>
+            </div>
+        </div>
+    )
+}
+
+
+function popoverButton(text: string, onMouseEnter: () => void) {
+    return (
+        <PopoverButton
+            onMouseEnter={onMouseEnter}
+            className="inline-flex items-center gap-x-1 text-sm/6 font-bold text-white focus:outline-none"
+        >
+            {text}
+        </PopoverButton>
+    )
+}
+
+function footerPanel() {
+    return (
+        <div className="bg-gray-50">
+            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 divide-y divide-gray-900/5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-x sm:border-gray-900/5">
+                    {callsToAction.map((item) => (
+                        <a
+                            key={item.name}
+                            href={item.href}
+                            className="flex items-center gap-x-2.5 p-3 px-6 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100 sm:justify-center sm:px-0"
+                        >
+                            <item.icon aria-hidden="true" className="size-5 flex-none text-gray-400" />
+                            {item.name}
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function MobileNavButton() {
+    return (
+        <DisclosureButton
+            className="flex size-12 items-center justify-center self-center rounded-lg text-white data-[hover]:bg-white/5 lg:hidden"
+            aria-label="Open main menu"
+        >
+            <Bars2Icon className="size-6" />
+        </DisclosureButton>
+    )
+}
+
+function MobileNav() {
+    const [openStates, setOpenStates] = useState(menu.map(() => false));
+
+    return (
+        <DisclosurePanel className="lg:hidden">
+            <div className="fixed inset-0 z-50 overflow-hidden">
+                <div className="absolute inset-0 bg-gray-900/50" />
+                <div className="fixed inset-y-0 right-0 w-full max-w-sm flex flex-col bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)]">
+                    {/* Header */}
+                    <div className="sticky top-0 z-10 h-[80px] p-4 flex items-center border-b border-white/20">
+                        <DisclosureButton
+                            className="flex items-center justify-between w-full text-white"
+                            onClick={() => setOpenStates(menu.map(() => false))}
+                        >
+                            <LogoLight className="h-8 w-auto" />
+                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        </DisclosureButton>
+                    </div>
+
+                    {/* Scrollable content */}
+                    <div className="flex-1 overflow-y-auto">
+                        <div className="flex flex-col gap-6 p-4">
+                            {menu.map((submenu, index) => (
+                                <motion.div
+                                    initial={{ opacity: 0, rotateX: -90 }}
+                                    animate={{ opacity: 1, rotateX: 0 }}
+                                    transition={{
+                                        duration: 0.15,
+                                        ease: 'easeInOut',
+                                        rotateX: { duration: 0.3, delay: index * 0.1 },
+                                    }}
+                                    key={index}
+                                >
+                                    <Disclosure>
+                                        <DisclosureButton>
+                                            <div
+                                                className="flex flex-row gap-x-2 items-center font-regular text-white"
+                                                onClick={() => setOpenStates(prev => ({ ...prev, [index]: !prev[index] }))}
+                                            >
+                                                {submenu.header}
+                                                <ChevronRightIcon
+                                                    className={`size-4 transition-transform duration-200 ${openStates[index] ? 'rotate-90' : ''}`}
+                                                />
+                                            </div>
+                                        </DisclosureButton>
+                                        <DisclosurePanel>
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{
+                                                    duration: 0.15,
+                                                    ease: 'easeInOut',
+                                                }}
+                                            >
+                                                {submenu.submenus.map((subMenu, index) =>
+                                                    renderMobileSubMenu(subMenu, index)
+                                                )}
+                                            </motion.div>
+                                        </DisclosurePanel>
+                                    </Disclosure>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="sticky bottom-0 px-4 py-4 border-t border-white/20 bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)]">
+                        <Button variant="secondary" className="w-full" dark={true}>
+                            Schedule a Demo
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </DisclosurePanel>
+    )
+}
+
+// function MobileNav({ setOpen }: { setOpen: (open: boolean) => void }) {
+//     return (
+//         <DialogPanel
+//             transition
+//             className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
+//         >
+//             <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+//                 <div className="px-4 sm:px-6">
+//                     <div className="flex items-start justify-between">
+//                     <DialogTitle className="text-base font-semibold text-gray-900">Panel title</DialogTitle>
+//                     <div className="ml-3 flex h-7 items-center">
+//                         <button
+//                         type="button"
+//                         onClick={() => setOpen(false)}
+//                         className="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//                         >
+//                         <span className="absolute -inset-2.5" />
+//                         <span className="sr-only">Close panel</span>
+//                         <XMarkIcon aria-hidden="true" className="size-6" />
+//                         </button>
+//                     </div>
+//                     </div>
+//                 </div>
+//                 <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
+//             </div>
+//         </DialogPanel>
+//     )
+// }
+
+function PlatformPopover({
+    isOpen,
+    onMouseEnter,
+    onMouseLeave
+}: {
+    isOpen: boolean,
+    onMouseEnter: () => void,
+    onMouseLeave: () => void
+}) {
+
+    return (
+        <Popover>
+            {popoverButton('Platform', onMouseEnter)}
+            <PopoverPanel static className="absolute inset-x-0 top-0 mt-[72px]">
+                <div
+                    className={`absolute left-0 right-0 transform transition-all duration-200 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'
+                        } ${!isOpen && 'hidden'}`}
+                    onMouseLeave={onMouseLeave}
+                >
+                    <div className="relative bg-white shadow-lg ring-1 ring-gray-900/5 z-20">
+                        <div className="relative mx-auto max-w-7xl grid grid-cols-5 p-6 gap-x-6 sm:gap-x-8">
+                            <div>
+                                {renderSubMenu(PlatformMenu.submenus[0])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(PlatformMenu.submenus[1])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(PlatformMenu.submenus[2])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(PlatformMenu.submenus[3])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(PlatformMenu.submenus[4])}
+                            </div>
+                        </div>
+                        {footerPanel()}
+                    </div>
+                </div>
+            </PopoverPanel>
+        </Popover>
+    )
+}
+
+function SolutionsPopover({
+    isOpen,
+    onMouseEnter,
+    onMouseLeave
+}: {
+    isOpen: boolean,
+    onMouseEnter: () => void,
+    onMouseLeave: () => void
+}) {
+    return (
+        <Popover>
+            {popoverButton('Solutions', onMouseEnter)}
+            <PopoverPanel static className="absolute inset-x-0 top-0 mt-[72px]">
+                <div
+                    className={`absolute left-0 right-0 transform transition-all duration-200 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'
+                        } ${!isOpen && 'hidden'}`}
+                    onMouseLeave={onMouseLeave}
+                >
+                    <div className="relative bg-white shadow-lg ring-1 ring-gray-900/5 z-20">
+                        <div className="relative mx-auto max-w-7xl grid grid-cols-4 p-6 gap-x-6 sm:gap-x-8">
+                            <div>
+                                {renderSubMenu(SolutionsMenu.submenus[0])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(SolutionsMenu.submenus[1])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(SolutionsMenu.submenus[2])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(SolutionsMenu.submenus[3])}
+                            </div>
+                        </div>
+                        {footerPanel()}
+                    </div>
+                </div>
+            </PopoverPanel>
+        </Popover>
+    )
+}
+
+function CompanyPopover({
+    isOpen,
+    onMouseEnter,
+    onMouseLeave
+}: {
+    isOpen: boolean,
+    onMouseEnter: () => void,
+    onMouseLeave: () => void
+}) {
+    return (
+        <Popover>
+            {popoverButton('Company', onMouseEnter)}
+            <PopoverPanel static className="absolute inset-x-0 top-0 mt-[72px]">
+                <div
+                    className={`absolute left-0 right-0 transform transition-all duration-200 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'
+                        } ${!isOpen && 'hidden'}`}
+                    onMouseLeave={onMouseLeave}
+                >
+                    <div className="relative bg-white shadow-lg ring-1 ring-gray-900/5 z-20">
+                        <div className="relative mx-auto max-w-7xl grid grid-cols-4 p-6 gap-x-6 sm:gap-x-8">
+                            <div>
+                                {renderSubMenu(CompanyMenu.submenus[0])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(CompanyMenu.submenus[1])}
+                            </div>
+
+                            <div>
+                                <article
+                                    key={recentReviews[0].id}
+                                    className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+                                >
+                                    <div className="relative flex-none">
+                                        <img
+                                            alt=""
+                                            src={recentReviews[0].imageUrl}
+                                            className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                        />
+                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                    </div>
+                                    <div>
+                                        {/* <h4 className="mt-0 text-sm/6 font-semibold text-gray-900">
+                                        <a href={recentReviews[0].href}>
+                                        <span className="absolute inset-0" />
+                                        {recentReviews[0].title}
+                                        </a>
+                                    </h4> */}
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div>
+                                <article
+                                    key={recentReviews[1].id}
+                                    className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+                                >
+                                    <div className="relative flex-none">
+                                        <img
+                                            alt=""
+                                            src={recentReviews[1].imageUrl}
+                                            className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                        />
+                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                    </div>
+                                    <div>
+                                        {/* <h4 className="mt-0 text-sm/6 font-semibold text-gray-900">
+                                            <a href={recentReviews[1].href}>
+                                            <span className="absolute inset-0" />
+                                            {recentReviews[1].title}
+                                            </a>
+                                        </h4> */}
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        {footerPanel()}
+                    </div>
+                </div>
+            </PopoverPanel>
+        </Popover>
+    )
+}
+
+function ResourcesPopover({
+    isOpen,
+    onMouseEnter,
+    onMouseLeave
+}: {
+    isOpen: boolean,
+    onMouseEnter: () => void,
+    onMouseLeave: () => void
+}) {
+    return (
+        <Popover>
+            {popoverButton('Resources', onMouseEnter)}
+            <PopoverPanel static className="absolute inset-x-0 top-0 mt-[72px]">
+                <div
+                    className={`absolute left-0 right-0 transform transition-all duration-200 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'
+                        } ${!isOpen && 'hidden'}`}
+                    onMouseLeave={onMouseLeave}
+                >
+                    <div className="relative bg-white shadow-lg ring-1 ring-gray-900/5 z-20">
+                        <div className="relative mx-auto max-w-7xl grid grid-cols-4 p-6 gap-x-6 sm:gap-x-8">
+                            <div>
+                                {renderSubMenu(ResourcesMenu.submenus[0])}
+                            </div>
+
+                            <div>
+                                {renderSubMenu(ResourcesMenu.submenus[1])}
+                            </div>
+
+                            <div>
+                                <article
+                                    key={recentPosts[0].id}
+                                    className="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+                                >
+                                    <div className="relative flex-none">
+                                        <img
+                                            alt=""
+                                            src={recentPosts[0].imageUrl}
+                                            className="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                        />
+                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-x-4">
+                                            <time dateTime={recentPosts[0].datetime} className="text-sm/6 text-gray-600">
+                                                {recentPosts[0].date}
+                                            </time>
+                                            <a
+                                                href={recentPosts[0].category.href}
+                                                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100"
+                                            >
+                                                {recentPosts[0].category.title}
+                                            </a>
+                                        </div>
+                                        <h4 className="mt-2 text-sm/6 font-semibold text-gray-900">
+                                            <a href={recentPosts[0].href}>
+                                                <span className="absolute inset-0" />
+                                                {recentPosts[0].title}
+                                            </a>
+                                        </h4>
+                                        <p className="mt-2 text-sm/6 text-gray-600">{recentPosts[0].description}</p>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div>
+                                <article
+                                    key={recentPosts[1].id}
+                                    className="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+                                >
+                                    <div className="relative flex-none">
+                                        <img
+                                            alt=""
+                                            src={recentPosts[1].imageUrl}
+                                            className="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                        />
+                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-x-4">
+                                            <time dateTime={recentPosts[1].datetime} className="text-sm/6 text-gray-600">
+                                                {recentPosts[1].date}
+                                            </time>
+                                            <a
+                                                href={recentPosts[1].category.href}
+                                                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100"
+                                            >
+                                                {recentPosts[1].category.title}
+                                            </a>
+                                        </div>
+                                        <h4 className="mt-2 text-sm/6 font-semibold text-gray-900">
+                                            <a href={recentPosts[1].href}>
+                                                <span className="absolute inset-0" />
+                                                {recentPosts[1].title}
+                                            </a>
+                                        </h4>
+                                        <p className="mt-2 text-sm/6 text-gray-600">{recentPosts[1].description}</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        {footerPanel()}
+                    </div>
+                </div>
+            </PopoverPanel>
+        </Popover>
+    )
+}
+
+type OpenMenu = 'platform' | 'solutions' | 'resources' | 'company' | null;
+
+export function NavbarNew() {
+    // const [open, setOpen] = useState(true)
+
+    const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
+
+    const handleMouseEnter = (menu: OpenMenu) => {
+        setOpenMenu(menu);
+    };
+
+    const handleMouseLeave = () => {
+        setOpenMenu(null);
+    };
+
+    return (
+        <Container className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
+            <Disclosure>
+                <div className="py-4 flex justify-between items-center">
+                    <div className="flex items-center gap-x-10">
+                        <Link href="/" title="Home">
+                            <LogoLight className="h-8 w-auto lg:h-10" />
+                        </Link>
+                        <div className="hidden lg:flex gap-8">
+                            <PlatformPopover
+                                isOpen={openMenu === 'platform'}
+                                onMouseEnter={() => handleMouseEnter('platform')}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            <SolutionsPopover
+                                isOpen={openMenu === 'solutions'}
+                                onMouseEnter={() => handleMouseEnter('solutions')}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            <ResourcesPopover
+                                isOpen={openMenu === 'resources'}
+                                onMouseEnter={() => handleMouseEnter('resources')}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            <CompanyPopover
+                                isOpen={openMenu === 'company'}
+                                onMouseEnter={() => handleMouseEnter('company')}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                        </div>
+                    </div>
+                    <Button className="hidden lg:block" variant="secondary" dark={true}>Schedule a Demo</Button>
+                    <MobileNavButton />
+                </div>
+                <MobileNav />
+            </Disclosure>
+        </Container>
+    )
+}

@@ -157,9 +157,26 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           },
           "link": metadata.slug.current
         },
+      },
+      _type == "testimonialSection" => {
+        _type,
+        layout,
+        testimonial -> {
+          _type,
+          name,
+          title,
+          quote,
+          picture {
+            asset->,
+          },
+          companyLogo {
+            asset->,
+          }
+        }
       }
     }
 }`)
+
 const RELATED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   _type == "resource" && 
   (count($resourceTypes) == 0 || type in $resourceTypes) &&
