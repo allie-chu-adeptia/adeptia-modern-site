@@ -31,11 +31,11 @@ function PageContent({ page }: { page: ExpandedPage }) {
         _type: 'backgroundStyle',
         style: 'light'
     }
-    
+
     return (
-        <main className="overflow-hidden">             
+        <main className="overflow-hidden">
             {page.block?.map((block, index) => (
-                <div 
+                <div
                     key={index}
                 >
                     {block._type === 'bentoSection' && (
@@ -64,8 +64,8 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         </Container>
                     )}
                     {block._type === 'faq' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">  
-                            <FaqComponent faq={block as Faq}/>
+                        <Container className="py-8 sm:py-16 lg:py-24">
+                            <FaqComponent faq={block as Faq} />
                         </Container>
                     )}
                     {block._type === 'headerSection' && (
@@ -75,7 +75,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                                     <HeaderSectionComponent headerSection={block as ExpandedHeaderSection} />
                                 </Container>
                             </div>
-                            <BackgroundMotion color={block.background ?? lightBackground}/>
+                            <BackgroundMotion color={block.background ?? lightBackground} />
                         </BackgroundColor>
                     )}
                     {block._type === 'logoSection' && (
@@ -89,11 +89,11 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     ) */}
                     {block._type === 'relatedResource' && (
                         <Container paddingLvl="md">
-                            <RelatedResourceSection 
-                                type={block.type ?? 'latest'} 
-                                resourceTypes={block.resourceTypes as string[]} 
-                                resources={block.resource as unknown as ExpandedPost[]} 
-                                pageCategory={page.category as ExpandedCategory[]} 
+                            <RelatedResourceSection
+                                type={block.type ?? 'latest'}
+                                resourceTypes={block.resourceTypes as string[]}
+                                resources={block.resource as unknown as ExpandedPost[]}
+                                pageCategory={page.category as ExpandedCategory[]}
                                 pageID={page._id}
                             />
                         </Container>
@@ -119,7 +119,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
             ))}
         </main>
     )
-}   
+}
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
     const params = await props.params;
@@ -139,10 +139,20 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         return notFound()
     }
 
-    const actualPath = await getPath(lastSlug)
-    const requestedPath = params.slug.join('/')
+    try {
 
-    if (actualPath.join('/') !== requestedPath) {
+        const actualPath = await getPath(lastSlug)
+        if (!actualPath) {
+            return notFound()
+        }
+        const requestedPath = params.slug.join('/')
+        const computedPath = Array.isArray(actualPath) ? actualPath.join('/') : ''
+
+        if (!computedPath || computedPath !== requestedPath) {
+            return notFound()
+        }
+    } catch (error) {
+        console.error('Path resolution error:', { lastSlug, error })
         return notFound()
     }
 

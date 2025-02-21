@@ -157,6 +157,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         resourceTypes,
         resource[] -> {
           _type,
+          type,
           title,
           publishDate,
           excerpt,
@@ -164,7 +165,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
             ...,
             "altText": asset->altText,
           },
-          "link": metadata.slug.current
+          "slug": metadata.slug.current
         },
       },
       _type == "testimonialSection" => {

@@ -26,6 +26,13 @@ export async function RelatedResourceSection({
     pageCategory: ExpandedCategory[],
     pageID: string
 }) {
+    console.log("Resource Information -------------------------------")
+    console.log(type)
+    console.log(resourceTypes)
+    console.log(resources)
+    console.log(pageCategory)
+    console.log(pageID)
+    console.log("-----------------------------------------------------")
     let displayResources = resources;
 
     if (cleanString(type) === 'latest') {
@@ -39,13 +46,14 @@ export async function RelatedResourceSection({
             relatedResources = await getFallbackResources(resourceTypes);
         }
 
-        relatedResources.map((resource: ExpandedPost) => {
-            resource.pathName = resource.type != 'News' && resource.type != 'Blog' ? `resources/${getTypeSlug(resource.type as string)}` : `${resource.type?.toLowerCase()}`
-        });
-        console.log(relatedResources)
-
         displayResources = relatedResources;
     }
+
+    displayResources.map((resource: ExpandedPost) => {
+        resource.pathName = resource.type != 'News' && resource.type != 'Blog' ? `resources/${getTypeSlug(resource.type as string)}` : `${resource.type?.toLowerCase()}`
+    });
+    
+    console.log(displayResources)
 
     return (
         <div>

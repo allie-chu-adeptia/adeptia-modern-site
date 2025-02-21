@@ -2,7 +2,7 @@ import { ExpandedCategory, ExpandedImage, ExpandedAuthor } from "@/sanity/types/
 import { CategoryChip } from "@/lib/categoryChip";
 import { image } from '@/sanity/image'
 import { LogoTriangleLight } from "@/components/logo";
-import { Link } from '@/components/link'
+import { ClientLink } from '@/components/clientLink'
 
 function buildDefaultCoverImage(title: string, pathName: string) {
     return (
@@ -50,7 +50,7 @@ export function CoverImageWText(
 
     return (
         <div className="w-full">
-            <Link href={`/${pathName}/${slug}`}>
+            <ClientLink href={`/${pathName}/${slug}`}>
                 <div className="relative w-full">
                     {coverImage ? (
                         <div className="relative">
@@ -69,7 +69,7 @@ export function CoverImageWText(
                     )}
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
-            </Link>
+            </ClientLink>
             <div className="max-w-xl">
                 {type || date ? (
                     <div className="mt-8 flex items-center gap-x-4 text-xs">
@@ -92,10 +92,10 @@ export function CoverImageWText(
                 )}
                 <div className="group relative">
                     <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
-                        <Link href={`/${pathName}/${slug}`}>
+                        <ClientLink href={`/${pathName}/${slug}`}>
                             <span className="absolute inset-0" />
                             {title}
-                        </Link>
+                        </ClientLink>
                     </h3>
                     {excerpt && (
                         <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{excerpt}</p>
