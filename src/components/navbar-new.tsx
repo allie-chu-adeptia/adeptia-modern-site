@@ -1,7 +1,7 @@
 'use client'
 
 import { Container } from "@/components/container";
-import { Link } from "@/components/link";
+import { ClientLink } from "@/components/clientLink";
 import { LogoLight } from "@/components/logo";
 import { Button } from "@/components/button";
 import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
@@ -38,36 +38,36 @@ const PlatformMenu: TopLevelMenu = {
     submenus: [
         {
             name: 'Platform', items: [
-                { name: 'How it Works', href: '#' },
-                { name: 'Why Adeptia Connect', href: '#' },
+                { name: 'How it Works', href: '/products/how-it-works' },
+                { name: 'Why Adeptia Connect', href: '/products/why-adeptia-connect' },
             ]
         },
         {
-            name: 'Connections', items: [
-                { name: 'API', href: '#' },
-                { name: 'EDI', href: '#' },
-                { name: 'ETL/ELT', href: '#' },
+            name: 'Connection', items: [
+                { name: 'API', href: '/solutions/use-case/api-integration' },
+                { name: 'EDI', href: '/solutions/use-case/edi-software-integration' },
+                { name: 'ETL/ELT', href: '/solutions/use-case/etl-integration' },
                 { name: 'iPaaS', href: '#' },
                 { name: 'Files', href: '#' },
-                { name: 'App Connectors', href: '#' },
+                { name: 'App Connectors', href: '/connectors' },
             ]
         },
         {
-            name: 'AI Alignment', items: [
-                { name: 'AI Data Mapping', href: '#' },
+            name: 'Mapping & Alignment', items: [
+                { name: 'AI Data Mapping', href: '/products/artificial-intelligence-mapping' },
                 { name: 'Pre-Built Automations', href: '#' },
                 { name: 'Agentic Connectors', href: '#' },
             ]
         },
         {
-            name: 'AI Processing', items: [
-                { name: 'AI Business Rules', href: '#' },
-                { name: 'Intelligent Document Processing', href: '#' },
+            name: 'Workflows & Orchestration', items: [
+                { name: 'AI Business Rules', href: '/products/ai-business-rules' },
+                { name: 'Intelligent Document Processing', href: '/products/idp' },
                 { name: 'No-Code Automation Builder', href: '#' },
             ]
         },
         {
-            name: 'AI Management', items: [
+            name: 'Monitoring & Management', items: [
                 { name: 'Custom Notifications', href: '#' },
                 { name: 'Error Monitoring and RCA', href: '#' },
                 { name: 'Data Observability', href: '#' },
@@ -81,9 +81,9 @@ const SolutionsMenu: TopLevelMenu = {
     submenus: [
         {
             name: 'By Industry', items: [
-                { name: 'Insurance', href: '#', icon: BuildingOfficeIcon },
-                { name: 'Financial Services', href: '#', icon: CurrencyDollarIcon },
-                { name: 'Manufacturing and Distribution', href: '#', icon: TruckIcon },
+                { name: 'Insurance', href: '/solutions/industry/insurance-integration', icon: BuildingOfficeIcon },
+                { name: 'Financial Services', href: '/solutions/industry/financial-data-integration', icon: CurrencyDollarIcon },
+                { name: 'Manufacturing and Distribution', href: '/solutions/industry/supply-chain-logistics', icon: TruckIcon },
                 // { name: 'Software and Service Providers', href: '#', icon: CpuChipIcon },
             ]
         },
@@ -97,19 +97,19 @@ const SolutionsMenu: TopLevelMenu = {
         },
         {
             name: 'By Capability', items: [
-                { name: 'Intelligent Document Processing', href: '#' },
-                { name: 'AI Data Mapping', href: '#' },
+                { name: 'Intelligent Document Processing', href: '/products/idp' },
+                { name: 'AI Data Mapping', href: '/products/artificial-intelligence-mapping' },
                 { name: 'Low-Code Integration and Automations', href: '#' },
             ]
         },
         {
             name: 'By Application', items: [
-                { name: 'SAP', href: '#' },
-                { name: 'Salesforce', href: '#' },
-                { name: 'Netsuite', href: '#' },
-                { name: 'Workday', href: '#' },
-                { name: 'ADP', href: '#' },
-                { name: 'See All Integrations', href: '#' },
+                { name: 'SAP', href: '/connectors/sap-integration-accelerator' },
+                { name: 'Salesforce', href: '/connectors/salesforce-integration-accelerator' },
+                { name: 'Netsuite', href: '/connectors/netsuite-integration-accelerator' },
+                // { name: 'Workday', href: '#' },
+                // { name: 'ADP', href: '#' },
+                { name: 'See All Integrations', href: '/connectors' },
             ]
         },
     ]
@@ -120,16 +120,16 @@ const ResourcesMenu: TopLevelMenu = {
     submenus: [
         {
             name: 'Resources', items: [
-                { name: 'Blog', href: '#' },
-                { name: 'Customer Stories', href: '#' },
-                { name: 'All Resources', href: '#' },
+                { name: 'Blog', href: '/blog' },
+                { name: 'Customer Stories', href: '/customers' },
+                { name: 'All Resources', href: '/resources' },
             ]
         },
         {
             name: 'Support', items: [
-                { name: 'Product Support', href: '#' },
-                { name: 'Product Documentation', href: '#' },
-                { name: 'Training', href: '#' },
+                { name: 'Product Support', href: '/products/product-support' },
+                { name: 'Product Documentation', href: 'https://docs.adeptia.com/' },
+                { name: 'Training', href: '/support/training' },
             ]
         }
     ]
@@ -140,17 +140,17 @@ const CompanyMenu: TopLevelMenu = {
     submenus: [
         {
             name: 'Company', items: [
-                { name: 'About', href: '#' },
-                { name: 'News', href: '#' },
-                { name: 'Leadership', href: '#' },
-                { name: 'Careers', href: '#' },
-                { name: 'Contact', href: '#' },
+                { name: 'About', href: '/about' },
+                { name: 'News', href: '/news' },
+                { name: 'Leadership', href: '/about/management-team' },
+                { name: 'Careers', href: '/careers' },
+                { name: 'Contact', href: '/about/contact-us' },
             ]
         },
         {
             name: 'Legal', items: [
-                { name: 'Privacy Policy', href: '#' },
-                { name: 'Terms of Service', href: '#' },
+                { name: 'Privacy Policy', href: '/privacy-policy' },
+                { name: 'Terms of Service', href: '/terms-of-service' },
             ]
         },
     ]
@@ -159,9 +159,9 @@ const CompanyMenu: TopLevelMenu = {
 const menu = [PlatformMenu, SolutionsMenu, ResourcesMenu, CompanyMenu]
 
 const callsToAction = [
-    { name: 'Schedule a Demo', href: '#', icon: PlayCircleIcon },
-    { name: 'Speak to Sales', href: '#', icon: PhoneIcon },
-    { name: 'Begin Free Trial', href: '#', icon: RectangleGroupIcon },
+    { name: 'Schedule a Demo', href: '/adeptia-connect-demo', icon: PlayCircleIcon },
+    { name: 'Speak to Sales', href: '/about/contact-us', icon: PhoneIcon },
+    { name: 'Begin Free Trial', href: '/free-trial', icon: RectangleGroupIcon },
 ]
 
 const recentPosts = [
@@ -726,13 +726,13 @@ export function NavbarNew() {
     };
 
     return (
-        <Container className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
+        <Container paddingLvl="none" className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
             <Disclosure>
                 <div className="py-4 flex justify-between items-center">
                     <div className="flex items-center gap-x-10">
-                        <Link href="/" title="Home">
+                        <ClientLink href="/">
                             <LogoLight className="h-8 w-auto lg:h-10" />
-                        </Link>
+                        </ClientLink>
                         <div className="hidden lg:flex gap-8">
                             <PlatformPopover
                                 isOpen={openMenu === 'platform'}
@@ -756,7 +756,7 @@ export function NavbarNew() {
                             />
                         </div>
                     </div>
-                    <Button className="hidden lg:block" variant="secondary" dark={true}>Schedule a Demo</Button>
+                    <Button className="hidden lg:block" variant="secondary" dark={true} href="/adeptia-connect-demo">Schedule a Demo</Button>
                     <MobileNavButton />
                 </div>
                 <MobileNav />

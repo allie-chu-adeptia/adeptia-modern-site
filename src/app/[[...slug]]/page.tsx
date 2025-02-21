@@ -1,27 +1,30 @@
+// Next.js imports
 import { notFound } from 'next/navigation'
+
+// Sanity types and queries
 import { getPage } from '@/sanity/queries/page'
-import type { Page, TextSection } from '@/sanity/types/sanity.types'
+import type { Page, TextSection, Faq, StatSection, BackgroundStyle } from '@/sanity/types/sanity.types'
+import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types"
+
+// Components
+import { Container } from '@/components/container'
+import { FaqComponent } from '@/components/faq'
+import TextSectionComponent from '@/components/textSection'
+import { RelatedResourceSection } from '@/components/relatedResourceSection'
+import { StatSectionComponent } from '@/components/statSection'
+
+// Section Components with their types
 import { ExpandedBentoSection, BentoSectionComponent } from '@/components/bentoSection'
 import { ExpandedLogoSection, LogoSectionComponent } from '@/components/logoSection'
-import { StatSectionComponent } from '@/components/statSection'
-import { FaqComponent } from '@/components/faq'
 import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection'
-import { HeaderSectionComponent } from '@/components/headerSection'
+import { ExpandedHeaderSection, HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
-import { RelatedResourceSection } from '@/components/relatedResourceSection'
-import TextSectionComponent from '@/components/textSection'
-import { 
-    Faq, 
-    HeaderSection, 
-    StatSection, 
-    BackgroundStyle
-} from "@/sanity/types/sanity.types";
-import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types";
-import { BackgroundColor } from '@/lib/backgroundColorWrapper'
-import { Container } from '@/components/container'
-import { getPagePath } from '@/lib/buildPagePath'
 import { ExpandedTestimonialSection, TestimonialSectionComponent } from '@/components/testimonialSection'
 
+// Utilities
+import { BackgroundColor } from '@/lib/backgroundColorWrapper'
+import { getPath } from '@/lib/routing'
+import { BackgroundMotion } from '@/lib/backgroundMotion'
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const lightBackground: BackgroundStyle = {
@@ -37,7 +40,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                 >
                     {block._type === 'bentoSection' && (
                         <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
-                            <Container className="py-8 sm:py-16 lg:py-24">
+                            <Container paddingLvl="md">
                                 <BentoSectionComponent bentoSection={block as ExpandedBentoSection} />
                             </Container>
                         </BackgroundColor>
@@ -50,13 +53,13 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         console.log("displaying content section"),
                         console.log(block),
                         <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
-                            <Container className="py-8 sm:py-16 lg:py-24">
+                            <Container paddingLvl="md">
                                 <ContentSectionComponent contentSection={block as ExpandedContentSection} />
                             </Container>
                         </BackgroundColor>
                     )}
                     {block._type === 'ctaSection' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">
+                        <Container paddingLvl="md">
                             <CtaSectionComponent ctaSection={block as ExpandedCtaSection} />
                         </Container>
                     )}
@@ -66,14 +69,17 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         </Container>
                     )}
                     {block._type === 'headerSection' && (
-                        <BackgroundColor color={block.background ?? lightBackground}>
-                            <Container className="py-8 sm:py-16 lg:py-24">
-                                <HeaderSectionComponent headerSection={block as HeaderSection} />
-                            </Container>
+                        <BackgroundColor color={block.background ?? lightBackground} className="relative overflow-hidden">
+                            <div className="relative z-10">
+                                <Container paddingLvl="md">
+                                    <HeaderSectionComponent headerSection={block as ExpandedHeaderSection} />
+                                </Container>
+                            </div>
+                            <BackgroundMotion color={block.background ?? lightBackground}/>
                         </BackgroundColor>
                     )}
                     {block._type === 'logoSection' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">
+                        <Container paddingLvl="sm">
                             <LogoSectionComponent logoSection={block as ExpandedLogoSection} />
                         </Container>
                     )}
@@ -82,7 +88,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         null
                     ) */}
                     {block._type === 'relatedResource' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">
+                        <Container paddingLvl="md">
                             <RelatedResourceSection 
                                 type={block.type ?? 'latest'} 
                                 resourceTypes={block.resourceTypes as string[]} 
@@ -94,18 +100,18 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     )}
                     {block._type === 'statSection' && (
                         <BackgroundColor color={block.background ?? lightBackground}>
-                            <Container className="py-8 sm:py-16 lg:py-24">
+                            <Container paddingLvl="md">
                                 <StatSectionComponent statSection={block as StatSection} />
                             </Container>
                         </BackgroundColor>
                     )}
                     {block._type === 'textSection' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">
+                        <Container paddingLvl="md">
                             <TextSectionComponent textSection={block as TextSection} />
                         </Container>
                     )}
                     {block._type === 'testimonialSection' && (
-                        <Container className="py-8 sm:py-16 lg:py-24">
+                        <Container paddingLvl="md">
                             <TestimonialSectionComponent testimonialSection={block as ExpandedTestimonialSection} />
                         </Container>
                     )}
@@ -133,7 +139,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         return notFound()
     }
 
-    const actualPath = await getPagePath(page)
+    const actualPath = await getPath(lastSlug)
     const requestedPath = params.slug.join('/')
 
     if (actualPath.join('/') !== requestedPath) {

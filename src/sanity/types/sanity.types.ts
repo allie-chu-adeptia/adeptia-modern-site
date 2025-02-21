@@ -913,7 +913,7 @@ export type SanityImageMetadata = {
 
 export type BackgroundStyle = {
   _type: 'backgroundStyle'
-  style?: 'light' | 'medium' | 'dark' | 'accent'
+  style?: 'light' | 'medium' | 'dark' | 'dark-accent' | 'light-accent'
 }
 
 export type HeaderStyle = {
@@ -922,6 +922,7 @@ export type HeaderStyle = {
   header?: string
   subheader?: string
   layout?: 'centered' | 'left-aligned' | 'right-aligned'
+  anchorID?: string
 }
 
 export type IconPicker = {

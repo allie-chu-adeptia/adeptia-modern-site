@@ -7,6 +7,7 @@ import { image } from '@/sanity/image'
 import { Link } from '@/components/link'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { buildTable } from "../lib/buildTable";
+import { Heading } from "@/components/text";
 
 export default function StylePortableText({
     className,
@@ -25,28 +26,28 @@ export default function StylePortableText({
               </p>
             ),
             h2: ({ children, index }) => (
-              <h2 className={styleOverride || `${index === 0 ? '' : 'mt-16'} text-pretty text-3xl font-semibold tracking-tight text-gray-900`}>
+              <Heading as="h2" className={styleOverride || `${index === 0 ? '' : 'mt-16'}`}>
                 {children}
-              </h2>
+              </Heading>
             ),
             h3: ({ children, index }) => (
-              <h3 className={styleOverride || `${index === 0 ? '' : 'mt-10'} text-pretty text-2xl font-semibold tracking-tight text-gray-900`}>
+              <Heading as="h3" className={styleOverride || `${index === 0 ? '' : 'mt-10'}`}>
                 {children}
-              </h3>
+              </Heading>
             ),
             h4: ({ children, index }) => (
-              <h4 className={styleOverride || `${index === 0 ? '' : 'mt-8'} text-pretty text-xl font-semibold tracking-tight text-gray-900`}>
+              <Heading as="h4" className={styleOverride || `${index === 0 ? '' : 'mt-8'}`}>
                 {children}
-              </h4>
+              </Heading>
             ),
             h5: ({ children, index }) => (
-              <h5 className={styleOverride || `${index === 0 ? '' : 'mt-6'} text-pretty text-lg font-semibold tracking-tight text-gray-900`}>
+              <Heading as="h5" className={styleOverride || `${index === 0 ? '' : 'mt-6'}`}>
                 {children}
-              </h5>
+              </Heading>
             ),
             blockquote: ({ children }) => (
-              <figure className="mt-10 border-l border-indigo-600 pl-9">
-                <blockquote className="font-semibold text-gray-900">
+              <figure className="mt-10 border-l border-[var(--primary-blue)] pl-9">
+                <blockquote className="font-regular text-gray-900">
                   {children}
                 </blockquote>
               </figure>
@@ -120,19 +121,20 @@ export default function StylePortableText({
             link: ({ value, children }) => (
               <Link
                 href={value.href}
-                className="font-medium text-indigo-600 hover:text-indigo-700"
+                className="font-medium text-[var(--primary-blue)] hover:text-[var(--primary-blue-darker)]"
                 target={value.blank ? '_blank' : undefined}
               >
                 {children}
               </Link>
             ),
             internalLink: ({value, children}) => {
-              const {slug = {}} = value
-              const href = `/${slug.current}`
+              console.log(value)
+              console.log("slug: ", value.reference.metadata.slug.current)
+              const slug = value.reference.metadata.slug.current
               return (
                 <Link
-                  href={href}
-                  className="font-medium text-indigo-600 hover:text-indigo-700"
+                  slug={slug || ''}
+                  className="font-medium text-[var(--primary-blue)] hover:text-[var(--primary-blue-darker)]"
                 >
                   {children}
                 </Link>

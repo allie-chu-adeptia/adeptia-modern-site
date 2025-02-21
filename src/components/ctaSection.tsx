@@ -1,30 +1,16 @@
 import { HeaderStyle } from "@/lib/headerStyle";
 import { Button } from "@/components/button";
-import { BackgroundStyle, CtaSection, HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types";
+import { BackgroundStyle, CtaSection } from "@/sanity/types/sanity.types";
 import clsx from 'clsx';
 import { image } from "@/sanity/image";
 import { Heading } from "./text";
 import cleanString from "@/lib/cleanString";
+import { ExpandedCta, ExpandedImage } from "@/sanity/types/local.types";
+
 
 export interface ExpandedCtaSection extends Omit<CtaSection, 'cta' | 'image'> {
-    cta?: Array<{
-        _type: 'cta'
-        _id: string
-        header?: HeaderStyleType
-        campaignTitle: string
-        buttonText: string
-        link: string
-        displayStyle: string
-    }>
-    image?: {
-        asset?: {
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-        }
-        altText?: string
-        _type: 'image'
-      }
+    cta?: ExpandedCta[]
+    image?: ExpandedImage
 }
 
 const textAlignment: { [key: string]: string } = {
@@ -98,7 +84,7 @@ function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection 
 function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
     console.log("displaying centered cta section")
     return (
-        <div className="rounded-4xl bg-[linear-gradient(276deg,var(--tw-gradient-stops))] from-[#3C7BEF] from-[-17.59%] via-[#0A4ECD] via-[29.8%] to-[#3B25E0] to-[90.12%]">
+        <div className="rounded-4xl dark-gradient">
           <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkBackground} />
@@ -122,7 +108,7 @@ function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) 
 function SplitCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
     console.log("displaying split cta section")
     return (
-        <div className="bg-indigo-100">
+        <div className="bg-[var(--primary-blue-lightest)]">
           <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
             <div className="flex flex-col gap-4">
               <Heading as="h2">

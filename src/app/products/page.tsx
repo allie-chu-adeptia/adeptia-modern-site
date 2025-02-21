@@ -1,24 +1,29 @@
 import { client } from '@/sanity/client'
 import { defineQuery } from 'next-sanity'
 import { Container } from '@/components/container'
-import { getPagePath } from '@/lib/buildPagePath'
+import { getPath } from '@/lib/routing'
 import { Aggregator } from '@/aggregators/aggregator'
-import { HeaderSection, HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
-import { HeaderSectionComponent } from '@/components/headerSection'
+import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
+import { DefaultHeaderSection } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Products',
+    description:
+        'Adeptia connect is designed to help you connect with your business partners in minutes.',
+    alternates: {
+        canonical: 'https://www.adeptia.com/products',
+    },
+}
+
 
 const ProductsHeader: HeaderStyleType = {
     _type: "headerStyle",
     header: "Products",
     subheader: "Our products are designed to help you connect with your business partners in minutes",
     layout: "left-aligned"
-  }
-  
-  const ProductsHeaderSection: HeaderSection = {
-    _type: "headerSection",
-    header: ProductsHeader
-  } 
-
+}
 
 const PRODUCT_QUERY = defineQuery(/* groq */ `*[
   _type == "page" && 
@@ -38,10 +43,10 @@ const PRODUCT_QUERY = defineQuery(/* groq */ `*[
 
 async function getItems(startIndex: number, endIndex: number) {
     const pages = await client.fetch(PRODUCT_QUERY)
-    
+
     // Get full paths for each page
     const pagesWithPaths = await Promise.all(pages.map(async (page: ExpandedPage) => {
-        const path = await getPagePath(page)
+        const path = await getPath(page.metadata?.slug?.current || '')
         return {
             ...page,
             pathName: path.slice(0, -1).join('/'),
@@ -67,17 +72,19 @@ export default async function ProductPage(
     const itemsPerPage = 20
 
     return (
-        <Container>
-            <div className="py-24">
-                <HeaderSectionComponent headerSection={ProductsHeaderSection} />
-                <Aggregator
-                    getItems={getItems}
-                    getItemsCount={getItemsCount}
-                    itemsPerPage={itemsPerPage}
-                    currPage={page}
-                    pathName="products"
-                />
-            </div>
-        </Container>
+        <>
+            <DefaultHeaderSection header={ProductsHeader} />
+            <Container>
+                <div className="pt-12">
+                    <Aggregator
+                        getItems={getItems}
+                        getItemsCount={getItemsCount}
+                        itemsPerPage={itemsPerPage}
+                        currPage={page}
+                        pathName="products"
+                    />
+                </div>
+            </Container>
+        </>
     )
 }

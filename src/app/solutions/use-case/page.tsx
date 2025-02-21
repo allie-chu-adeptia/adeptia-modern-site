@@ -1,10 +1,10 @@
 import { client } from '@/sanity/client'
 import { defineQuery } from 'next-sanity'
 import { Container } from '@/components/container'
-import { getPagePath } from '@/lib/buildPagePath'
+import { getPath } from '@/lib/routing'
 import { Aggregator } from '@/aggregators/aggregator'
-import { HeaderSection, HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
-import { HeaderSectionComponent } from '@/components/headerSection'
+import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
+import { DefaultHeaderSection } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
 
 const UseCaseHeader: HeaderStyleType = {
@@ -13,12 +13,8 @@ const UseCaseHeader: HeaderStyleType = {
     header: "Use Case",
     subheader: "Our solutions are designed to help you connect with your business partners in minutes",
     layout: "left-aligned"
-  }
-  
-  const UseCaseHeaderSection: HeaderSection = {
-    _type: "headerSection",
-    header: UseCaseHeader
-  } 
+}
+
 
 const USE_CASE_QUERY = defineQuery(/* groq */ `*[
   _type == "page" && 
@@ -43,10 +39,10 @@ async function getUseCaseItemsCount() {
 
 async function getUseCaseItems(startIndex: number, endIndex: number) {
     const pages = await client.fetch(USE_CASE_QUERY)
-    
+
     // Get full paths for each page
     const pagesWithPaths = await Promise.all(pages.map(async (page: ExpandedPage) => {
-        const path = await getPagePath(page)
+        const path = await getPath(page.metadata?.slug?.current || '')
         return {
             ...page,
             pathName: path.slice(0, -1).join('/'),
@@ -67,17 +63,19 @@ export default async function UseCasePage(
     const itemsPerPage = 20
 
     return (
-        <Container>
-            <div className="py-24">
-                <HeaderSectionComponent headerSection={UseCaseHeaderSection} />
-                <Aggregator
-                    getItems={getUseCaseItems}
-                    getItemsCount={getUseCaseItemsCount}
-                    itemsPerPage={itemsPerPage}
-                    currPage={page}
-                    pathName={"solutions/use-case"}
-                />
-            </div>
-        </Container>
+        <>
+            <DefaultHeaderSection header={UseCaseHeader} />
+            <Container>
+                <div className="py-12">
+                    <Aggregator
+                        getItems={getUseCaseItems}
+                        getItemsCount={getUseCaseItemsCount}
+                        itemsPerPage={itemsPerPage}
+                        currPage={page}
+                        pathName={"solutions/use-case"}
+                    />
+                </div>
+            </Container>
+        </>
     )
 }

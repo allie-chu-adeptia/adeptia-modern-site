@@ -1,11 +1,29 @@
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/container'
-import { Heading, Lead, Subheading } from '@/components/text'
 import { Aggregator } from '@/aggregators/aggregator'
 import {
   getNews,
   getNewsCount,
 } from '@/sanity/queries/news'
+import type { Metadata } from 'next'
+import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
+import { DefaultHeaderSection } from '@/components/headerSection'
+
+export const metadata: Metadata = {
+  title: 'News and Press at Adeptia',
+  description:
+    'Get updated with latest Adeptia and Adeptia Connect news.',
+  alternates: {
+    canonical: 'https://www.adeptia.com/news',
+  },
+}
+
+const NewsPageHeader: HeaderStyleType = {
+  _type: "headerStyle",
+  header: "News",
+  subheader: "Get updated with latest Adeptia and Adeptia Connect news.",
+  layout: "left-aligned",
+}
 
 // Main resource page component that combines all the above components
 export default async function NewsPage(
@@ -23,18 +41,9 @@ export default async function NewsPage(
       : 1
 
   return (
-    <main className="overflow-hidden">
-      <Container>
-        <Subheading className="mt-16">News</Subheading>
-        <Heading as="h1" className="mt-2">
-          What&apos;s happening at Adeptia.
-        </Heading>
-        <Lead className="mt-6 max-w-3xl">
-          Stay informed with product updates, company news, and insights on how
-          to sell smarter at your company.
-        </Lead>
-      </Container>
-      <Container className="mt-16 pb-24">
+    <>
+      <DefaultHeaderSection header={NewsPageHeader} />
+      <Container paddingLvl="md">
         <Aggregator 
           getItems={getNews}
           getItemsCount={getNewsCount}
@@ -43,6 +52,6 @@ export default async function NewsPage(
           pathName="news"
         />
       </Container>
-    </main>
+    </>
   )
 }

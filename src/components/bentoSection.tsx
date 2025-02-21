@@ -1,14 +1,12 @@
-'use client'
-
 import { clsx } from 'clsx'
-import { motion } from 'framer-motion'
-import { Subheading } from './text'
+import { Subheading, Heading } from './text'
 import { BackgroundStyle, SanityImageCrop, SanityImageHotspot } from '@/sanity/types/sanity.types'
 import { image } from '@/sanity/image'
-import Link from 'next/link'
+import { Link } from './link'
 import { BentoSection } from '@/sanity/types/sanity.types'
 import { HeaderStyle } from '../lib/headerStyle'
 import { DarkModeWrapper } from '../lib/darkModeWrapper'
+import { ChevronRightIcon } from '@heroicons/react/24/outline'
 import cleanString from '@/lib/cleanString'
 
 export interface ExpandedBentoSection extends Omit<BentoSection, 'content'> {
@@ -24,7 +22,7 @@ export interface ExpandedBentoSection extends Omit<BentoSection, 'content'> {
       _type: 'image'
     }
     eyebrow?: string
-    header?: string 
+    header?: string
     text?: string
     link?: string
     _key: string
@@ -69,52 +67,62 @@ function BentoCard({
   const dark = cleanStyle === 'dark' ? true : false
 
   return (
-    
-      <DarkModeWrapper
-        style={background}
-        className={clsx(
-          layoutClassName,
-          'group relative flex flex-col overflow-hidden rounded-xl',
-          'bg-white shadow-sm ring-1 ring-black/5',
-          'data-[dark=true]:bg-gray-800 data-[dark=true]:ring-white/15',
-        )}
-      >
-        <motion.div
-          initial="idle"
-          whileHover="active"   
-          variants={{
-            idle: { scale: 1 },
-            active: { scale: 1.01 }
-          }}
-        >
-          <Link href={`/${link}`}>
-              {graphic && (
-                <img
-                  alt={graphic.altText || ''}
-                  src={image(graphic).size(2016, 1344).url()}
-                  className={clsx("aspect-[3/2] w-full rounded-2xl object-cover", graphicClassName)}
-                />
-              )}
-              {/* {fade.includes('top') && (
-                <div className="absolute inset-0 bg-gradient-to-b from-white to-50% group-data-[dark]:from-gray-800 group-data-[dark]:from-[-25%]" />
-              )}
-              {fade.includes('bottom') && (
-                <div className="absolute inset-0 bg-gradient-to-t from-white to-50% group-data-[dark]:from-gray-800 group-data-[dark]:from-[-25%]" />
-              )} */}
-              <div className="relative p-10">
-                <Subheading as="h3" dark={dark}>
-                  {eyebrow}
-                </Subheading>
-                <p className="mt-1 text-2xl/8 font-medium tracking-tight text-gray-950 group-data-[dark=true]:text-white">
-                  {title}
-                </p>
-                <p className="mt-2 max-w-[600px] text-sm/6 text-gray-600 group-data-[dark=true]:text-gray-400">
-                  {description}
-                </p>
+
+    <DarkModeWrapper
+      style={background}
+      className={clsx(
+        layoutClassName,
+        'group relative flex flex-col overflow-hidden rounded-xl',
+        'bg-white shadow-sm ring-1 ring-black/5',
+        'data-[dark=true]:bg-gray-800 data-[dark=true]:ring-white/15',
+      )}
+    >
+      {link ?
+        <Link href={`/${link}`}>
+          {graphic && (
+            <img
+              alt={graphic.altText || ''}
+              src={image(graphic).size(2016, 1344).url()}
+              className={clsx("aspect-[3/2] w-full rounded-2xl object-cover", graphicClassName)}
+            />
+          )}
+          <div className="relative p-10">
+            <Subheading as="h3" dark={dark}>
+              {eyebrow}
+            </Subheading>
+            <div className="flex items-center gap-x-1">
+              <Heading as="h3" className="hover:text-gray-600" dark={dark}>
+                {title}
+              </Heading>
+              <ChevronRightIcon className="size-4 opacity-0 transform translate-x-2 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />
             </div>
-          </Link>
-        </motion.div>
-      </DarkModeWrapper>
+            <p className="mt-2 max-w-[600px] text-sm/6 text-gray-600 group-data-[dark=true]:text-gray-400">
+              {description}
+            </p>
+          </div>
+        </Link> :
+        <div>
+          {graphic && (
+            <img
+              alt={graphic.altText || ''}
+              src={image(graphic).size(2016, 1344).url()}
+              className={clsx("aspect-[3/2] w-full rounded-2xl object-cover", graphicClassName)}
+            />
+          )}
+          <div className="relative p-10">
+            <Subheading as="h3" dark={dark}>
+              {eyebrow}
+            </Subheading>
+            <Heading as="h3" dark={dark}>
+              {title}
+            </Heading>
+            <p className="mt-2 max-w-[600px] text-sm/6 text-gray-600 group-data-[dark=true]:text-gray-400">
+              {description}
+            </p>
+          </div>
+        </div>
+      }
+    </DarkModeWrapper >
   )
 }
 
@@ -135,14 +143,14 @@ export function BentoSectionComponent({
       container: 'mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2',
       layout: [
         'flex p-px lg:col-span-4',
-        'flex p-px lg:col-span-2', 
+        'flex p-px lg:col-span-2',
         'flex p-px lg:col-span-2',
         'flex p-px lg:col-span-4',
       ],
       graphic: [
         'h-80 object-cover object-left',
         'h-80 object-cover',
-        'h-80 object-cover', 
+        'h-80 object-cover',
         'h-80 object-cover object-left',
       ]
     },
@@ -168,7 +176,7 @@ export function BentoSectionComponent({
         'flex p-px lg:col-span-2',
         'flex p-px lg:col-span-2',
         'flex p-px lg:col-span-2',
-      ], 
+      ],
       graphic: [
         'h-80 object-cover object-left',
         'h-80 object-cover',
@@ -195,8 +203,8 @@ export function BentoSectionComponent({
             eyebrow={item.eyebrow ?? ''}
             title={item.header ?? ''}
             description={item.text ?? ''}
-            graphic={item.image ?? { _type: 'image'}}
-            link= {item.link ?? ''}
+            graphic={item.image ?? { _type: 'image' }}
+            link={item.link ?? ''}
             layoutClassName={activeLayout.layout[index] ?? ''}
             graphicClassName={activeLayout.graphic[index] ?? ''}
           />

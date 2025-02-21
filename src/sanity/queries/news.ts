@@ -19,6 +19,7 @@ const NEWS_QUERY = defineQuery(/* groq */ `*[
   && (type == "News")
   && defined(metadata.slug.current)
 ]|order(publishedDate desc)[$startIndex...$endIndex]{
+  _type,
   _id,
   type,
   title,

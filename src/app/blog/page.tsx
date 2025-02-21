@@ -1,5 +1,4 @@
 import { Container } from '@/components/container'
-import { Heading, Lead, Subheading } from '@/components/text'
 import {
   getCategories,
   getPosts,
@@ -8,11 +7,23 @@ import {
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Aggregator } from '@/aggregators/aggregator'
+import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
+import { DefaultHeaderSection } from '@/components/headerSection'
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'Blog - B2B Data Connectivity - Integration | Adeptia',
   description:
-    'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
+    'Take your integration knowledge to the next level with the Adeptia blog! Click here to explore all our blogs.',
+  alternates: {
+    canonical: 'https://www.adeptia.com/blog',
+  },
+}
+
+const BlogPageHeader: HeaderStyleType = {
+  _type: "headerStyle",
+  header: "Adeptia Blog",
+  subheader: "Learn more about Adeptia's latest news, product updates, and more.",
+  layout: "left-aligned",
 }
 
 // Main blog page component that combines all the above components
@@ -36,18 +47,9 @@ export default async function Blog(
       : undefined
 
   return (
-    <main className="overflow-hidden">
-      <Container>
-        <Subheading className="mt-16">Blog</Subheading>
-        <Heading as="h1" className="mt-2">
-          What&apos;s happening at Adeptia.
-        </Heading>
-        <Lead className="mt-6 max-w-3xl">
-          Stay informed with product updates, company news, and insights on how
-          to sell smarter at your company.
-        </Lead>
-      </Container>
-      <Container className="mt-16 pb-24">
+    <>
+      <DefaultHeaderSection header={BlogPageHeader} />
+      <Container paddingLvl="md">
         <Aggregator 
           getItems={getPosts}
           getItemsCount={getPostsCount}
@@ -59,6 +61,6 @@ export default async function Blog(
           pathName="blog"
         />
       </Container>
-    </main>
+    </>
   )
 }

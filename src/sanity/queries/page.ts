@@ -94,6 +94,15 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         _type,
         header,
         background,
+        cta[]-> {
+          _type,
+          _id,
+          header,
+          campaignTitle,
+          buttonText,
+          displayStyle,
+          "link": pageReference->metadata.slug.current
+        },
         content[] {
           icon {
             asset->,

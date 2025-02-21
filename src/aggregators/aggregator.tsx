@@ -36,7 +36,7 @@ export async function Aggregator({
 }: AggregatorProps) {
 
     return (
-        <div className="mt-16 pb-24">
+        <div className="mt-12 pb-16">
             <div className="flex gap-4 pb-4">
                 {getCategories && (
                     <CategoriesFilter 
@@ -61,6 +61,7 @@ export async function Aggregator({
                 filterType
             ).then(items => {
                 items.map((item: ExpandedAggregatorItem) => {
+                    console.log(item)
                     if (item._type === 'page' || item._type === 'customer') {
                         item.pathName = pathName
                     } else {
@@ -69,11 +70,6 @@ export async function Aggregator({
                 })
                 return RenderItem({ items })
             })}
-            {/* {getFeaturedItems && currPage === 1 && !filterCategory && !filterType && (
-                getFeaturedItems(3).then(items => {
-                    return RenderFeaturedItem({ items, pathName })
-                })
-            )} */}
             {pagination && (
                 <Pagination 
                     currPage={currPage} 

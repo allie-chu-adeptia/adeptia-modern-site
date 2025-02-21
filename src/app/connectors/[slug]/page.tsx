@@ -2,9 +2,9 @@ import { getConnector } from "@/sanity/queries/connectors"
 import { ExpandedConnector } from "@/sanity/types/local.types"
 import { notFound } from "next/navigation"
 import { Container } from "@/components/container"
-import { HeaderStyle as HeaderStyleType, HeaderSection } from "@/sanity/types/sanity.types"
-import { HeaderSectionComponent } from "@/components/headerSection"
-import StylePortableText from '@/components/stylePortableText' 
+import { HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types"
+import { DefaultHeaderSection } from "@/components/headerSection"
+import StylePortableText from '@/components/stylePortableText'
 import { PortableTextBlock } from "next-sanity"
 import { CategoryChip } from "@/lib/categoryChip"
 
@@ -24,26 +24,23 @@ export default async function ConnectorPage(props: { params: Promise<sParams> })
         eyebrow: "Connectors",
         header: connector.name,
         layout: "left-aligned"
-      }
-      
-      const ConnectorsHeaderSection: HeaderSection = {
-        _type: "headerSection",
-        header: ConnectorHeader
-      }
+    }
 
     return (
-        <div className="py-24">
-            <Container>
-                <HeaderSectionComponent headerSection={ConnectorsHeaderSection} />
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
-                    <div>
-                        <CategoryChip categories={connector.categories} pathName="connectors" />
+        <>
+            <DefaultHeaderSection header={ConnectorHeader} />
+            <div className="mt-16">
+                <Container>
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
+                        <div>
+                            <CategoryChip categories={connector.categories} pathName="connectors" />
+                        </div>
+                        <div>
+                            <StylePortableText value={connector.body as PortableTextBlock[]} />
+                        </div>
                     </div>
-                    <div>
-                        <StylePortableText value={connector.body as PortableTextBlock[]} />
-                    </div>
-                </div>
-            </Container>
-        </div>
+                </Container>
+            </div>
+        </>
     )
 } 

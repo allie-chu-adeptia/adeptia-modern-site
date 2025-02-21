@@ -1,6 +1,6 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
-import { Heading, Subheading } from '@/components/text'
+import { Eyebrow, Heading } from '@/components/text'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import { PortableTextBlock } from 'next-sanity'
@@ -22,13 +22,14 @@ export default async function NewsArticle(props: { params: Promise<sParams> }) {
   return (
     <main className="overflow-hidden">
       <Container>
-        <Subheading className="mt-16">
+        <Eyebrow className="mt-16">
           {dayjs(post.publishDate).format('dddd, MMMM D, YYYY')}
-        </Subheading>
-        <Heading as="h1" className="mt-2">
+        </Eyebrow>
+        <Heading as="h2" className="mt-2">
           {post.title}
         </Heading>
         <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
+          <div></div>
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">
               {post.body && (

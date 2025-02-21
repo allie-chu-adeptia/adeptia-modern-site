@@ -1,20 +1,24 @@
 import { Aggregator } from "@/aggregators/aggregator";
 import { Container } from "@/components/container";
-import { HeaderSectionComponent } from "@/components/headerSection";
+import { DefaultHeaderSection } from "@/components/headerSection";
 import { getCustomersCount, getCustomers } from "@/sanity/queries/customer";
-import { HeaderSection, HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types"
+import { HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types"
+import type { Metadata } from 'next'
 
+export const metadata: Metadata = {
+    title: 'Customer Stories on B2B Integration Success',
+    description:
+        'Download free case studies below to get innovative ideas on data integration, application integration, B2B integration, and more.',
+    alternates: {
+        canonical: 'https://www.adeptia.com/customers',
+    },
+}
 
 const CustomersHeader: HeaderStyleType = {
     _type: "headerStyle",
-    header: "Customers",
-    subheader: "Our customers are our partners",
+    header: "Customer Stories",
+    subheader: "Learn how Adeptia has helped our customers make big changes in their data integration strategy.",
     layout: "left-aligned"
-}
-
-const CustomersHeaderSection: HeaderSection = {
-    _type: "headerSection",
-    header: CustomersHeader
 }
 
 export default async function CustomerPage(
@@ -27,9 +31,9 @@ export default async function CustomerPage(
     const itemsPerPage = 20
 
     return (
-        <Container>
-            <div className="py-24">
-                <HeaderSectionComponent headerSection={CustomersHeaderSection} />
+        <>
+            <DefaultHeaderSection header={CustomersHeader} />
+            <Container>
                 <Aggregator
                     getItems={getCustomers}
                     getItemsCount={getCustomersCount}
@@ -37,7 +41,7 @@ export default async function CustomerPage(
                     currPage={page}
                     pathName={"customers"}
                 />
-            </div>
-        </Container>
+            </Container>
+        </>
     )
 }

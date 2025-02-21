@@ -49,7 +49,7 @@ export async function RelatedResourceSection({
 
     return (
         <div>
-            <HeaderStyle header={RelatedResourcesHeader} />
+            <HeaderStyle header={RelatedResourcesHeader} className="mb-12"/>
             <RenderItem items={displayResources} />
         </div>
     )

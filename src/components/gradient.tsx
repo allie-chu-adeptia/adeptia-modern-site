@@ -11,7 +11,7 @@ export function Gradient({
       {...props}
       className={clsx(
         className,
-        'bg-[linear-gradient(276deg,var(--tw-gradient-stops))] from-[#3C7BEF] from-[-17.59%] via-[#0A4ECD] via-[29.8%] to-[#3B25E0] to-[90.12%]',
+        'dark-gradient',
       )}
     />
   )

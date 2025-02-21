@@ -50,17 +50,17 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 spacing === 'tight' ? (
                     <div key={index} className="relative pl-9">
                         <dt className={clsx("inline font-semibold", dark ? "text-white" : "text-black")}>
-                            {subpoint.icon && <IconRender name={subpoint.icon.name} className="absolute left-1 top-1 size-5 text-indigo-500" />}
+                            {subpoint.icon && <IconRender name={subpoint.icon.name} className="absolute left-1 top-1 size-5 text-[var(--primary-blue)]" />}
                             {subpoint.header}
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-black")}>{subpoint.subheader}</dd>
                         {subpoint.button && <p className="mt-6">
                             {subpoint.button?.url ? (
-                                <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-indigo-400" : "text-indigo-600")}>
+                                <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
                                 {subpoint.button.title} <span aria-hidden="true">→</span>
                                 </a>
                             ) : (
-                                <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-indigo-400" : "text-indigo-600")}>
+                                <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
                                 {subpoint.button.title} <span aria-hidden="true">→</span>
                                 </Link>
                             )}
@@ -69,18 +69,18 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 ) : (
                     <div key={index} className="flex flex-col">
                         <dt className={clsx("flex items-center gap-x-3 text-base/7 font-semibold", dark ? "text-white" : "text-black")}>
-                            {subpoint.icon && <IconRender name={subpoint.icon.name} aria-hidden="true" className={clsx("size-5 flex-none", dark ? "text-indigo-400" : "text-indigo-600")} />}
+                            {subpoint.icon && <IconRender name={subpoint.icon.name} aria-hidden="true" className={clsx("size-5 flex-none", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")} />}
                             {subpoint.header}
                         </dt>
                         <dd className={clsx("mt-4 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-black")}>
                             <p className="flex-auto">{subpoint.subheader}</p>
                             {subpoint.button && <p className="mt-6">
                                 {subpoint.button?.url ? (
-                                    <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-indigo-400" : "text-indigo-600")}>
+                                    <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
                                     {subpoint.button.title} <span aria-hidden="true">→</span>
                                     </a>
                                 ) : (
-                                    <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-indigo-400" : "text-indigo-600")}>
+                                    <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
                                     {subpoint.button.title} <span aria-hidden="true">→</span>
                                     </Link>
                                 )}
@@ -112,7 +112,7 @@ function OffCenterImage(
                                 <div className="mt-8">
                                     <a
                                         href={contentSection.button?.url || `/${contentSection.button?.link}`}
-                                        className="inline-flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
                                     >
                                         {contentSection.button?.title}
                                     </a>

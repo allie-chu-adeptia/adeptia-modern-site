@@ -1,10 +1,10 @@
-import { Link } from '@/components/link'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   CheckIcon,
   ChevronUpDownIcon,
 } from '@heroicons/react/16/solid'
 import { Category } from '@/sanity/types/sanity.types'
+import { ClientLink } from '@/components/clientLink';
 
 // Renders category dropdown menu with all available blog categories
 export async function CategoriesFilter({ 
@@ -45,18 +45,18 @@ export async function CategoriesFilter({
           key="categories-menu"
         >
           <MenuItem key="all-categories">
-            <Link
+            <ClientLink
               href={getCategoryUrl()}
               data-selected={selected === undefined ? true : undefined}
               className="group grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
             >
               <CheckIcon className="hidden size-4 group-data-[selected]:block" />
               <p className="col-start-2 text-sm/6">All categories</p>
-            </Link>
+            </ClientLink>
           </MenuItem>
-          {categories.map((category: Category) => (
-            <MenuItem key={category._id}>
-              <Link
+          {categories.map((category: Category, index: number) => (
+            <MenuItem key={index}>
+              <ClientLink
                 href={(() => {
                   return getCategoryUrl(category.slug?.toString());
                 })()}
@@ -65,7 +65,7 @@ export async function CategoriesFilter({
               >
                 <CheckIcon className="hidden size-4 group-data-[selected]:block" />
                 <p className="col-start-2 text-sm/6">{category.name}</p>
-              </Link>
+              </ClientLink>
             </MenuItem>
           ))}
         </MenuItems>

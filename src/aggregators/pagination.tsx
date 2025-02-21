@@ -75,7 +75,7 @@ export async function Pagination({
   }
 
   return (
-    <div className="mt-6 flex items-center justify-between gap-2">
+    <div className="mt-16 flex items-center justify-between gap-2">
       <Button
         variant="outline"
         href={previousPageUrl}

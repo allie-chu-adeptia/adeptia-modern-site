@@ -66,7 +66,7 @@ import { ChevronLeftIcon } from '@heroicons/react/16/solid'
             </div>
             <div className="col-span-2">
               <div className="text-base/7 text-gray-700 max-w-3xl">
-                <p className="text-base/7 font-semibold text-indigo-600">Customer Stories</p>
+                <p className="text-base/7 font-semibold text-[var(--primary-blue)]">Customer Stories</p>
                 <h1 className="mt-2 mb-10 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                   {customer.title}
                 </h1>

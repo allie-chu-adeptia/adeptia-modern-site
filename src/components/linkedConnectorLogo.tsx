@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Link } from '@/components/link'
+import { ClientLink } from '@/components/clientLink'
 import { ExpandedConnector } from '@/sanity/types/local.types'
 import { image } from '@/sanity/image'
 
@@ -16,7 +16,7 @@ export function LinkedSubpageConnectorLogo({ connector, size }: { connector: Exp
             }}
             className="w-full h-full"
         >
-            <Link href={`/connectors/${connector.slug}`} className="block w-full h-full">
+            <ClientLink href={`/connectors/${connector.slug}`} className="block w-full h-full">
                 {connector.logo && (
                     <img 
                         src={image(connector.logo).size(size, size).url()}
@@ -24,10 +24,10 @@ export function LinkedSubpageConnectorLogo({ connector, size }: { connector: Exp
                         className="max-w-full max-h-full object-contain"
                     />
                 )}
-            </Link>
+            </ClientLink>
         </motion.div>
     )
-}
+}   
 
 export function LinkedHomepageConnectorLogo({ connector, size }: { connector: ExpandedConnector, size: number }) {
     return (
@@ -40,7 +40,7 @@ export function LinkedHomepageConnectorLogo({ connector, size }: { connector: Ex
             }}
             className="w-full h-full"
         >
-            <Link href={`/connectors`} className="block w-full h-full">
+            <ClientLink href={`/connectors`} className="block w-full h-full">
                 {connector.logo && (
                     <img 
                         src={image(connector.logo).size(size, size).url()}
@@ -48,7 +48,7 @@ export function LinkedHomepageConnectorLogo({ connector, size }: { connector: Ex
                         className="max-w-full max-h-full object-contain"
                     />
                 )}
-            </Link>
+            </ClientLink>
         </motion.div>
     )
 }

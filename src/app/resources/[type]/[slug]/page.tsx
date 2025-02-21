@@ -1,7 +1,7 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
 import { Link } from '@/components/link'
-import { Heading, Subheading } from '@/components/text'
+import { Heading, Eyebrow } from '@/components/text'
 import { image } from '@/sanity/image'
 import { getResource } from '@/sanity/queries/resources'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
@@ -32,9 +32,9 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
   return (
     <main className="overflow-hidden">
       <Container>
-        <Subheading className="mt-16">
+        <Eyebrow className="mt-16">
           {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
-        </Subheading>
+        </Eyebrow>
         <Heading as="h1" className="mt-2">
           {resource.title}
         </Heading>

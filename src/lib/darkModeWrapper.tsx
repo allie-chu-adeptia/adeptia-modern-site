@@ -11,7 +11,7 @@ export function DarkModeWrapper(
   { children: React.ReactNode, style?: BackgroundStyle, className?: string }
 ) {
     const cleanStyle = cleanString(style.style || '')
-    const dark = cleanStyle === 'dark' || cleanStyle === 'accent' ? true : false
+    const dark = cleanStyle === 'dark' || cleanStyle === 'dark-accent' ? true : false
     return (
       <div data-dark={dark} className={className}>
         {children}

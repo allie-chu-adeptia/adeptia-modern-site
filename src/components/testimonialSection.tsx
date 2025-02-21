@@ -86,7 +86,7 @@ export async function TestimonialSectionComponent({
                                 <img
                                     alt={testimonialSection.testimonial.name}
                                     src={image(testimonialSection.testimonial.picture).size(576, 576).url()}
-                                    className="rounded-xl bg-indigo-50 lg:rounded-3xl"
+                                    className="rounded-xl bg-[var(--primary-blue-lightest)] lg:rounded-3xl"
                                 />
                             )}
                         </div>

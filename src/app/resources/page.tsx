@@ -1,12 +1,32 @@
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/container'
-import { Heading, Lead, Subheading } from '@/components/text'
 import { Aggregator } from '@/aggregators/aggregator'
 import {
   getCategories,
   getResources,
   getResourcesCount,
 } from '@/sanity/queries/resources'
+import { Metadata } from 'next'
+import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
+import { DefaultHeaderSection } from '@/components/headerSection'
+
+export const metadata: Metadata = {
+  title: 'Resources',
+  description:
+      'Explore a variety of resources to help you learn more about Adeptia.',
+  alternates: {
+      canonical: 'https://www.adeptia.com/resources',
+  },
+}
+
+
+const ResourcesHeader: HeaderStyleType = {
+  _type: "headerStyle",
+  header: "Resources",
+  subheader: "Explore a variety of resources to help you learn more about Adeptia.",
+  layout: "left-aligned"
+}
+
 
 export default async function Resource(
   props: {
@@ -33,17 +53,8 @@ export default async function Resource(
       : undefined
 
   return (
-    <main className="overflow-hidden">
-      <Container>
-        <Subheading className="mt-16">Resources</Subheading>
-        <Heading as="h1" className="mt-2">
-          What&apos;s happening at Adeptia.
-        </Heading>
-        <Lead className="mt-6 max-w-3xl">
-          Stay informed with product updates, company news, and insights on how
-          to sell smarter at your company.
-        </Lead>
-      </Container>
+    <>
+      <DefaultHeaderSection header={ResourcesHeader} />
       <Container className="mt-16 pb-24">
         <Aggregator 
           getItems={getResources}
@@ -56,6 +67,6 @@ export default async function Resource(
           pathName={'resources'}
         />
       </Container>
-    </main>
+    </>
   )
 }

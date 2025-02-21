@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import type React from 'react'
 import { createContext, useContext, useState } from 'react'
-import { Link } from './link'
+import { ClientLink } from '@/components/clientLink'
 
 const TableContext = createContext<{ bleed: boolean; dense: boolean; grid: boolean; striped: boolean }>({
   bleed: false,
@@ -109,7 +109,7 @@ export function TableCell({ className, children, ...props }: React.ComponentProp
       )}
     >
       {href && (
-        <Link
+        <ClientLink
           data-row-link
           href={href}
           target={target}

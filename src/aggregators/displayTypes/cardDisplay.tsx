@@ -64,9 +64,9 @@ export function CoverImageWText(
                                 <LogoTriangleLight className="h-8 text-white" />
                             </div>
                         </div>
-                        ) : (
-                            buildDefaultCoverImage(title || '', pathName)
-                        )}
+                    ) : (
+                        buildDefaultCoverImage(title || '', pathName)
+                    )}
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
             </Link>
@@ -89,7 +89,7 @@ export function CoverImageWText(
                         src={image(logo).url()}
                         className="h-[75px] max-w-[200px] bg-white object-contain"
                     />
-                )}  
+                )}
                 <div className="group relative">
                     <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                         <Link href={`/${pathName}/${slug}`}>
@@ -107,16 +107,16 @@ export function CoverImageWText(
                     </div>
                 )}
                 {author && author.profilePic && (
-                    <div className="relative mt-8 flex items-center gap-x-4">
+                    <div className="relative mt-4 flex items-center gap-x-4">
                         <img
-                        alt={`Picture of ${author.name}`}
-                        src={image(author.profilePic).width(64).height(64).url()}
-                        className="size-10 rounded-full bg-gray-100"
+                            alt={`Picture of ${author.name}`}
+                            src={image(author.profilePic).width(64).height(64).url()}
+                            className="size-10 rounded-full bg-gray-100"
                         />
-                    <div className="text-sm/6">
-                        <p className="font-normal text-gray-900">
-                            {author.name}
-                        </p>
+                        <div className="text-sm/6">
+                            <p className="font-normal text-gray-900">
+                                {author.name}
+                            </p>
                         </div>
                     </div>
                 )}

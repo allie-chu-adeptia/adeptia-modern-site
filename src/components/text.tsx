@@ -1,6 +1,14 @@
 /* eslint prefer-const: 0 */
 
 import { clsx } from 'clsx'
+import { Nokora } from 'next/font/google'
+
+// Initialize the Nokora font
+const nokora = Nokora({
+  subsets: ['khmer'],  // Required subset
+  weight: ['400', '700'],  // Available weights you want to use
+  display: 'swap',
+})
 
 type HeadingProps = {
   as?: 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -22,11 +30,12 @@ export function Heading({
       className={clsx(
         className,
         'text-pretty font-medium data-[dark=true]:text-white',
-        Element === 'h2' && 'text-gray-950',
+        Element === 'h1' && `text-7xl ${nokora.className}`,
+        Element === 'h2' && `text-gray-950 text-3xl sm:text-4xl ${nokora.className}`,
         Element !== 'h2' && 'text-gray-900',
         Element === 'h3' && 'text-xl sm:text-2xl',
         Element === 'h4' && 'text-lg sm:text-xl',
-        Element !== 'h3' && Element !== 'h4' && 'text-3xl sm:text-4xl'
+        Element === 'h5' && `text-md sm:text-lg ${nokora.className}`,
       )}
     />
   )
@@ -44,7 +53,7 @@ export function Subheading({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500 data-[dark=true]:text-gray-400',
+        '${nokora.className} text-xs/5 font-semibold uppercase tracking-widest text-gray-500 data-[dark=true]:text-gray-400',
       )}
     />
   )
@@ -60,7 +69,7 @@ export function Eyebrow({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'text-sm font-semibold uppercase tracking-wide text-gray-600 data-[dark=true]:text-gray-400'
+        'text-sm font-semibold uppercase tracking-wide text-[var(--primary-blue)] data-[dark=true]:text-gray-200'
       )}
       {...props}
     />

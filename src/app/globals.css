@@ -5,6 +5,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-gradient-light: #3C7BEF;
+  --brand-gradient-medium: #0A4ECD;
+  --brand-gradient-dark: #243AD7;
+  --brand-background-dark: #060B23;
+  --brand-background-light: #F8F7F7;
+  --brand-background-medium: #E1ECFF;
+  --primary-blue: #0A4ECD;
+  --primary-blue-darker: #062863;
+  --primary-blue-lighter: #3C7BEF;
+  --primary-blue-lightest: #E1ECFF;
 }
 
 body {
