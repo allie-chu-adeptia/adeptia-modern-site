@@ -18,11 +18,8 @@ export const Link = forwardRef(async function Link(
   ref: React.ForwardedRef<HTMLAnchorElement>,
 ) {
   let finalHref = href
-  console.log(finalHref)
 
   if (slug) {
-    console.log('Attempting to use slug')
-    // If a slug is provided, construct the full path
     const pathSegments = await getPath(slug)
     finalHref = `/${pathSegments.join('/')}`
   }

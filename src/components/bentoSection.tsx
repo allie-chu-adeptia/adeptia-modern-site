@@ -78,7 +78,7 @@ function BentoCard({
       )}
     >
       {link ?
-        <Link href={`/${link}`}>
+        <Link slug={link}>
           {graphic && (
             <img
               alt={graphic.altText || ''}
@@ -101,7 +101,7 @@ function BentoCard({
             </p>
           </div>
         </Link> :
-        <div>
+        <>
           {graphic && (
             <img
               alt={graphic.altText || ''}
@@ -120,7 +120,7 @@ function BentoCard({
               {description}
             </p>
           </div>
-        </div>
+        </>
       }
     </DarkModeWrapper >
   )

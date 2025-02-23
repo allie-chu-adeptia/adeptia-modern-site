@@ -1,7 +1,7 @@
 import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker } from "../sanity/types/sanity.types";
 import { HeaderStyle } from "../lib/headerStyle";
 import IconRender from "@/lib/iconRender";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
 import { image } from '@/sanity/image'
@@ -37,8 +37,8 @@ export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' 
     button?: {
         _id: string
         title: string
-        url: string
-        link: string
+        url?: string
+        link?: string
     }
 }
 
@@ -60,7 +60,11 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                                 {subpoint.button.title} <span aria-hidden="true">→</span>
                                 </a>
                             ) : (
-                                <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
+                                <Link 
+                                  slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
+                                  href={subpoint.button?.url ? `${subpoint.button.url}` : undefined}
+                                  className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}
+                                >
                                 {subpoint.button.title} <span aria-hidden="true">→</span>
                                 </Link>
                             )}
@@ -68,7 +72,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                     </div>
                 ) : (
                     <div key={index} className="flex flex-col">
-                        <dt className={clsx("flex items-center gap-x-3 text-base/7 font-semibold", dark ? "text-white" : "text-black")}>
+                        <dt className={clsx("flex items-center gap-x-3 text-base/7 font-semibold", dark ? "text-white" : "text-gray-800")}>
                             {subpoint.icon && <IconRender name={subpoint.icon.name} aria-hidden="true" className={clsx("size-5 flex-none", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")} />}
                             {subpoint.header}
                         </dt>
@@ -80,7 +84,11 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                                     {subpoint.button.title} <span aria-hidden="true">→</span>
                                     </a>
                                 ) : (
-                                    <Link href={`/${subpoint.button?.link}`} className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
+                                    <Link 
+                                      slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
+                                      href={subpoint.button?.url ? `${subpoint.button.url}` : undefined}
+                                      className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}
+                                    >
                                     {subpoint.button.title} <span aria-hidden="true">→</span>
                                     </Link>
                                 )}
@@ -97,7 +105,6 @@ function OffCenterImage(
     { contentSection, spacing, dark }: 
     { contentSection: ExpandedContentSection, spacing: spacing, dark: boolean }
 ) {
-    console.log("off center image")
     return (
         <div className="overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -110,14 +117,15 @@ function OffCenterImage(
                             </dl>
                             {contentSection.button && (
                                 <div className="mt-8">
-                                    <a
-                                        href={contentSection.button?.url || `/${contentSection.button?.link}`}
+                                    <Link
+                                        slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
+                                        href={contentSection.button?.url ? `${contentSection.button.url}` : undefined}
                                         className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
                                     >
                                         {contentSection.button?.title}
-                                    </a>
+                                    </Link>
                                 </div>
-                            )}l
+                            )}
                         </div>
                     </div>
                     {contentSection.image && (
@@ -166,7 +174,6 @@ function NoImage(
     { contentSection, spacing, dark }: 
     { contentSection: ExpandedContentSection, spacing: spacing, dark: boolean }
 ) {
-    console.log("no image")
 
     return (
         <div className="noImage contentSection">

@@ -61,7 +61,6 @@ export async function Aggregator({
                 filterType
             ).then(items => {
                 items.map((item: ExpandedAggregatorItem) => {
-                    console.log(item)
                     if (item._type === 'page' || item._type === 'customer') {
                         item.pathName = pathName
                     } else {

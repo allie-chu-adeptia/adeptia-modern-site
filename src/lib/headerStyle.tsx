@@ -75,7 +75,7 @@ export function HeaderStyle({
       {cta && (
         <div className="mt-8">
           {cta.map((cta, index) => (
-            <Button key={index} href={cta.link} variant={cleanString(cta.displayStyle) as 'primary' | 'secondary' | 'outline'} dark={dark}> {cta.buttonText} </Button>
+            <Button key={index} slug={cta.link} variant={cleanString(cta.displayStyle || 'primary') as 'primary' | 'secondary' | 'outline'} dark={dark}> {cta.buttonText} </Button>
           ))}
         </div>
       )}

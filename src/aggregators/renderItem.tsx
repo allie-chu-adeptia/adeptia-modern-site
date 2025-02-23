@@ -1,9 +1,12 @@
 import { ExpandedAggregatorItem } from './aggregator'
 import dayjs from 'dayjs'
 import { CoverImageWText } from './displayTypes/cardDisplay'
+import cleanString from '@/lib/cleanString'
 
 // Cleans and trims the excerpt to 200 characters
 export function excerptToHTML(excerpt: string) {
+
+  excerpt = cleanString(excerpt)
     if (!excerpt) {
       return ''
     }

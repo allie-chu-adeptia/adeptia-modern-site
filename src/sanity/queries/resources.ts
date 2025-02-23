@@ -120,7 +120,10 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
   },
   type in ["White Paper", "eBook", "Datasheet", "Infographic"] => {
     downloadFile,
-    HSForm
+    "HSForm": HSForm->{
+      formID,
+      sfdcCampaignId
+    }
   }
 }`)
 

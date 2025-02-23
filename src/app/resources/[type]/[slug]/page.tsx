@@ -11,6 +11,7 @@ import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
+import HubspotContactForm from '@/lib/hubspotContactForm'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -67,6 +68,12 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
                 <StylePortableText 
                   value={resource.body as PortableTextBlock[]} 
                   className="resource-post-content"
+                />
+              )}
+              {resource.HSForm?.formID && resource.HSForm?.sfdcCampaignId && (
+                <HubspotContactForm
+                  formID={resource.HSForm.formID}
+                  sfdcCampaignId={resource.HSForm.sfdcCampaignId}
                 />
               )}
               <div className="mt-10">

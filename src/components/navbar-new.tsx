@@ -386,7 +386,7 @@ function MobileNav() {
 
                     {/* Footer */}
                     <div className="sticky bottom-0 px-4 py-4 border-t border-white/20 bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)]">
-                        <Button variant="secondary" className="w-full" dark={true}>
+                        <Button variant="secondary" className="w-full" dark={true} href="/adeptia-connect-demo">
                             Schedule a Demo
                         </Button>
                     </div>

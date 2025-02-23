@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { Connector, Customer, HeaderStyle, Page, Resource } from "./sanity.types"
+import { Connector, Cta, Customer, Page, Resource } from "./sanity.types"
 
 export interface ExpandedAuthor {
     _id: string
@@ -40,23 +40,21 @@ export interface IconObject {
   tags: string[];
 }
 
-export interface ExpandedCta {
-  _type: 'cta'
-  _id: string
-  header?: HeaderStyle
-  campaignTitle: string
-  buttonText: string
+export interface ExpandedCta extends Omit<Cta, 'link'> {
   link: string
-  displayStyle: string
 }
 
-export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | 'category'> {
+export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | 'category' | 'HSForm'> {
   author?: ExpandedAuthor
   categories?: ExpandedCategory[]
   category?: ExpandedCategory[]
   featuredImage?: ExpandedImage
   slug: string
   pathName: string
+  HSForm?: {
+    formID: string
+    sfdcCampaignId: string
+  }
 }
 
 export interface ExpandedPage extends Omit<Page, 'category' | 'parent'> {

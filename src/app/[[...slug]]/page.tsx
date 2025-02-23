@@ -50,8 +50,6 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         null
                     ) */}
                     {block._type === 'contentSection' && (
-                        console.log("displaying content section"),
-                        console.log(block),
                         <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
                             <Container paddingLvl="md">
                                 <ContentSectionComponent contentSection={block as ExpandedContentSection} />
@@ -151,8 +149,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         if (!computedPath || computedPath !== requestedPath) {
             return notFound()
         }
-    } catch (error) {
-        console.error('Path resolution error:', { lastSlug, error })
+    } catch (err) {
+        console.log({err})
         return notFound()
     }
 
