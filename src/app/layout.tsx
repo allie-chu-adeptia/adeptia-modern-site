@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <NavbarNew />
-        {children}
-        <SpeedInsights />
-        <Footer />
-      </body>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <NavbarNew />
+          {children}
+          <SpeedInsights />
+          <Footer />
+        </body>
     </html>
   );
 }

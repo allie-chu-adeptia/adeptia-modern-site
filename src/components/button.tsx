@@ -61,7 +61,7 @@ export function Button({
   disabled = false,
   ...props
 }: ButtonProps & { dark?: boolean }) {
-  console.log("button slug", slug)
+
   className = clsx(className, variants[variant])
 
   if (typeof props.href === 'undefined') {
