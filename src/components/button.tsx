@@ -76,5 +76,5 @@ export function Button({
     return <button disabled className={className} data-dark={dark}>{props.children}</button>
   }
 
-  return <Link {...props} className={className} data-dark={dark} />
+  return <Link {...props} slug={slug} className={className} data-dark={dark} />
 }
