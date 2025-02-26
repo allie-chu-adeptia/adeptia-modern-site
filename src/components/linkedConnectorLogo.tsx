@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { ClientLink } from '@/components/clientLink'
 import { ExpandedConnector } from '@/sanity/types/local.types'
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 
 export function LinkedSubpageConnectorLogo({ connector, size }: { connector: ExpandedConnector, size: number }) {
     return (

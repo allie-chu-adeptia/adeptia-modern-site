@@ -1,7 +1,7 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
 import { Subheading, Heading } from '@/components/text'
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { getPost } from '@/sanity/queries/blog'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'

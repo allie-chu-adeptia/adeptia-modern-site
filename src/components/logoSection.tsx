@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { LogoSection } from '@/sanity/types/sanity.types'
 
 export interface ExpandedLogoSection extends Omit<LogoSection, 'logo'> {

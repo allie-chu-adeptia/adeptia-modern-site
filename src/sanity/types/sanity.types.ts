@@ -172,6 +172,17 @@ export type Content = {
   button?: Button
 }
 
+export type Redirect = {
+  _id: string
+  _type: 'redirect'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  source?: Slug
+  destination?: Slug
+  permanent?: boolean
+}
+
 export type TextSection = {
   _type: 'textSection'
   header?: HeaderStyle
@@ -948,6 +959,7 @@ export type AllSanitySchemaTypes =
   | PortableText
   | ExternalImage
   | Content
+  | Redirect
   | TextSection
   | Tag
   | Post

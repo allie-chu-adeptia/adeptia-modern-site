@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import { Subheading, Heading } from './text'
 import { BackgroundStyle, SanityImageCrop, SanityImageHotspot } from '@/sanity/types/sanity.types'
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { Link } from './link'
 import { BentoSection } from '@/sanity/types/sanity.types'
 import { HeaderStyle } from '../lib/headerStyle'

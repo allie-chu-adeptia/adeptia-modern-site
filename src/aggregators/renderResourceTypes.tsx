@@ -1,5 +1,6 @@
 
-import { Link } from '@/components/link'
+import { ClientLink } from '@/components/clientLink';
+// import { Link } from '@/components/link'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   CheckIcon,
@@ -38,25 +39,25 @@ export async function TypesFilter({
           key="types-menu"
         >
           <MenuItem key="all-types">
-            <Link
+            <ClientLink
               href={getTypeUrl()}
               data-selected={selected === undefined ? true : undefined}
               className="group grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
             >
               <CheckIcon className="hidden size-4 group-data-[selected]:block" />
               <p className="col-start-2 text-sm/6">All Types</p>
-            </Link>
+            </ClientLink>
           </MenuItem>
           {types.map((type: string) => (
             <MenuItem key={type}>
-              <Link
+              <ClientLink
                 href={getTypeUrl(type)}
                 data-selected={type === selected ? true : undefined}
                 className="group grid grid-cols-[16px,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
               >
                 <CheckIcon className="hidden size-4 group-data-[selected]:block" />
                 <p className="col-start-2 text-sm/6">{type}</p>
-              </Link>
+              </ClientLink>
             </MenuItem>
           ))}
         </MenuItems>

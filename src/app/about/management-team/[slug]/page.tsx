@@ -2,7 +2,7 @@ import { getManagementMember } from '@/sanity/queries/company'
 import { Heading, Subheading } from '@/components/text'
 import { TeamMember } from '@/sanity/types/sanity.types'
 import { PortableTextBlock } from '@portabletext/react'
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import StylePortableText from '@/components/stylePortableText'
 import cleanString from '@/lib/cleanString'
 

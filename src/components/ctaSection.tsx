@@ -2,7 +2,7 @@ import { HeaderStyle } from "@/lib/headerStyle";
 import { Button } from "@/components/button";
 import { BackgroundStyle, CtaSection } from "@/sanity/types/sanity.types";
 import clsx from 'clsx';
-import { image } from "@/sanity/image";
+import { image } from "@/sanity/lib/image";
 import { Heading } from "./text";
 import cleanString from "@/lib/cleanString";
 import { ExpandedImage } from "@/sanity/types/local.types";

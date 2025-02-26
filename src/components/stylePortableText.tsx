@@ -3,7 +3,7 @@ import {
     type PortableTextComponents,
     type PortableTextBlock,
   } from "next-sanity";
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { Link } from '@/components/link'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { buildTable } from "../lib/buildTable";

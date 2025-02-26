@@ -60,7 +60,7 @@ export default async function Resource(
           getItems={getResources}
           getItemsCount={getResourcesCount}
           getCategories={getCategories}
-          itemsPerPage={20}
+          itemsPerPage={21}
           currPage={page}
           filterCategory={category}
           filterType={type}

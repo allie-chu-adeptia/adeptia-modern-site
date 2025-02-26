@@ -1,6 +1,6 @@
 import { ExpandedCategory, ExpandedImage, ExpandedAuthor } from "@/sanity/types/local.types";
 import { CategoryChip } from "@/lib/categoryChip";
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { LogoTriangleLight } from "@/components/logo";
 import { ClientLink } from '@/components/clientLink'
 

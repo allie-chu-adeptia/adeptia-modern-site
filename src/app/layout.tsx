@@ -4,6 +4,10 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
+import { SanityLive } from "@/sanity/lib/live";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 
 
 const geistSans = Geist({
@@ -21,21 +25,28 @@ export const metadata: Metadata = {
   description: "Adeptia AI Data Exchange Platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <NavbarNew />
-          {children}
-          <SpeedInsights />
-          <Footer />
-        </body>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <NavbarNew />
+        {children}
+        <SanityLive />
+        {/* {(await draftMode()).isEnabled && (
+          <>
+            <DisableDraftMode />
+            <VisualEditing />
+          </>
+        )} */}
+        <SpeedInsights />
+        <Footer />
+      </body>
     </html>
   );
 }

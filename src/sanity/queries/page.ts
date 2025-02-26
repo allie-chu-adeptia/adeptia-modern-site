@@ -1,5 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sanityFetch } from '../client'
+import { sanityFetch } from '../lib/client'
 
 // Fetches a single page by its slug, including:
 // - Basic page info (id, title, metadata)
@@ -193,7 +193,7 @@ const RELATED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   (count($resourceTypes) == 0 || type in $resourceTypes) &&
   $category in category[]->slug.current &&
   _id != $currentPageId
-] | order(publishedAt desc)[0...3] {
+] | order(publishDate desc)[0...3] {
   _type,
   type,
   publishDate,
@@ -223,7 +223,7 @@ export async function getRelatedResources(category: string, currentPageId: strin
 const FALLBACK_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   _type == "resource"
   && (count($resourceTypes) == 0 || type in $resourceTypes)
-] | order(publishedAt desc)[0...3] {
+] | order(publishDate desc)[0...3] {
   _type,
   type,
   publishDate,

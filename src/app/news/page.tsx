@@ -47,7 +47,7 @@ export default async function NewsPage(
         <Aggregator 
           getItems={getNews}
           getItemsCount={getNewsCount}
-          itemsPerPage={20}
+          itemsPerPage={21}
           currPage={page}
           pathName="news"
         />

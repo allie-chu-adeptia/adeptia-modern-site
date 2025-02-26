@@ -1,5 +1,5 @@
 import { defineQuery } from 'next-sanity'
-import { sanityFetch } from '../client'
+import { sanityFetch } from '../lib/client'
 
 const TOTAL_RESOURCES_QUERY = defineQuery(/* groq */ `count(*[
   _type == "resource"
@@ -26,7 +26,7 @@ const RESOURCES_QUERY = defineQuery(/* groq */ `*[
   && defined(metadata.slug.current)
   && select(defined($category) => $category in category[]->slug.current, true)
   && select(defined($type) => type == $type, true)
-]|order(publishedDate asc)[$startIndex...$endIndex]{
+]|order(publishDate desc)[$startIndex...$endIndex]{
   _type,
   _id,
   type,

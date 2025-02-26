@@ -1,4 +1,4 @@
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { getManagementTeam } from '@/sanity/queries/company'
 import { TeamMember } from '@/sanity/types/sanity.types'
 import { Link } from '@/components/link'

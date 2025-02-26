@@ -43,7 +43,7 @@ function SitemapLink(props: React.ComponentPropsWithoutRef<typeof Link>) {
     <li>
       <Link
         {...props}
-        className="font-medium text-gray-950 data-[hover]:text-gray-950/75"
+        className="font-medium text-gray-800 data-[hover]:text-gray-800/75"
       />
     </li>
   )

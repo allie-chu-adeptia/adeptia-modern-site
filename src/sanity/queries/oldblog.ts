@@ -1,5 +1,5 @@
 import { defineQuery } from 'next-sanity'
-import { sanityFetch } from '../client'
+import { sanityFetch } from '../lib/client'
 
 const TOTAL_POSTS_QUERY = defineQuery(/* groq */ `count(*[
   _type == "post"

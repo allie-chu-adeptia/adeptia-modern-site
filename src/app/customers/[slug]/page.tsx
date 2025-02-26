@@ -1,7 +1,7 @@
 import { Button } from "@/components/button";
 import { LinkedHomepageConnectorLogo } from "@/components/linkedConnectorLogo";
 import StylePortableText from "@/components/stylePortableText";
-import { image } from "@/sanity/image";
+import { image } from "@/sanity/lib/image";
 import { getCustomer } from "@/sanity/queries/customer"
 import { ExpandedCustomer } from "@/sanity/types/local.types";
 import { PortableTextBlock } from "@portabletext/react";

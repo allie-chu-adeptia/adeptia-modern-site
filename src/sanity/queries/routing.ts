@@ -1,4 +1,4 @@
-import { client } from '../client'
+import { client, sanityFetch } from '../lib/client'
 
 export interface RouteInfo {
     _id: string

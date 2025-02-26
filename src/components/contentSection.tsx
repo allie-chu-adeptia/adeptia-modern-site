@@ -4,7 +4,7 @@ import IconRender from "@/lib/iconRender";
 import { Link } from "@/components/link";
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 
 type spacing = 'tight' | 'loose'
 

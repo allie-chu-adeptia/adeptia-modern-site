@@ -2,7 +2,7 @@ import { getCategories, getConnectors } from "@/sanity/queries/connectors"
 import { Container } from '@/components/container'
 import { HeaderStyle as HeaderStyleType } from "@/sanity/types/sanity.types"
 import { DefaultHeaderSection } from "@/components/headerSection"
-import { image } from '@/sanity/image'
+import { image } from '@/sanity/lib/image'
 import { LinkedSubpageConnectorLogo } from '@/components/linkedConnectorLogo'
 import { CategoriesFilter } from "@/aggregators/renderCategories"
 import { ExpandedConnector } from '@/sanity/types/local.types'

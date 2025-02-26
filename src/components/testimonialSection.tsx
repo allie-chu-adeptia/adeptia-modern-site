@@ -1,5 +1,5 @@
 import { Testimonial as TestimonialType, TestimonialSection } from "@/sanity/types/sanity.types";
-import { image } from "@/sanity/image";
+import { image } from "@/sanity/lib/image";
 import cleanString from "@/lib/cleanString";
 
 interface Testimonial extends Omit<TestimonialType, 'picture' | 'companyLogo'> {

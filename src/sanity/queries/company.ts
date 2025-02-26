@@ -1,5 +1,5 @@
 import { defineQuery } from 'next-sanity'
-import { sanityFetch } from '../client'  
+import { sanityFetch } from '../lib/client' 
 
 const MANAGEMENT_TEAM_QUERY = defineQuery(/* groq */ `
   *[_type == "teamMember" && displayInManagement == true] {

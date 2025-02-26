@@ -1,5 +1,5 @@
 import { defineQuery } from 'next-sanity'
-import { sanityFetch } from '../client'
+import { sanityFetch } from '../lib/client'
 
 const TOTAL_NEWS_QUERY = defineQuery(/* groq */ `count(*[
   _type == "resource"
@@ -18,7 +18,7 @@ const NEWS_QUERY = defineQuery(/* groq */ `*[
   _type == "resource"
   && (type == "News")
   && defined(metadata.slug.current)
-]|order(publishedDate desc)[$startIndex...$endIndex]{
+]|order(publishDate desc)[$startIndex...$endIndex]{
   _type,
   _id,
   type,
