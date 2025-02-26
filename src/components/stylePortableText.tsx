@@ -134,6 +134,7 @@ export default function StylePortableText({
               return (
                 <Link
                   slug={slug || ''}
+                  href={''}
                   className="font-medium text-[var(--primary-blue)] hover:text-[var(--primary-blue-darker)]"
                 >
                   {children}

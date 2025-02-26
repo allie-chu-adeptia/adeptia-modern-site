@@ -24,7 +24,7 @@ export function LogoSectionComponent({
     <div
       className={clsx(
         className,
-        'flex justify-between max-sm:mx-auto max-sm:max-w-md max-sm:flex-wrap max-sm:justify-evenly max-sm:gap-x-4 max-sm:gap-y-4',
+        "mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5",
       )}
     >
       {logoSection.logo?.map((logo, index) => (
@@ -32,7 +32,7 @@ export function LogoSectionComponent({
           key={`logo-${index}`}
           alt={logo.altText || `Partner logo ${index + 1}`}
           src={image(logo).url()}
-          className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
+          className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
         />
       ))}
     </div>

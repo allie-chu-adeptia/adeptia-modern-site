@@ -40,12 +40,14 @@ export function StatSectionComponent({
 }: {
     statSection: StatSection
 }) {
+  const num_stats = statSection.stats?.length
+
   return (
     <DarkModeWrapper style={statSection.background}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <HeaderStyle header={statSection.header} style={statSection.background} />
-          <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+          <dl className={`mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-${num_stats}`}>
             {statSection.stats?.map((stat, index) => (
               <DarkModeWrapper 
                 key={index}
@@ -54,13 +56,13 @@ export function StatSectionComponent({
               >
                 <DarkModeWrapper
                   style={statSection.background}
-                  className={clsx("text-sm/6 font-semibold text-gray-600 data-[dark=true]:text-gray-300")}
+                  className={clsx("text-sm/2 font-regular text-gray-600 data-[dark=true]:text-gray-300 mt-2")}
                 >
                   {stat.statName}
                 </DarkModeWrapper>
                 <DarkModeWrapper
                   style={statSection.background} 
-                  className={clsx("order-first text-4xl font-semibold tracking-tight text-gray-900 data-[dark=true]:text-white")}
+                  className={clsx("order-first text-4xl font-semibold tracking-tight line-height-1 text-gray-900 data-[dark=true]:text-white")}
                 >
                   {stat.leadingUnit}
                   <ClimbingNumber numValue={stat.statValue as number} decimals={0} />

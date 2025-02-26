@@ -1,6 +1,6 @@
 import { Button } from '@/components/button'
 import { Container } from '@/components/container'
-import { Eyebrow, Heading } from '@/components/text'
+import { Subheading, Heading } from '@/components/text'
 import { image } from '@/sanity/image'
 import { getPost } from '@/sanity/queries/blog'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
@@ -32,14 +32,14 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
   return (
     <main className="overflow-hidden">
       <Container>
-        <Eyebrow className="mt-16">
-          {dayjs(post.publishDate).format('dddd, MMMM D, YYYY')}
-        </Eyebrow>
-        <Heading as="h2" className="mt-2">
+        <Heading as="h2" className="mt-16">
           {post.title}
         </Heading>
         <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
           <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
+            <Subheading className="text-gray-500">
+              {dayjs(post.publishDate).format('dddd, MMMM D, YYYY')}
+            </Subheading>
             {post.author && (
               <div className="flex items-center gap-3">
                 {post.author.profilePic && (
@@ -66,8 +66,8 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
                 />
               )}
               {post.body && (
-                <StylePortableText 
-                  value={post.body as PortableTextBlock[]} 
+                <StylePortableText
+                  value={post.body as PortableTextBlock[]}
                   className="blog-post-content"
                 />
               )}

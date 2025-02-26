@@ -78,7 +78,7 @@ function BentoCard({
       )}
     >
       {link ?
-        <Link slug={link}>
+        <Link slug={link} href={''}>
           {graphic && (
             <img
               alt={graphic.altText || ''}

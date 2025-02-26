@@ -150,7 +150,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             return notFound()
         }
     } catch (err) {
-        console.log({err})
+        console.log({ err })
         return notFound()
     }
 

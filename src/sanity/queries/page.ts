@@ -128,11 +128,12 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           _id,
           title,
           url,
-          "link": pageReference->metadata.slug.current
+          "link": link->metadata.slug.current
         },
         styleAndLayout {
           layout,
-          background
+          background,
+          orientation
         },
         subPoints[] {
           icon,

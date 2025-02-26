@@ -4,9 +4,9 @@ import { join } from "path"
 
 // Recursively builds an array of slugs representing the path from root to current page
 export async function getPath(slug: string): Promise<string[]> {
-    console.log('slug', slug)
+    // console.log('slug', slug)
     const routeInfo = await getRouteInfo(slug)
-    console.log('routeInfo', routeInfo)
+    // console.log('routeInfo', routeInfo)
 
     if (!routeInfo || !routeInfo.metadata) {
         console.error("Failed to fetch page info for slug:", slug)

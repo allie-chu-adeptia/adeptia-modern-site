@@ -19,13 +19,13 @@ export function Container({
   } else if (paddingLvl == 'sm') {
     padding = 'py-4 sm:py-8'
   } else if (paddingLvl == 'md') {
-    padding = 'py-8 sm:py-16'
+    padding = 'py-[96px]'
   } else if (paddingLvl == 'lg') {
-    padding = 'py-12 sm:py-24'
+    padding = 'py-[128px] sm:py-24'
   }
   return (
     <div className={clsx(className, padding)}>
-      <div className="mx-auto max-w-2xl lg:max-w-7xl">{children}</div>
+      <div className="mx-auto max-w-2xl px-4 lg:max-w-7xl">{children}</div>
     </div>
   )
 }

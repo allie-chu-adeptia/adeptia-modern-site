@@ -18,7 +18,7 @@ import { ChevronLeftIcon } from '@heroicons/react/16/solid'
       <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            <div className="lg:sticky lg:top-4 lg:pr-4">
+            <div className="lg:sticky lg:top-28 lg:pr-4">
               <div className="relative overflow-hidden rounded-3xl bg-gray-200 px-6 pb-8 pt-8 shadow-lg sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
                 {customer.logo && (
                     <img

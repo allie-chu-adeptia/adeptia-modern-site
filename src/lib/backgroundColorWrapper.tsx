@@ -12,7 +12,7 @@ export function BackgroundColor({
     className?: string
 }) {
     const backgroundColors = {
-        'light': 'bg-brand-backgroundLight',
+        'light': 'bg-white',
         'medium': 'bg-brand-backgroundMedium',
         'dark': 'bg-brand-backgroundDark',
         'dark-accent': 'bg-gradient-to-r from-brand-gradientDark via-brand-gradientMedium to-brand-gradientLight',

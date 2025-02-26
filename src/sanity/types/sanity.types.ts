@@ -838,6 +838,12 @@ export type Button = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'resource'
       }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'customer'
+      }
 }
 
 export type Metadata = {

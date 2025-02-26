@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
-import { CheckIcon, MinusIcon, PlusIcon } from '@heroicons/react/16/solid'
+import { CheckIcon, MinusIcon } from '@heroicons/react/16/solid'
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { Eyebrow } from '@/components/text'
 import { Button } from '@/components/button'
@@ -9,10 +10,10 @@ import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 
 const tiers = [
   {
-    name: 'Starter',
+    name: 'Professional',
     description: 'Everything you need to get started.',
-    priceMonthly: '$19',
-    href: '#',
+    // priceMonthly: '$19',
+    href: '/about/contact-us',
     highlights: [
       { description: 'Custom domains' },
       { description: 'Edge content delivery' },
@@ -23,10 +24,10 @@ const tiers = [
     ],
   },
   {
-    name: 'Growth',
-    description: 'All the extras for your growing team.',
-    priceMonthly: '$49',
-    href: '#',
+    name: 'Premier',
+    description: 'Everything in Professional, plus expanded features to scale.',
+    // priceMonthly: '$49',
+    href: '/about/contact-us',
     highlights: [
       { description: 'Custom domains' },
       { description: 'Edge content delivery' },
@@ -37,10 +38,10 @@ const tiers = [
     ],
   },
   {
-    name: 'Scale',
-    description: 'Added flexibility at scale.',
-    priceMonthly: '$99',
-    href: '#',
+    name: 'Enterprise',
+    description: 'Built for ultimate flexibility and scalability.',
+    // priceMonthly: '$99',
+    href: '/about/contact-us',
     highlights: [
       { description: 'Custom domains' },
       { description: 'Edge content delivery' },
@@ -55,28 +56,37 @@ const sections = [
   {
     name: 'Features',
     features: [
-      { name: 'Edge content delivery', tiers: { Starter: true, Growth: true, Scale: true } },
-      { name: 'Custom domains', tiers: { Starter: '1', Growth: '3', Scale: 'Unlimited' } },
-      { name: 'Team members', tiers: { Starter: '3', Growth: '20', Scale: 'Unlimited' } },
-      { name: 'Single sign-on (SSO)', tiers: { Starter: false, Growth: false, Scale: true } },
+      { name: 'No-Code Automation Wizard', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Marketplace, Connectors and Pre-Built Automations', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'AI Mapping', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'AI Docs (Intelligent Document Processing)', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'EDI Capabilities', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Alerts & Notifications', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Dashboards & Logs', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Usage Reporting', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'VPN In Adeptia\'s Cloud', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
+      { name: 'External Identity Management / SSO', tiers: { Professional: false, Premier: false, Enterprise: true } },
+      { name: 'External App Credentials / Secrets Management', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'High Availability with Microservices', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
+      { name: 'Run-Time Isolation to Meet SLAs', tiers: { Professional: false, Premier: false, Enterprise: true } },
+      { name: 'Non-US Region Availability', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
     ],
   },
   {
-    name: 'Reporting',
+    name: 'Deployment',
     features: [
-      { name: 'Advanced analytics', tiers: { Starter: true, Growth: true, Scale: true } },
-      { name: 'Basic reports', tiers: { Starter: false, Growth: true, Scale: true } },
-      { name: 'Professional reports', tiers: { Starter: false, Growth: false, Scale: true } },
-      { name: 'Custom report builder', tiers: { Starter: false, Growth: false, Scale: true } },
+      { name: 'Multi Tenant', tiers: { Professional: true, Premier: false, Enterprise: false } },
+      { name: 'Adeptia Cloud Hosted', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'On Premise', tiers: { Professional: false, Premier: true, Enterprise: true } },
     ],
   },
   {
-    name: 'Support',
+    name: 'Services',
     features: [
-      { name: '24/7 online support', tiers: { Starter: true, Growth: true, Scale: true } },
-      { name: 'Quarterly workshops', tiers: { Starter: false, Growth: true, Scale: true } },
-      { name: 'Priority phone support', tiers: { Starter: false, Growth: false, Scale: true } },
-      { name: '1:1 onboarding tour', tiers: { Starter: false, Growth: false, Scale: true } },
+      { name: 'Product Support', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Implementation Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
+      { name: 'Managed Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
+      { name: 'Infrastructure Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
     ],
   },
 ]
@@ -92,12 +102,13 @@ export const metadata: Metadata = {
 
 const PricingPageHeader: HeaderStyleType = {
   _type: "headerStyle",
-  header: "Pricing",
-  subheader: "Pricing for Adeptia Connect.",
+  header: "Choose the Right Plan for your Business",
+  subheader: "Adeptia offers three pricing plans to fit the needs of your business.",
   layout: "left-aligned",
 }
 
 export default function Example() {
+
   return (
     <>
       <DefaultHeaderSection header={PricingPageHeader} />
@@ -116,24 +127,24 @@ export default function Example() {
                       <Eyebrow>
                         {tier.name} <span className="sr-only">plan</span>
                       </Eyebrow>
-                      <p className="mt-2 text-pretty text-sm/6 text-gray-600">{tier.description}</p>
-                      <div className="mt-8 flex items-center gap-4">
+                      <p className="mt-2 text-pretty text-md text-gray-600">{tier.description}</p>
+                      {/* <div className="mt-8 flex items-center gap-4">
                         <div className="text-5xl font-semibold text-gray-950">{tier.priceMonthly}</div>
                         <div className="text-sm text-gray-600">
                           <p>USD</p>
                           <p>per month</p>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="mt-8">
                         <Button
                           href={tier.href}
                           variant="primary"
-                          aria-label={`Start a free trial on the ${tier.name} plan`}
+                          aria-label={`Contact us to discuss the ${tier.name} plan`}
                         >
-                          Start a free trial
+                          Contact Us
                         </Button>
                       </div>
-                      <div className="mt-8">
+                      {/* <div className="mt-8">
                         <h3 className="text-sm/6 font-medium text-gray-950">Start selling with:</h3>
                         <ul className="mt-3 space-y-3">
                           {tier.highlights.map((highlight) => (
@@ -153,7 +164,7 @@ export default function Example() {
                             </li>
                           ))}
                         </ul>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -202,24 +213,10 @@ export default function Example() {
                 <td className="p-0" />
                 {tiers.map((tier) => (
                   <th key={tier.name} scope="col" className="p-0">
-                    <div className="text-sm font-semibold text-[var(--primary-blue)]">
-                      {tier.name} <span className="sr-only">plan</span>
-                    </div>
+                    <Eyebrow>
+                      {tier.name}
+                    </Eyebrow>
                   </th>
-                ))}
-              </tr>
-              <tr>
-                <th className="p-0" />
-                {tiers.map((tier) => (
-                  <td key={tier.name} className="px-0 pb-0 pt-3">
-                    <Button
-                      href={tier.href}
-                      variant="secondary"
-                      aria-label={`Get started with the ${tier.name} plan`}
-                    >
-                      Get started
-                    </Button>
-                  </td>
                 ))}
               </tr>
             </thead>
@@ -242,7 +239,11 @@ export default function Example() {
                         {typeof feature.tiers[tier.name as keyof typeof feature.tiers] === 'string' ? (
                           <>
                             <span className="sr-only">{tier.name} includes:</span>
-                            <span className="text-sm/6 text-gray-950">{feature.tiers[tier.name as keyof typeof feature.tiers]}</span>
+                            {feature.tiers[tier.name as keyof typeof feature.tiers] === '$' ? (
+                              <CurrencyDollarIcon aria-hidden="true" className="inline-block size-4 text-gray-600" />
+                            ) : (
+                              <span className="text-sm/6 text-gray-600">{feature.tiers[tier.name as keyof typeof feature.tiers]}</span>
+                            )}
                           </>
                         ) : (
                           <>

@@ -7,9 +7,9 @@ export function CategoryChip({ categories, pathName }: { categories?: ExpandedCa
         console.log("category pathname", pathName),
         Array.isArray(categories) && (
             <div className="flex flex-wrap gap-2">
-                {categories.map((category: ExpandedCategory) => (
+                {categories.map((category: ExpandedCategory, index: number) => (
                     <Link
-                        key={category._id}
+                        key={index}
                         href={`?category=${category.slug}`}
                         className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                     >

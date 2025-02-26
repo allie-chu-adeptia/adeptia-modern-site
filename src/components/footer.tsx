@@ -55,16 +55,22 @@ function Sitemap() {
       <div>
         <SitemapHeading>Platform</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">How it Works</SitemapLink>
-          <SitemapLink href="#">Why Adeptia Connect</SitemapLink>
+          <SitemapLink href="/products/how-it-works">How it Works</SitemapLink>
+          <SitemapLink href="/products/why-adeptia-connect">Why Adeptia Connect</SitemapLink>
+        </SitemapLinks>
+        <SitemapHeading className="mt-8">Connection</SitemapHeading>
+        <SitemapLinks>
+          <SitemapLink href="/products/connect">Connect</SitemapLink>
+          <SitemapLink href="/connectors">App Connectors</SitemapLink>
         </SitemapLinks>
         <SitemapHeading className="mt-8">Capabilities</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">Connections</SitemapLink>
-          <SitemapLink href="#">AI Processing</SitemapLink>
-          <SitemapLink href="#">AI Alignment</SitemapLink>
-          <SitemapLink href="#">AI Management</SitemapLink>
-          <SitemapLink href="#">Enterprise Grade</SitemapLink>
+          <SitemapLink href="/products/artificial-intelligence-mapping">AI Data Mapping</SitemapLink>
+          <SitemapLink href="/products/pre-built-automations">Pre-Built Automations</SitemapLink>
+          <SitemapLink href="/products/artificial-intelligence-mapping">AI Business Rules</SitemapLink>
+          <SitemapLink href="/products/idp">Intelligent Document Processing</SitemapLink>
+          <SitemapLink href="/products/no-code-automation-builder">No-Code Automation Builder</SitemapLink>
+          <SitemapLink href="/products/manage-and-monitor">Manage and Monitor</SitemapLink>
         </SitemapLinks>
       </div>
       <div>
@@ -192,7 +198,7 @@ export function Footer() {
   return (
     <footer>
       <Gradient className="relative">
-        <div className="absolute inset-3 rounded-xl bg-white/80" />
+        <div className="absolute inset-3 rounded-xl bg-[var(--brand-background-medium)]" />
         <Container>
           {/* <CallToAction /> */}
           <PlusGrid className="pt-16 pb-16">
@@ -203,7 +209,7 @@ export function Footer() {
                     <Logo className="h-9" />
                   </PlusGridItem>
                 </div>
-                <div className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6">
+                <div className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6 px-2">
                   <Sitemap />
                 </div>
               </div>

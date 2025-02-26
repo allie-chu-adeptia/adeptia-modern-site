@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const ConnectorsPageHeader: HeaderStyleType = {
     _type: "headerStyle",
     header: "Application Connectors",
-    subheader: "Connect with your business partners in minutes",
+    subheader: "Our pre-built connectors help you integrate applications and connect to your ecosystem of partners and customers in minutes.",
     layout: "left-aligned",
 }
 

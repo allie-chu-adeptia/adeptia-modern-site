@@ -3,8 +3,6 @@ import { Heading } from "../components/text"
 import { BackgroundStyle } from "@/sanity/types/sanity.types"
 import cleanString from "./cleanString"
 import clsx from "clsx"
-import { ExpandedCta } from "@/sanity/types/local.types"
-import { Button } from "@/components/button"
 
 export interface HeaderStyleProps {
   header?: {
@@ -15,7 +13,6 @@ export interface HeaderStyleProps {
     anchorID?: string
   }
   style?: BackgroundStyle
-  cta?: ExpandedCta[]
   level?: number,
   className?: string
 }
@@ -28,7 +25,6 @@ const lightBackground: BackgroundStyle = {
 export function HeaderStyle({
   header,
   style = lightBackground,
-  cta,
   level = 2,
   className
 }: HeaderStyleProps) {
@@ -49,14 +45,14 @@ export function HeaderStyle({
 
   return (
     <div className={clsx(
-      'w-full px-1',
+      'w-full px-1 scroll-mt-32 lg:scroll-mt-[40vh]',
       textContainerAlignment[header?.layout || 'centered'],
       className
     )} id={header?.anchorID ? `id-${cleanString(header?.anchorID).toLowerCase().replace(/\s+/g, '-')}` : ''}>
       <div className={`${textAlignment[header?.layout || 'centered']}`}>
-        <Eyebrow dark={dark}>
+        {header?.eyebrow && <Eyebrow dark={dark}>
           {header?.eyebrow}
-        </Eyebrow>
+        </Eyebrow>}
         <Heading
           as={level == 1 ? "h1" : "h2"}
           dark={dark}
@@ -64,21 +60,14 @@ export function HeaderStyle({
         >
           {header?.header}
         </Heading>
-        <Heading
-          as="h3"
+        {header?.subheader && <Heading
+          as={level != 3 ? "h3" : "h4"}
           dark={dark}
           className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
         >
           {header?.subheader}
-        </Heading>
+        </Heading>}
       </div>
-      {cta && (
-        <div className="mt-8">
-          {cta.map((cta, index) => (
-            <Button key={index} slug={cta.link} variant={cleanString(cta.displayStyle || 'primary') as 'primary' | 'secondary' | 'outline'} dark={dark}> {cta.buttonText} </Button>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

@@ -122,7 +122,7 @@ const POST_QUERY = defineQuery(/* groq */ `*[
   && type == "Blog"
   && metadata.slug.current == $slug
 ][0]{
-  date,
+  publishDate,
   title,
   "featuredImage": featuredImage{
     ...,

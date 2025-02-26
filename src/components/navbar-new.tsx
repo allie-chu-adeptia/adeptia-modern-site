@@ -44,33 +44,34 @@ const PlatformMenu: TopLevelMenu = {
         },
         {
             name: 'Connection', items: [
-                { name: 'API', href: '/solutions/use-case/api-integration' },
-                { name: 'EDI', href: '/solutions/use-case/edi-software-integration' },
-                { name: 'ETL/ELT', href: '/solutions/use-case/etl-integration' },
-                { name: 'iPaaS', href: '#' },
-                { name: 'Files', href: '#' },
+                { name: 'API', href: '/products/connect/#id-api' },
+                { name: 'EDI', href: '/products/connect/#id-edi' },
+                { name: 'ETL/ELT', href: '/products/connect/#id-etl' },
+                { name: 'iPaaS', href: '/products/connect/#id-ipaas' },
+                { name: 'Files', href: '/products/connect/#id-files' },
                 { name: 'App Connectors', href: '/connectors' },
             ]
         },
         {
             name: 'Mapping & Alignment', items: [
                 { name: 'AI Data Mapping', href: '/products/artificial-intelligence-mapping' },
-                { name: 'Pre-Built Automations', href: '#' },
-                { name: 'Agentic Connectors', href: '#' },
+                { name: 'Pre-Built Automations', href: '/products/pre-built-automations' },
+                // { name: 'Agentic Connectors', href: '#' },
             ]
         },
         {
             name: 'Workflows & Orchestration', items: [
                 { name: 'AI Business Rules', href: '/products/ai-business-rules' },
                 { name: 'Intelligent Document Processing', href: '/products/idp' },
-                { name: 'No-Code Automation Builder', href: '#' },
+                { name: 'No-Code Automation Builder', href: '/products/no-code-automation-builder' },
             ]
         },
         {
             name: 'Monitoring & Management', items: [
-                { name: 'Custom Notifications', href: '#' },
-                { name: 'Error Monitoring and RCA', href: '#' },
-                { name: 'Data Observability', href: '#' },
+                { name: 'Custom Notifications', href: '/products/manage-and-monitor/#id-custom-notifications' },
+                { name: 'Error Monitoring and RCA', href: '/products/manage-and-monitor/#id-error-monitoring-rca' },
+                { name: 'Data Observability', href: '/products/manage-and-monitor/#id-observability' },
+                { name: 'Audit Trail', href: '/products/manage-and-monitor/#id-audit-trail' },
             ]
         },
     ]
@@ -89,17 +90,17 @@ const SolutionsMenu: TopLevelMenu = {
         },
         {
             name: 'By Initiative', items: [
-                { name: 'Digital Transformation', href: '#' },
-                { name: 'Business Process Automation', href: '#' },
-                { name: 'AI Data Readiness', href: '#' },
-                { name: 'First Mile Data Problems', href: '#' },
+                { name: 'Digital Transformation', href: '/solutions/by-initiative#id-digital-transformation' },
+                { name: 'Business Process Automation', href: '/solutions/by-initiative#id-business-process-automation' },
+                { name: 'AI Data Readiness', href: '/solutions/by-initiative#id-ai-data-readiness' },
+                // { name: 'First Mile Data Problems', href: '/solutions/by-initiative#id-first-mile-data-problems' },
             ]
         },
         {
             name: 'By Capability', items: [
                 { name: 'Intelligent Document Processing', href: '/products/idp' },
                 { name: 'AI Data Mapping', href: '/products/artificial-intelligence-mapping' },
-                { name: 'Low-Code Integration and Automations', href: '#' },
+                { name: 'No-Code Integration and Automations', href: '/products/no-code-automation-builder' },
             ]
         },
         {
@@ -756,7 +757,7 @@ export function NavbarNew() {
                             />
                         </div>
                     </div>
-                    <Button className="hidden lg:block" variant="secondary" dark={true} href="/adeptia-connect-demo">Schedule a Demo</Button>
+                    <Button className="hidden lg:block" variant="primary" dark={true} href="/adeptia-connect-demo">Schedule a Demo</Button>
                     <MobileNavButton />
                 </div>
                 <MobileNav />

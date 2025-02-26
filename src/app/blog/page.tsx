@@ -55,7 +55,7 @@ export default async function Blog(
           getItemsCount={getPostsCount}
           getCategories={getCategories}
           // getFeaturedItems={getFeaturedPosts}
-          itemsPerPage={20}
+          itemsPerPage={21}
           currPage={page}
           filterCategory={category}
           pathName="blog"

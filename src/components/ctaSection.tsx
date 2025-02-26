@@ -40,14 +40,14 @@ const darkBackground: BackgroundStyle = {
 function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   console.log("displaying left aligned cta section")
   return (
-    <BackgroundColor color={darkBackground} className="relative isolate overflow-hidden px-6 shadow-2xl sm:rounded-3xl sm:px-16">
-      <div className="px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+    <BackgroundColor color={darkBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
+      <div className="px-6 pt-16 shadow-2xl rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
         <div className={clsx(
           "mx-auto max-w-md lg:mx-0 lg:flex-auto lg:py-32",
           textAlignment[ctaSection.cta?.[0]?.header?.layout || 'centered']
         )}>
           <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkBackground} />
-          <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+          <div className="mt-10 flex items-center justify-center gap-x-3 lg:justify-start">
             {ctaSection.cta?.map((cta, index) => (
               <Button
                 key={cta._id}
@@ -77,11 +77,11 @@ function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection 
 function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   console.log("displaying centered cta section")
   return (
-    <BackgroundColor color={darkAccentBackground} className="relative isolate overflow-hidden px-6 shadow-2xl sm:rounded-3xl sm:px-16">
+    <BackgroundColor color={darkAccentBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkAccentBackground} />
-          <div className="mt-10 flex items-center justify-center gap-x-6">
+          <div className="mt-10 flex items-center justify-center gap-x-3">
             {ctaSection.cta?.map((cta, index) => (
               <Button
                 key={cta._id}
@@ -104,7 +104,7 @@ function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) 
 function SplitCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   console.log("displaying split cta section")
   return (
-    <BackgroundColor color={lightBackground} className="relative isolate overflow-hidden px-6 shadow-2xl sm:rounded-3xl sm:px-16">
+    <BackgroundColor color={lightBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
         <div className="flex flex-col gap-4">
           <Heading as="h1">
@@ -114,7 +114,7 @@ function SplitCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
             {ctaSection.cta?.[0]?.header?.subheader}
           </Heading>
         </div>
-        <div className="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+        <div className="mt-10 flex items-center gap-x-3 lg:mt-0 lg:shrink-0">
           {ctaSection.cta?.map((cta, index) => (
             <Button
               key={cta._id}

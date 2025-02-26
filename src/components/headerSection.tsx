@@ -10,6 +10,8 @@ import { BackgroundStyle } from "@/sanity/types/sanity.types";
 import { BackgroundColor } from "@/lib/backgroundColorWrapper";
 import { BackgroundMotion } from "@/lib/backgroundMotion";
 import { Container } from "@/components/container";
+import { Button } from "@/components/button"
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 export interface ExpandedHeaderSection extends Omit<HeaderSection, 'cta'> {
     cta?: ExpandedCta[]
@@ -28,11 +30,26 @@ export function DefaultHeaderSection({
         _type: "headerSection",
         header: header
     }
+
     return (
         <BackgroundColor color={background} className="relative overflow-hidden">
             <div className="relative z-10">
                 <Container paddingLvl="sm">
                     <HeaderSectionComponent headerSection={headerSection} />
+                    <div className="mt-10 flex items-center justify-center gap-x-3">
+                        {headerSection.cta?.map((cta, index) => (
+                            <Button
+                                key={cta._id}
+                                slug={cta.link}
+                                href={""}
+                                variant={index === 0 ? "primary" : "tertiary"}
+                                dark={false}
+                            >
+                                {cta.buttonText}
+                                {index != 0 && <ChevronRightIcon className="size-4 transform translate-x-1 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />}
+                            </Button>
+                        ))}
+                    </div>
                 </Container>
             </div>
             <BackgroundMotion color={background} />
@@ -44,9 +61,31 @@ export function HeaderSectionComponent({ headerSection }: { headerSection: Expan
     const cleanStyle = cleanString(headerSection.background?.style || '')
     const dark = cleanStyle === 'dark' || cleanStyle === 'dark-accent' ? true : false
 
+    if (headerSection.cta && headerSection.cta.length > 0) {
+        console.log("headerSection.cta", headerSection.cta)
+        console.log("headerSection.length", headerSection.cta.length)
+    }
+
+    const alignment = headerSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
+    console.log("alignment", alignment)
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-96">
-            <HeaderStyle header={headerSection.header} style={headerSection.background} cta={headerSection.cta} level={1} />
+        <div className={`flex flex-col items-center justify-center min-h-96`}>
+            <HeaderStyle header={headerSection.header} style={headerSection.background} level={1} />
+            <div className={`mt-10 w-full flex ${alignment} gap-x-3`}>
+                {headerSection.cta?.map((cta, index) => (
+                    <Button
+                        key={cta._id}
+                        slug={cta.link}
+                        href={""}
+                        variant={index === 0 ? "primary" : "tertiary"}
+                        dark={dark}
+                    >
+                        {cta.buttonText}
+                        {index != 0 && <ChevronRightIcon className="size-4 transform translate-x-1 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />}
+                    </Button>
+                ))}
+            </div>
             {headerSection.content && (
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
                     {headerSection.content?.map((card, index) => (
