@@ -155,20 +155,3 @@ const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
     })
   }
 
-  // Fetches all pages for sitemap generation
-const ALL_RESOURCES_QUERY = defineQuery(/* groq */ `*[_type == "resource"] {
-  _id,
-  metadata {
-    slug {
-      current
-    }
-  },
-  _updatedAt,
-  "slug": metadata.slug.current
-}`)
-
-export async function getAllResources() {
-  return await sanityFetch({
-    query: ALL_RESOURCES_QUERY
-  })
-}

@@ -277,21 +277,3 @@ export async function getPath(lastSlug: string) {
     params: { lastSlug }
   })
 }
-
-// Fetches all pages for sitemap generation
-const ALL_PAGES_QUERY = defineQuery(/* groq */ `*[_type == "page"] {
-  _id,
-  metadata {
-    slug {
-      current
-    }
-  },
-  _updatedAt,
-  "slug": metadata.slug.current
-}`)
-
-export async function getAllPages() {
-  return await sanityFetch({
-    query: ALL_PAGES_QUERY
-  })
-}

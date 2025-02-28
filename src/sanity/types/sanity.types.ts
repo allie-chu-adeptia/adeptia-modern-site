@@ -178,8 +178,8 @@ export type Redirect = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  source?: Slug
-  destination?: Slug
+  source?: string
+  destination?: string
   permanent?: boolean
 }
 

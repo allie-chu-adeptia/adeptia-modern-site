@@ -6,7 +6,7 @@ const client = createClient({
   projectId,
   dataset,
   useCdn: true,
-  apiVersion: 'vX', // Target the experimental API version
+  apiVersion: "2025-02-26",
   stega: {studioUrl: '/studio'},
 })
 

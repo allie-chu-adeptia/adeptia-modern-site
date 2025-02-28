@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     const redirects = await client.fetch(
       `*[_type == "redirect"]{
-        "source":source.current, 
-        "destination":destination.current, 
+        "source":source, 
+        "destination":destination, 
         permanent
       }`,
     );
