@@ -2,7 +2,7 @@ import { getAllBlogs } from '@/sanity/queries/sitemap'
 import { getServerSideSitemap } from 'next-sitemap'
 import { ExpandedPost } from '@/sanity/types/local.types'
 
-export async function GET(request: Request) {
+export async function GET() {
     const baseUrl = 'https://www.adeptia.com'
     const blogs = await getAllBlogs()
 

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 // Sanity types and queries
 import { getPage } from '@/sanity/queries/page'
-import type { Page, TextSection, Faq, StatSection, BackgroundStyle } from '@/sanity/types/sanity.types'
+import type { Page, TextSection, Faq, StatSection, BackgroundStyle, ContentSectionCarousel } from '@/sanity/types/sanity.types'
 import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types"
 
 // Components
@@ -12,6 +12,7 @@ import { FaqComponent } from '@/components/faq'
 import TextSectionComponent from '@/components/textSection'
 import { RelatedResourceSection } from '@/components/relatedResourceSection'
 import { StatSectionComponent } from '@/components/statSection'
+import { ContentSectionCarouselComponent } from '@/components/contentSectionCarousel'
 
 // Section Components with their types
 import { ExpandedBentoSection, BentoSectionComponent } from '@/components/bentoSection'
@@ -111,6 +112,11 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     {block._type === 'testimonialSection' && (
                         <Container paddingLvl="md">
                             <TestimonialSectionComponent testimonialSection={block as ExpandedTestimonialSection} />
+                        </Container>
+                    )}
+                    {block._type === 'contentSectionCarousel' && (
+                        <Container paddingLvl="md">
+                            <ContentSectionCarouselComponent contentSectionCarousel={block as ContentSectionCarousel    } />
                         </Container>
                     )}
                 </div>

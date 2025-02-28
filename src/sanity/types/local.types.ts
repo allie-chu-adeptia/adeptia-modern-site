@@ -51,9 +51,10 @@ export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | '
   featuredImage?: ExpandedImage
   slug: string
   pathName: string
+  hasDownload?: boolean
   HSForm?: {
     formID: string
-    sfdcCampaignId: string
+    thankYouMessage: string
   }
 }
 

@@ -119,10 +119,10 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
     video
   },
   type in ["White Paper", "eBook", "Datasheet", "Infographic"] => {
-    downloadFile,
+    "hasDownload": defined(downloadFile.asset),
     "HSForm": HSForm->{
       formID,
-      sfdcCampaignId
+      thankYouMessage
     }
   }
 }`)
@@ -155,3 +155,16 @@ const CATEGORIES_QUERY = defineQuery(/* groq */ `*[
     })
   }
 
+const DOWNLOAD_FILE_QUERY = defineQuery(/* groq */ `*[
+  _type == "resource"
+  && metadata.slug.current == $slug
+][0]{
+  "fileURL": downloadFile.asset->url
+}`)
+
+export async function getDownloadFile(slug: string) {
+  return await sanityFetch({
+    query: DOWNLOAD_FILE_QUERY,
+    params: { slug }
+  })
+}

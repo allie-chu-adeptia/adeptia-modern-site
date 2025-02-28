@@ -22,7 +22,7 @@ function calculateLine({
     return { x2, y2 };
 }
 
-function AngledLine({
+export function AngledLine({
     x1,
     y1,
     length,

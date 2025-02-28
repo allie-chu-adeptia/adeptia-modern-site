@@ -5,9 +5,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
 import { SanityLive } from "@/sanity/lib/live";
-import { draftMode } from "next/headers";
-import { VisualEditing } from "next-sanity";
-import { DisableDraftMode } from "@/components/DisableDraftMode";
 
 
 const geistSans = Geist({

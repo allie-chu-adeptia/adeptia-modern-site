@@ -184,6 +184,42 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
             asset->,
           }
         }
+      },
+      _type == "contentSectionCarousel" => {
+        _type,
+        header,
+        carouselItems[] {
+          header,
+        image {
+          asset->,
+          altText,
+          hotspot,
+          crop
+        },
+        body,
+        button {
+          _id,
+          title,
+          url,
+          "link": link->metadata.slug.current
+        },
+        styleAndLayout {
+          layout,
+          background,
+          orientation
+        },
+        subPoints[] {
+          icon,
+          header,
+          subheader,
+          button {
+            _id,
+            title,
+            url,
+              "link": link->metadata.slug.current
+            }
+          }
+        }
       }
     }
 }`)
@@ -210,7 +246,7 @@ export async function getRelatedResources(category: string, currentPageId: strin
   console.log('Query params:', { category, currentPageId, resourceTypes });
   const result = await sanityFetch({
     query: RELATED_RESOURCES_QUERY,
-    params: { 
+    params: {
       category,
       currentPageId,
       resourceTypes
@@ -246,7 +282,7 @@ export async function getFallbackResources(resourceTypes: string[]) {
 // Fetches a single page by its slug, including:
 export async function getPage(slug: string) {
   return await sanityFetch({
-    query: PAGE_QUERY, 
+    query: PAGE_QUERY,
     params: { slug }
   })
 }

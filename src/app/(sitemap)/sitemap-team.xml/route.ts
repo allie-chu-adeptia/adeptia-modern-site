@@ -2,7 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getAllTeamMembers } from '@/sanity/queries/sitemap'
 import { TeamMember } from '@/sanity/types/sanity.types'
 
-export async function GET(request: Request) {
+export async function GET() {
   const baseUrl = 'https://www.adeptia.com'
   const teamMembers = await getAllTeamMembers()
   

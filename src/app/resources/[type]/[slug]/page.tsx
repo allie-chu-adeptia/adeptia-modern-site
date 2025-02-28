@@ -11,8 +11,9 @@ import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
-import HubspotContactForm from '@/lib/hubspotContactForm'
+import HubSpotForm from '@/lib/hubspotContactForm'
 import Script from 'next/script'
+import { NoGateFileDownload } from '@/lib/displayDownload'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -33,7 +34,7 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
 
   return (
     <main className="overflow-hidden">
-      <Script src="https://js.hsforms.net/forms/shell.js" strategy="beforeInteractive"/>
+      <Script src="https://js.hsforms.net/forms/shell.js" strategy="beforeInteractive" />
       <Container>
         <Eyebrow className="mt-16">
           {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}
@@ -45,9 +46,9 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
           <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
             {Array.isArray(resource.categories) && (
               <div className="flex flex-wrap gap-2">
-                {resource.categories.map((category: ExpandedCategory) => (
+                {resource.categories.map((category: ExpandedCategory, index: number) => (
                   <Link
-                    key={category._id}
+                    key={index}
                     href={`/resources?category=${category.slug}`}
                     className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                   >
@@ -67,16 +68,22 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
                 />
               )}
               {resource.body && (
-                <StylePortableText 
-                  value={resource.body as PortableTextBlock[]} 
+                <StylePortableText
+                  value={resource.body as PortableTextBlock[]}
                   className="resource-post-content"
                 />
               )}
-              {resource.HSForm?.formID && resource.HSForm?.sfdcCampaignId && (
-                <HubspotContactForm
-                  formID={resource.HSForm.formID}
-                  sfdcCampaignId={resource.HSForm.sfdcCampaignId}
+              {resource.hasDownload &&
+                resource.HSForm ? (
+                <HubSpotForm
+                  portalId="456732"
+                  formId={resource.HSForm.formID}
+                  region="na1"
+                  slug={slug}
+                  thankYouMessage={resource.HSForm.thankYouMessage}
                 />
+              ) : (
+                <NoGateFileDownload slug={slug} />
               )}
               <div className="mt-10">
                 <Button variant="outline" href="/resources">

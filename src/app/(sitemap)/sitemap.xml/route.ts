@@ -1,6 +1,6 @@
 import { getServerSideSitemap } from 'next-sitemap'
 
-export async function GET(request: Request) {
+export async function GET() {
   const baseUrl = 'https://www.adeptia.com'
   const currentDate = new Date().toISOString()
 

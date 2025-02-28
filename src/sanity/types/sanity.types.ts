@@ -297,6 +297,16 @@ export type Category = {
   slug?: Slug
 }
 
+export type ContentSectionCarousel = {
+  _type: 'contentSectionCarousel'
+  header?: HeaderStyle
+  carouselItems?: Array<
+    {
+      _key: string
+    } & ContentSection
+  >
+}
+
 export type TestimonialSection = {
   _type: 'testimonialSection'
   testimonial?: {
@@ -601,6 +611,9 @@ export type Page = {
     | ({
         _key: string
       } & TestimonialSection)
+    | ({
+        _key: string
+      } & ContentSectionCarousel)
   >
 }
 
@@ -736,7 +749,7 @@ export type HubspotForm = {
   _rev: string
   description?: string
   formID?: string
-  sfdcCampaignId?: string
+  thankYouMessage?: string
 }
 
 export type Connector = {
@@ -966,6 +979,7 @@ export type AllSanitySchemaTypes =
   | Cta
   | Company
   | Category
+  | ContentSectionCarousel
   | TestimonialSection
   | Testimonial
   | StatSection

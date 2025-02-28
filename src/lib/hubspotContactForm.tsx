@@ -1,69 +1,86 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from 'react';
+import cleanString from '@/lib/cleanString';
+import { FileDownload } from '@/lib/displayDownload';
 
-export default function HubspotContactForm(
-    { formID, sfdcCampaignId }: { formID: string, sfdcCampaignId: string }) {
-
-    const [isFormReady, setIsFormReady] = useState(false);
+const HubSpotForm = ({
+    portalId,
+    formId,
+    region = 'na1',
+    slug,
+    thankYouMessage
+}: {
+    portalId: string,
+    formId: string,
+    region: string
+    slug: string,
+    thankYouMessage: string
+}) => {
+    const formContainer = useRef<HTMLDivElement>(null);
+    const [isLoading, setIsLoading] = useState(true); // Add loading state
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const cleanFormId = cleanString(formId);
 
     useEffect(() => {
-        console.log('Component mounted. Checking for HubSpot...', {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            hbsptExists: !!window.hbspt,
-            formID,
-            sfdcCampaignId
-        });
 
-        // Create a function to initialize the form
-        const createForm = () => {
-            console.log('Attempting to create form...');
+        const scriptV2 = document.createElement('script');
+        scriptV2.src = 'https://js.hsforms.net/forms/embed/v2.js';
+        // scriptV2.charset = 'utf-8';
+        scriptV2.type = 'text/javascript';
+        document.body.appendChild(scriptV2);
+
+        scriptV2.onload = () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if (window.hbspt) {
-                console.log('HubSpot found, creating form...');
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 window.hbspt.forms.create({
-                    region: "na1",
-                    portalId: "456732",
-                    formId: formID,
-                    sfdcCampaignId: sfdcCampaignId,
-                    target: '#hubspotForm',
+                    portalId: portalId,
+                    formId: cleanFormId,
+                    region: region,
+                    target: `#${formContainer.current?.id}`,
                     onFormReady: () => {
-                        console.log('Form ready callback triggered');
-                        setIsFormReady(true);
+                        setIsLoading(false); // Set loading to false when form is ready
+                    },
+                    onFormSubmit: () => {
+                        setIsSubmitted(true);
                     }
                 });
-            } else {
-                console.log('HubSpot not found yet');
             }
         };
 
-        // Try to create form immediately if script is already loaded
-        createForm();
-
-        // Also listen for the script to load
-        const handleScriptLoad = () => {
-            console.log('HubSpot script load event received');
-            createForm();
-        };
- 
-        // Add event listener for script load
-        window.addEventListener('hsFormReady', handleScriptLoad);
-        console.log('Added hsFormReady event listener');
-
         return () => {
-            console.log('Cleaning up event listener');
-            window.removeEventListener('hsFormReady', handleScriptLoad);
+            const existingScript = document.querySelector(`script[src="${scriptV2.src}"]`);
+            if (existingScript) {
+                existingScript.remove();
+            }
         };
-    }, [formID, sfdcCampaignId]);
+    }, [portalId, cleanFormId, region]);
+
+    const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
     return (
-        <div className="my-8">
-            <div id="hubspotForm"></div>
-            {!isFormReady && <div>Loading form...</div>}
+        <div className="flex justify-center flex-col items-center">
+            <div
+                id={generatedId}
+                ref={formContainer}
+                style={{ 
+                    display: isLoading || isSubmitted ? 'none' : 'flex',
+                    maxWidth: '500px',
+                    minWidth: '300px',
+                    width: '100%',
+                    margin: '2rem 0',
+                    background: 'linear-gradient(276deg, #D8E5FC 0%, #CEDBF5 50%, #D2D8F7 100%)',
+                    padding: '2rem',
+                    borderRadius: '1rem',
+                    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.15)',
+                }}
+            ></div>
+            {isSubmitted && <FileDownload slug={slug} message={thankYouMessage}/>}
         </div>
     );
 };
+
+export default HubSpotForm;
