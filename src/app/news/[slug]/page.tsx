@@ -8,8 +8,15 @@ import { notFound } from 'next/navigation'
 import { ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import { getNewsArticle } from '@/sanity/queries/news'
+import { buildMetadata } from '@/lib/metadata'
 
 type sParams = Promise<{ slug: string }>;
+
+export async function generateMetadata(props: { params: Promise<sParams> }) {
+  const { slug } = await props.params
+  const post = (await getNewsArticle(slug) as ExpandedPost) || notFound()
+  return buildMetadata(post?.metadata)
+}
 
 // Styles and returns the news article page
 export default async function NewsArticle(props: { params: Promise<sParams> }) {
@@ -33,8 +40,8 @@ export default async function NewsArticle(props: { params: Promise<sParams> }) {
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">
               {post.body && (
-                <StylePortableText 
-                  value={post.body as PortableTextBlock[]} 
+                <StylePortableText
+                  value={post.body as PortableTextBlock[]}
                   className="blog-post-content"
                 />
               )}

@@ -20,6 +20,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Adeptia AI Data Exchange Platform",
   description: "Adeptia AI Data Exchange Platform",
+  alternates: {
+    canonical: 'https://www.adeptia.com'
+  }
 };
 
 export default async function RootLayout({

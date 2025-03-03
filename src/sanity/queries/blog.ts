@@ -23,6 +23,7 @@ const POSTS_QUERY = defineQuery(/* groq */ `*[
   && select(defined($category) => $category in category[]->slug.current, true)
 ]|order(publishDate desc)[$startIndex...$endIndex]{
   _type,
+  type,
   _id,
   title,
   "slug": metadata.slug.current,
@@ -123,6 +124,7 @@ const POST_QUERY = defineQuery(/* groq */ `*[
   && metadata.slug.current == $slug
 ][0]{
   publishDate,
+  metadata,
   title,
   "featuredImage": featuredImage{
     ...,

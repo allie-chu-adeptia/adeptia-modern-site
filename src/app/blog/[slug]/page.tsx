@@ -11,16 +11,16 @@ import { notFound } from 'next/navigation'
 import { ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import { CategoryChip } from '@/lib/categoryChip'
+import { buildMetadata } from '@/lib/metadata'
 
 type sParams = Promise<{ slug: string }>;
 
 // Generated metadata for the blog post
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
-
-  const { slug } = await props.params
-  const post = await getPost(slug)
-
-  return post ? { title: post.title, description: post.excerpt } : {}
+  const params = await props.params;
+  const post : ExpandedPost | undefined = await getPost(params.slug)
+  console.log(post)
+  return buildMetadata(post?.metadata)
 }
 
 // Styles and returns the blog post page

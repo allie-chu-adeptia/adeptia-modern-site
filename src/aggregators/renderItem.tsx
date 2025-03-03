@@ -48,7 +48,7 @@ export async function RenderItem({
                     pathName={item.pathName}
                 />
             ) : item._type === 'resource' ? (
-              item.type === 'Blog' ? (
+              item.type === 'Blog' || item.type === 'News' ? (
                 <CoverImageWText 
                     date={dayjs(item.publishDate).format('dddd, MMMM D, YYYY')}
                     categories={item.category}
@@ -83,6 +83,7 @@ export async function RenderItem({
                 coverImage={item.featuredImage}
                 excerpt={excerptToHTML(item.description as string)}
                 logo={item.logo}
+                gradient={true}
               />
             ) : (null)}
           </div>

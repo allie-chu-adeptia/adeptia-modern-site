@@ -6,6 +6,7 @@ import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 import { DefaultHeaderSection } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
 import { getPath } from '@/lib/routing'
+import { Metadata } from 'next'
 
 const IndustryHeader: HeaderStyleType = {
     _type: "headerStyle",
@@ -15,6 +16,14 @@ const IndustryHeader: HeaderStyleType = {
     layout: "left-aligned"
 }
 
+export const metadata: Metadata = {
+    title: 'Industry Solutions',
+    description:
+        'Our industry solutions are designed to help you connect with your business partners in minutes',
+    alternates: {
+        canonical: 'https://www.adeptia.com/solutions/industry',
+    },
+}
 
 const INDUSTRY_QUERY = defineQuery(/* groq */ `*[
   _type == "page" && 

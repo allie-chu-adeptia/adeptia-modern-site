@@ -6,6 +6,7 @@ import { Aggregator } from '@/aggregators/aggregator'
 import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 import { DefaultHeaderSection } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
+import { Metadata } from 'next'
 
 const UseCaseHeader: HeaderStyleType = {
     _type: "headerStyle",
@@ -15,6 +16,14 @@ const UseCaseHeader: HeaderStyleType = {
     layout: "left-aligned"
 }
 
+export const metadata: Metadata = {
+    title: 'Use Case Solutions',
+    description:
+        'Our use case solutions are designed to help you connect with your business partners in minutes',
+    alternates: {
+        canonical: 'https://www.adeptia.com/solutions/use-case',
+    },
+}
 
 const USE_CASE_QUERY = defineQuery(/* groq */ `*[
   _type == "page" && 

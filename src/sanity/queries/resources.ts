@@ -93,6 +93,7 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
   && metadata.slug.current == $slug
 ][0]{
   _type,
+  type,
   publishDate,
   title,
   "featuredImage": featuredImage{

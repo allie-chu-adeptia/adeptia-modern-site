@@ -26,6 +26,7 @@ import { ExpandedTestimonialSection, TestimonialSectionComponent } from '@/compo
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { getPath } from '@/lib/routing'
 import { BackgroundMotion } from '@/lib/backgroundMotion'
+import { buildMetadata } from '@/lib/metadata'
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const lightBackground: BackgroundStyle = {
@@ -125,40 +126,56 @@ function PageContent({ page }: { page: ExpandedPage }) {
     )
 }
 
-export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
-    const params = await props.params;
-
-    if (!params.slug) {
+async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
+    if (!slug) {
         const homePage = await getPage('home')
         if (!homePage) {
             return notFound()
         }
-        return <PageContent page={homePage} />
+        return homePage
     }
 
-    const lastSlug = params.slug[params.slug.length - 1]
+    const lastSlug = slug[slug.length - 1]
     const page = await getPage(lastSlug)
 
     if (!page) {
-        return notFound()
+        return undefined
     }
 
     try {
 
         const actualPath = await getPath(lastSlug)
         if (!actualPath) {
-            return notFound()
+            return undefined
         }
-        const requestedPath = params.slug.join('/')
+        const requestedPath = slug.join('/')
         const computedPath = Array.isArray(actualPath) ? actualPath.join('/') : ''
 
         if (!computedPath || computedPath !== requestedPath) {
-            return notFound()
+            return undefined
         }
+        return page
     } catch (err) {
         console.log({ err })
+        return undefined
+    }
+}
+
+export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
+    const params = await props.params;
+    const page : ExpandedPage | undefined = await getPageData(params.slug)
+    return buildMetadata(page?.metadata)
+}
+
+export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
+    const params = await props.params;
+    const page : ExpandedPage | undefined = await getPageData(params.slug)
+    
+    if (!page) {
         return notFound()
     }
 
-    return <PageContent page={page} />
+    return (
+        <PageContent page={page} />
+    )
 }

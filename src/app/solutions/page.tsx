@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://www.adeptia.com/solutions',
     },
-  }
-  
+}
+
 
 const SolutionsHeader: HeaderStyleType = {
     _type: "headerStyle",
