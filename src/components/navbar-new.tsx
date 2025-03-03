@@ -78,7 +78,7 @@ const PlatformMenu: TopLevelMenu = {
 }
 
 const SolutionsMenu: TopLevelMenu = {
-    header: 'Solutions',
+    header: 'Use Cases',
     submenus: [
         {
             name: 'By Industry', items: [
