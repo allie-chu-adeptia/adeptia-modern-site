@@ -1,6 +1,7 @@
 import { clsx } from 'clsx'
 import { image } from '@/sanity/lib/image'
 import { LogoSection } from '@/sanity/types/sanity.types'
+import cleanString from '@/lib/cleanString'
 
 export interface ExpandedLogoSection extends Omit<LogoSection, 'logo'> {
   logo?: Array<{
@@ -30,7 +31,7 @@ export function LogoSectionComponent({
       {logoSection.logo?.map((logo, index) => (
         <img
           key={`logo-${index}`}
-          alt={logo.altText || `Partner logo ${index + 1}`}
+          alt={cleanString(logo.altText || `Partner logo ${index + 1}`)}
           src={image(logo).url()}
           className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
         />

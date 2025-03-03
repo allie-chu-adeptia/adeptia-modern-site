@@ -7,7 +7,7 @@ export const buildMetadata = async (metadata?: MetadataType): Promise<Metadata> 
     if (!metadata) {
         return {}
     }
-    
+
     const path = await getPath(metadata.slug?.current || '')
 
     return {
@@ -19,7 +19,7 @@ export const buildMetadata = async (metadata?: MetadataType): Promise<Metadata> 
             follow: metadata.advanced?.followLinks ?? true,
         },
         alternates: {
-            canonical: 'https://www.adeptia.com' + path.join('/')
+            canonical: 'https://www.adeptia.com/' + path.join('/')
         },
         openGraph: {
             title: metadata.seoTitle || undefined,

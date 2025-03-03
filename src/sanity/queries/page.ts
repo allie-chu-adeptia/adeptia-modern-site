@@ -36,7 +36,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         content[] {
           image {
               asset->,
-              altText,
+              "altText": asset->title,
               hotspot,
               crop
           },
@@ -50,7 +50,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         _type,
         logo[] {
           asset->,
-          altText,
+          "altText": asset->title,
           _type
         }
       },
@@ -87,7 +87,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         },
         image {
           asset->,
-          altText,
+          "altText": asset->title,
         }
       },
       _type == "headerSection" => {
@@ -119,7 +119,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         header,
         image {
           asset->,
-          altText,
+          "altText": asset->title,
           hotspot,
           crop
         },
@@ -164,7 +164,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           excerpt,
           "featuredImage": featuredImage{
             ...,
-            "altText": asset->altText,
+            "altText": asset->title,
           },
           "slug": metadata.slug.current
         },
@@ -192,7 +192,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           header,
         image {
           asset->,
-          altText,
+          "altText": asset->title,
           hotspot,
           crop
         },
@@ -237,7 +237,7 @@ const RELATED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   excerpt,
   "featuredImage": featuredImage{
     ...,
-    "altText": asset->altText,
+    "altText": asset->title,
   },
   "slug": metadata.slug.current,
 }`)
@@ -267,7 +267,7 @@ const FALLBACK_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   excerpt,
   "featuredImage": featuredImage{
     ...,
-    "altText": asset->altText,
+    "altText": asset->title,
   },
   "slug": metadata.slug.current,
 }`)

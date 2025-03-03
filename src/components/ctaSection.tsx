@@ -63,7 +63,7 @@ function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection 
         <div className="relative mt-16 h-80 lg:mt-8">
           {ctaSection.image && (
             <img
-              alt={ctaSection.image?.asset?.title || ''}
+              alt={cleanString(ctaSection.image?.altText || '')}
               src={image(ctaSection.image).size(1824, 1080).url()}
               className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10 outline outline-1 outline-white/20"
             />

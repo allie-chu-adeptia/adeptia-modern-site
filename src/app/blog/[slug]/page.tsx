@@ -12,7 +12,7 @@ import { ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import { CategoryChip } from '@/lib/categoryChip'
 import { buildMetadata } from '@/lib/metadata'
-
+import cleanString from '@/lib/cleanString'
 type sParams = Promise<{ slug: string }>;
 
 // Generated metadata for the blog post
@@ -44,7 +44,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
               <div className="flex items-center gap-3">
                 {post.author.profilePic && (
                   <img
-                    alt={`Picture of ${post.author.name}`}
+                    alt={cleanString(`Picture of ${post.author.name}`)}
                     src={image(post.author.profilePic).width(64).height(64).url()}
                     className="aspect-square size-6 rounded-full object-cover"
                   />
@@ -60,7 +60,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
             <div className="max-w-3xl xl:mx-auto">
               {post.featuredImage && (
                 <img
-                  alt={post.featuredImage.asset?.title || ''}
+                  alt={cleanString(post.featuredImage.altText || '')}
                   src={image(post.featuredImage).size(2016, 1344).url()}
                   className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                 />

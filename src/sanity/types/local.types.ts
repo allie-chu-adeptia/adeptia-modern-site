@@ -15,10 +15,10 @@ export interface ExpandedCategory {
 
 export interface ExpandedImage {
   _type: 'image'
+  altText?: string
   asset: {
     _ref: string
     _type: 'reference'
-    title: string
   }
 }
 

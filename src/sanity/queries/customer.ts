@@ -20,7 +20,7 @@ const CUSTOMERS_QUERY = defineQuery(/* groq */ `*[
     title,
     "featuredImage": featuredImage{
         ...,
-        "altText": asset->altText,
+        "altText": asset->title,
     },
     companyName,
     hideIdentifiableInfo,

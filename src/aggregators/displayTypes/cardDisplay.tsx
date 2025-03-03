@@ -3,6 +3,7 @@ import { CategoryChip } from "@/lib/categoryChip";
 import { image } from '@/sanity/lib/image'
 import { LogoTriangleLight } from "@/components/logo";
 import { ClientLink } from '@/components/clientLink'
+import cleanString from '@/lib/cleanString'
 
 function buildDefaultCoverImage(title: string, pathName: string) {
     return (
@@ -57,7 +58,7 @@ export function CoverImageWText(
                     {coverImage ? (
                         <div className="relative">
                             <img
-                                alt={coverImage?.asset?.title || ''}
+                                alt={cleanString(coverImage?.altText || '')}
                                 src={image(coverImage).size(2016, 1344).url()}
                                 className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                             />
@@ -91,7 +92,7 @@ export function CoverImageWText(
                 ) : <div className="mt-6" />}
                 {logo && (
                     <img
-                        alt={logo?.asset?.title || ''}
+                        alt={cleanString(logo?.altText || '')}
                         src={image(logo).url()}
                         className="h-[75px] max-w-[200px] bg-white object-contain"
                     />
@@ -115,7 +116,7 @@ export function CoverImageWText(
                 {author && author.profilePic && (
                     <div className="relative mt-4 flex items-center gap-x-4">
                         <img
-                            alt={`Picture of ${author.name}`}
+                            alt={cleanString(`Picture of ${author.name}`)}
                             src={image(author.profilePic).width(64).height(64).url()}
                             className="size-10 rounded-full bg-gray-100"
                         />

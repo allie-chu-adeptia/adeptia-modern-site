@@ -81,7 +81,7 @@ function BentoCard({
         <Link slug={link} href={''}>
           {graphic && (
             <img
-              alt={graphic.altText || ''}
+              alt={cleanString(graphic.altText || '')}
               src={image(graphic).size(2016, 1344).url()}
               className={clsx("aspect-[3/2] w-full rounded-2xl object-cover", graphicClassName)}
             />
@@ -104,7 +104,7 @@ function BentoCard({
         <>
           {graphic && (
             <img
-              alt={graphic.altText || ''}
+              alt={cleanString(graphic.altText || '')}
               src={image(graphic).size(2016, 1344).url()}
               className={clsx("aspect-[3/2] w-full rounded-2xl object-cover", graphicClassName)}
             />

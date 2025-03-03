@@ -73,7 +73,7 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
               ) : (
                 resource.featuredImage && (
                   <img
-                    alt={resource.featuredImage.asset?.title || ''}
+                    alt={resource.featuredImage.altText || ''}
                     src={image(resource.featuredImage).size(2016, 1344).url()}
                     className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                   />

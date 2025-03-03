@@ -140,7 +140,7 @@ function OffCenterImage(
                 {contentSection.image && (
                     <div className={clsx("flex items-center justify-end rounded-xl", alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
                         <img
-                            alt={contentSection.image?.altText || ''}
+                            alt={cleanString(contentSection.image?.altText || '')}
                             src={image(contentSection.image).size(2400, 1800).url()}
                             className="w-[48rem] rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
                         />
@@ -179,7 +179,7 @@ function CenteredImage(
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     {contentSection.image && (
                         <img
-                            alt={contentSection.image?.altText || ''}
+                            alt={cleanString(contentSection.image?.altText || '')}
                             src={image(contentSection.image).size(2400, 1800).url()}
                             className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10")}
                         />

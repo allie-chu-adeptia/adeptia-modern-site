@@ -29,7 +29,7 @@ const NEWS_QUERY = defineQuery(/* groq */ `*[
   excerpt,
   "featuredImage": featuredImage{
     ...,
-    "altText": asset->altText,
+    "altText": asset->title,
   },
 }`)
 

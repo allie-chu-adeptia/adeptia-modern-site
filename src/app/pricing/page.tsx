@@ -146,59 +146,11 @@ export default function Example() {
                           Contact Us
                         </Button>
                       </div>
-                      {/* <div className="mt-8">
-                        <h3 className="text-sm/6 font-medium text-gray-950">Start selling with:</h3>
-                        <ul className="mt-3 space-y-3">
-                          {tier.highlights.map((highlight) => (
-                            <li
-                              key={highlight.description}
-                              data-disabled={highlight.disabled}
-                              className="group flex items-start gap-4 text-sm/6 text-gray-600 data-[disabled]:text-gray-400"
-                            >
-                              <span className="inline-flex h-6 items-center">
-                                <PlusIcon
-                                  aria-hidden="true"
-                                  className="size-4 fill-gray-400 group-data-[disabled]:fill-gray-300"
-                                />
-                              </span>
-                              {highlight.disabled ? <span className="sr-only">Not included:</span> : null}
-                              {highlight.description}
-                            </li>
-                          ))}
-                        </ul>
-                      </div> */}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            {/* <div className="flex justify-between py-16 opacity-60 max-sm:mx-auto max-sm:max-w-md max-sm:flex-wrap max-sm:justify-evenly max-sm:gap-x-4 max-sm:gap-y-4 sm:py-24">
-            <img
-              alt="Transistor"
-              src="https://tailwindui.com/plus/img/logos/158x48/transistor-logo-white.svg"
-              className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
-            />
-            <img
-              alt="Laravel"
-              src="https://tailwindui.com/plus/img/logos/158x48/laravel-logo-white.svg"
-              className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
-            />
-            <img
-              alt="Tuple"
-              src="https://tailwindui.com/plus/img/logos/158x48/tuple-logo-white.svg"
-              className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
-            />
-            <img
-              alt="SavvyCal"
-              src="https://tailwindui.com/plus/img/logos/158x48/savvycal-logo-white.svg"
-              className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
-            />
-            <img
-              alt="Statamic"
-              src="https://tailwindui.com/plus/img/logos/158x48/statamic-logo-white.svg"
-              className="h-9 max-sm:mx-auto sm:h-8 lg:h-12"
-            />
-          </div> */}
           </div>
         </div>
         <div className="mx-auto max-w-2xl px-6 pt-16 sm:pt-24 lg:max-w-7xl lg:px-8">

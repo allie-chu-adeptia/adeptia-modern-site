@@ -38,7 +38,7 @@ export async function TestimonialSectionComponent({
                 <div className="mx-auto max-w-2xl lg:max-w-4xl">
                     {testimonialSection.testimonial?.companyLogo && (
                         <img
-                            alt={testimonialSection.testimonial.companyLogo.altText}
+                            alt={cleanString(testimonialSection.testimonial.companyLogo.altText || '')}
                             src={image(testimonialSection.testimonial.companyLogo).url()}
                             className="mx-auto h-[200px]"
                         />
@@ -52,7 +52,7 @@ export async function TestimonialSectionComponent({
                         <figcaption className="mt-10">
                             {testimonialSection.testimonial?.picture && (
                                 <img
-                                    alt={testimonialSection.testimonial.name}
+                                    alt={cleanString(testimonialSection.testimonial.name || '')}
                                     src={image(testimonialSection.testimonial.picture).size(100, 100).url()}
                                     className="mx-auto size-10 rounded-full"
                                 />
@@ -84,7 +84,7 @@ export async function TestimonialSectionComponent({
                         <div className="col-end-1 w-16 lg:row-span-4 lg:w-72">
                             {testimonialSection.testimonial?.picture && (
                                 <img
-                                    alt={testimonialSection.testimonial.name}
+                                    alt={cleanString(testimonialSection.testimonial.name || '')}
                                     src={image(testimonialSection.testimonial.picture).size(576, 576).url()}
                                     className="rounded-xl bg-[var(--primary-blue-lightest)] lg:rounded-3xl"
                                 />

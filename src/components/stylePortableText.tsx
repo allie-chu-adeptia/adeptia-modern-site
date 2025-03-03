@@ -57,14 +57,14 @@ export default function StylePortableText({
             image: ({ value }) => (
               <figure className="mt-16">
                 <img
-                  alt={value.alt || ''}
+                  alt={value.altText || ''}
                   src={image(value).width(2000).url()}
                   className="aspect-video rounded-xl bg-gray-50 object-cover"
                 />
-                {value.alt && (
+                {value.altText && (
                   <figcaption className="mt-4 flex gap-x-2 text-sm/6 text-gray-500">
                     <CheckCircleIcon aria-hidden="true" className="mt-0.5 size-5 flex-none text-gray-300" />
-                    {value.alt}
+                    {value.altText}
                   </figcaption>
                 )}
               </figure>
