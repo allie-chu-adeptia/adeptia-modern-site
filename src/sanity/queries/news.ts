@@ -9,7 +9,7 @@ const TOTAL_NEWS_QUERY = defineQuery(/* groq */ `count(*[
 ])`)
 
 export async function getNewsCount() {
-  return await sanityFetch({ 
+  return await sanityFetch({
     query: TOTAL_NEWS_QUERY,
   })
 }
@@ -25,20 +25,24 @@ const NEWS_QUERY = defineQuery(/* groq */ `*[
   title,
   "slug": metadata.slug.current,
   publishDate,
-  excerpt
+  excerpt,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
 }`)
 
 export async function getNews(
-    startIndex: number,
-    endIndex: number
+  startIndex: number,
+  endIndex: number
 ) {
-    return await sanityFetch({
-        query: NEWS_QUERY,
-        params: {
-            startIndex,
-            endIndex,
-        },
-    })
+  return await sanityFetch({
+    query: NEWS_QUERY,
+    params: {
+      startIndex,
+      endIndex,
+    },
+  })
 }
 
 const FEATURED_NEWS_QUERY = defineQuery(/* groq */ `*[
@@ -55,7 +59,7 @@ const FEATURED_NEWS_QUERY = defineQuery(/* groq */ `*[
 }`)
 
 export async function getFeaturedResources(quantity: number) {
-  return await sanityFetch({ 
+  return await sanityFetch({
     query: FEATURED_NEWS_QUERY,
     params: { quantity },
   })
@@ -83,12 +87,12 @@ const NEWS_ARTICLE_QUERY = defineQuery(/* groq */ `*[
 }`)
 
 export async function getNewsArticle(slug: string) {
-    const resource = await sanityFetch({ 
-        query: NEWS_ARTICLE_QUERY, 
-        params: { slug } 
-    })
-    if (!resource) {
-        console.error(`News article not found for slug: ${slug}`)
-    }
-    return resource
+  const resource = await sanityFetch({
+    query: NEWS_ARTICLE_QUERY,
+    params: { slug }
+  })
+  if (!resource) {
+    console.error(`News article not found for slug: ${slug}`)
+  }
+  return resource
 }

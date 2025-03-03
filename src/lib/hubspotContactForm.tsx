@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import cleanString from '@/lib/cleanString';
 import { FileDownload } from '@/lib/displayDownload';
+import { useRouter } from 'next/navigation';
 
 const HubSpotForm = ({
     portalId,
@@ -17,6 +18,7 @@ const HubSpotForm = ({
     slug: string,
     thankYouMessage: string
 }) => {
+    const router = useRouter();
     const formContainer = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true); // Add loading state
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -46,6 +48,7 @@ const HubSpotForm = ({
                     },
                     onFormSubmit: () => {
                         setIsSubmitted(true);
+                        router.push(`${window.location.pathname}/thank-you`);
                     }
                 });
             }
@@ -57,7 +60,7 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region]);
+    }, [portalId, cleanFormId, region, router]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 

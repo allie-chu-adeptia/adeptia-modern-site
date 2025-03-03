@@ -60,7 +60,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
             <div className="max-w-3xl xl:mx-auto">
               {post.featuredImage && (
                 <img
-                  alt={post.featuredImage.altText || ''}
+                  alt={post.featuredImage.asset?.title || ''}
                   src={image(post.featuredImage).size(2016, 1344).url()}
                   className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                 />

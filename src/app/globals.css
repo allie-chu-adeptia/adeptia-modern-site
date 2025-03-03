@@ -106,10 +106,10 @@ body {
 
 
 .hs-form .hs_recaptcha.hs-recaptcha.field.hs-form-field {
-  display: none;
   margin-top: 2rem;
 }
 
 .submitted-message.hs-main-font-element {
   display: none;
 }
+

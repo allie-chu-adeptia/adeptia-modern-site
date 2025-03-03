@@ -19,9 +19,9 @@ export function Container({
   } else if (paddingLvl == 'sm') {
     padding = 'py-4 sm:py-8'
   } else if (paddingLvl == 'md') {
-    padding = 'py-[96px]'
+    padding = 'py-[75px]'
   } else if (paddingLvl == 'lg') {
-    padding = 'py-[128px] sm:py-24'
+    padding = 'py-[96px]'
   }
   return (
     <div className={clsx(className, padding)}>

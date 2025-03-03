@@ -33,7 +33,8 @@ export function CoverImageWText(
         coverImage,
         slug,
         pathName,
-        logo
+        logo,
+        gradient
     }: {
         date?: string;
         categories?: ExpandedCategory[];
@@ -45,6 +46,7 @@ export function CoverImageWText(
         logo?: ExpandedImage;
         slug: string,
         pathName: string
+        gradient?: boolean
     }
 ) {
 
@@ -55,14 +57,18 @@ export function CoverImageWText(
                     {coverImage ? (
                         <div className="relative">
                             <img
-                                alt={coverImage?.altText || ''}
+                                alt={coverImage?.asset?.title || ''}
                                 src={image(coverImage).size(2016, 1344).url()}
                                 className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#3C7BEF]/50 via-[#0A4ECD]/50 to-[#3B25E0]/50 rounded-2xl" />
-                            <div className="absolute bottom-8 right-8">
-                                <LogoTriangleLight className="h-8 text-white" />
-                            </div>
+                            {gradient && (
+                                <>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[#3C7BEF]/50 via-[#0A4ECD]/50 to-[#3B25E0]/50 rounded-2xl" />
+                                    <div className="absolute bottom-8 right-8">
+                                        <LogoTriangleLight className="h-8 text-white" />
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ) : (
                         buildDefaultCoverImage(title || '', pathName)
@@ -85,7 +91,7 @@ export function CoverImageWText(
                 ) : <div className="mt-6" />}
                 {logo && (
                     <img
-                        alt={logo?.altText || ''}
+                        alt={logo?.asset?.title || ''}
                         src={image(logo).url()}
                         className="h-[75px] max-w-[200px] bg-white object-contain"
                     />

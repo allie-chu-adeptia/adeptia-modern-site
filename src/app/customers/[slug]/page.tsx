@@ -22,7 +22,7 @@ import { ChevronLeftIcon } from '@heroicons/react/16/solid'
               <div className="relative overflow-hidden rounded-3xl bg-gray-200 px-6 pb-8 pt-8 shadow-lg sm:px-12 lg:max-w-lg lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
                 {customer.logo && (
                     <img
-                        alt={customer.logo.altText || ''}
+                        alt={customer.logo.asset?.title || ''}
                         src={image(customer.logo).url()}
                         className="px-8 py-4 rounded-xl bg-white mb-10 h-auto w-[300px] object-contain"
                     />

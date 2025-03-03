@@ -60,12 +60,24 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
           </div>
           <div className="text-gray-700">
             <div className="max-w-2xl xl:mx-auto">
-              {resource.featuredImage && (
-                <img
-                  alt={resource.featuredImage.altText || ''}
-                  src={image(resource.featuredImage).size(2016, 1344).url()}
-                  className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
-                />
+              {resource.video ? (
+                <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
+                  <iframe 
+                    src={`https://player.vimeo.com/video/${resource.video.vimeoId}`}
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title={resource.title}
+                  />
+                </div>
+              ) : (
+                resource.featuredImage && (
+                  <img
+                    alt={resource.featuredImage.asset?.title || ''}
+                    src={image(resource.featuredImage).size(2016, 1344).url()}
+                    className="mb-10 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
+                  />
+                )
               )}
               {resource.body && (
                 <StylePortableText
@@ -73,17 +85,18 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
                   className="resource-post-content"
                 />
               )}
-              {resource.hasDownload &&
+              {resource.fileURL && (
                 resource.HSForm ? (
-                <HubSpotForm
-                  portalId="456732"
-                  formId={resource.HSForm.formID}
-                  region="na1"
-                  slug={slug}
-                  thankYouMessage={resource.HSForm.thankYouMessage}
-                />
-              ) : (
-                <NoGateFileDownload slug={slug} />
+                  <HubSpotForm
+                    portalId="456732"
+                    formId={resource.HSForm.formID}
+                    region="na1"
+                    slug={slug}
+                    thankYouMessage={resource.HSForm.thankYouMessage}
+                  />
+                ) : (
+                  <NoGateFileDownload slug={slug} />
+                )
               )}
               <div className="mt-10">
                 <Button variant="outline" href="/resources">

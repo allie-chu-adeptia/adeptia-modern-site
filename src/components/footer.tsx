@@ -76,51 +76,48 @@ function Sitemap() {
       <div>
         <SitemapHeading>Solutions by Industry</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">Insurance</SitemapLink>
-          <SitemapLink href="#">Financial Services</SitemapLink>
-          <SitemapLink href="#">Specialty Manufacturing and Distribution</SitemapLink>
-          <SitemapLink href="#">Software and Service Providers</SitemapLink>
+          <SitemapLink href="/solutions/industry/insurance-integration">Insurance</SitemapLink>
+          <SitemapLink href="/solutions/industry/financial-data-integration">Financial Services</SitemapLink>
+          <SitemapLink href="/solutions/industry/supply-chain-logistics">Manufacturing and Distribution</SitemapLink>
         </SitemapLinks>
         <SitemapHeading className="mt-8">Solutions by Capability</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">Intelligent Document Processing</SitemapLink>
-          <SitemapLink href="#">AI Data Mapping</SitemapLink>
-          <SitemapLink href="#">Low-Code Integrations and Automations</SitemapLink>
+          <SitemapLink href="/products/idp">Intelligent Document Processing</SitemapLink>
+          <SitemapLink href="/products/artificial-intelligence-mapping">AI Data Mapping</SitemapLink>
+          <SitemapLink href="/products/no-code-automation-builder">No-Code Integrations and Automations</SitemapLink>
         </SitemapLinks>
       </div>
       <div>
-        <SitemapHeading>Solutions by Initiative</SitemapHeading>
+        <SitemapHeading>Solutions by Initative</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">Digital Transformation</SitemapLink>
-          <SitemapLink href="#">Business Process Automation</SitemapLink>
-          <SitemapLink href="#">AI Data Readiness</SitemapLink>
-          <SitemapLink href="#">First Mile Data Problems</SitemapLink>
+          <SitemapLink href="/solutions/by-initiative#id-ai-data-readiness">Digital Transformation</SitemapLink>
+          <SitemapLink href="/solutions/by-initiative#id-business-process-automation">Business Process Automation</SitemapLink>
+          <SitemapLink href="/solutions/by-initiative#id-ai-data-readiness">AI Data Readiness</SitemapLink>
         </SitemapLinks>
         <SitemapHeading className="mt-8">Solutions by Application</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">SAP</SitemapLink>
-          <SitemapLink href="#">Salesforce</SitemapLink>
-          <SitemapLink href="#">Netsuite</SitemapLink>
-          <SitemapLink href="#">Workday</SitemapLink>
-          <SitemapLink href="#">ADP</SitemapLink>
-          <SitemapLink href="#">See All Integrations</SitemapLink>
+          <SitemapLink href="/connectors/sap-integration-accelerator">SAP</SitemapLink>
+          <SitemapLink href="/connectors/salesforce-integration-accelerator">Salesforce</SitemapLink>
+          <SitemapLink href="/connectors/netsuite-integration-accelerator">Netsuite</SitemapLink>
+          <SitemapLink href="/connectors">See All Integrations</SitemapLink>
         </SitemapLinks>
-      </div>      
+      </div>
       <div>
-      <SitemapHeading>Resources</SitemapHeading>
+        <SitemapHeading>Resources</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">Blog</SitemapLink>
-          <SitemapLink href="#">Resources</SitemapLink>
-          <SitemapLink href="#">Product Support</SitemapLink>
+          <SitemapLink href="/blog">Blog</SitemapLink>
+          <SitemapLink href="/resources">Resources</SitemapLink>
+          <SitemapLink href="/products/product-support">Product Support</SitemapLink>
+          <SitemapLink href="https://docs.adeptia.com/home/en-us/">Product Documentation</SitemapLink>
         </SitemapLinks>
         <SitemapHeading className="mt-8">Company</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="#">About Adeptia</SitemapLink>
-          <SitemapLink href="#">Leadership</SitemapLink>
-          <SitemapLink href="#">Careers</SitemapLink>
-          <SitemapLink href="#">Contact Us</SitemapLink>
-          <SitemapLink href="#">Terms of service</SitemapLink>
-          <SitemapLink href="#">Privacy policy</SitemapLink>
+          <SitemapLink href="/about">About Adeptia</SitemapLink>
+          <SitemapLink href="/about/management-team">Leadership</SitemapLink>
+          <SitemapLink href="/careers">Careers</SitemapLink>
+          <SitemapLink href="/about/contact-us">Contact Us</SitemapLink>
+          <SitemapLink href="/terms-of-service">Terms of service</SitemapLink>
+          <SitemapLink href="/privacy-policy">Privacy policy</SitemapLink>
         </SitemapLinks>
       </div>
     </>

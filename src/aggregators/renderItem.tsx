@@ -48,6 +48,7 @@ export async function RenderItem({
                     pathName={item.pathName}
                 />
             ) : item._type === 'resource' ? (
+              item.type === 'Blog' ? (
                 <CoverImageWText 
                     date={dayjs(item.publishDate).format('dddd, MMMM D, YYYY')}
                     categories={item.category}
@@ -58,7 +59,22 @@ export async function RenderItem({
                     coverImage={item.featuredImage}
                     slug={item.slug}
                     pathName={item.pathName}
+                    gradient={true}
                 />
+              ) : (
+                <CoverImageWText 
+                    date={dayjs(item.publishDate).format('dddd, MMMM D, YYYY')}
+                    categories={item.category}
+                    type={item.type}
+                    title={item.title}
+                    excerpt={excerptToHTML(item.excerpt as string)}
+                    author={item.author}
+                    coverImage={item.featuredImage}
+                    slug={item.slug}
+                    pathName={item.pathName}
+                    gradient={false}
+                />
+              )
             ) : item._type === 'customer' ? (
               <CoverImageWText 
                 title={item.title}

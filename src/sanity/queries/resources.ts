@@ -119,7 +119,7 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
     video
   },
   type in ["White Paper", "eBook", "Datasheet", "Infographic"] => {
-    "hasDownload": defined(downloadFile.asset),
+    "fileURL": downloadFile.asset->url,
     "HSForm": HSForm->{
       formID,
       thankYouMessage

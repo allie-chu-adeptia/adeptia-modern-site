@@ -18,8 +18,8 @@ export interface ExpandedImage {
   asset: {
     _ref: string
     _type: 'reference'
+    title: string
   }
-  altText?: string
 }
 
 export interface ExpandedConnector extends Omit<Connector, 'logo' | 'categories'> {
@@ -51,7 +51,7 @@ export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | '
   featuredImage?: ExpandedImage
   slug: string
   pathName: string
-  hasDownload?: boolean
+  fileURL?: string
   HSForm?: {
     formID: string
     thankYouMessage: string
