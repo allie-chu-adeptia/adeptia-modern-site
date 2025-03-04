@@ -10,13 +10,17 @@ const HubSpotForm = ({
     formId,
     region = 'na1',
     slug,
-    thankYouMessage
+    sfdcCampaignId,
+    thankYouMessage,
+    dark
 }: {
     portalId: string,
     formId: string,
-    region: string
-    slug: string,
-    thankYouMessage: string
+    region: string,
+    sfdcCampaignId?: string,
+    slug?: string,
+    thankYouMessage: string,
+    dark?: boolean
 }) => {
     const router = useRouter();
     const formContainer = useRef<HTMLDivElement>(null);
@@ -43,6 +47,7 @@ const HubSpotForm = ({
                     formId: cleanFormId,
                     region: region,
                     target: `#${formContainer.current?.id}`,
+                    sfdcCampaignId: sfdcCampaignId,
                     onFormReady: () => {
                         setIsLoading(false); // Set loading to false when form is ready
                     },
@@ -60,7 +65,7 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region, router]);
+    }, [portalId, cleanFormId, region, router, sfdcCampaignId]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
@@ -75,13 +80,18 @@ const HubSpotForm = ({
                     minWidth: '300px',
                     width: '100%',
                     margin: '2rem 0',
-                    background: 'linear-gradient(276deg, #D8E5FC 0%, #CEDBF5 50%, #D2D8F7 100%)',
+                    background: '#F8F7F7',
                     padding: '2rem',
                     borderRadius: '1rem',
                     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.15)',
+                    ...(dark && {
+                        background: '#E1ECFF',
+                        color: '#fff',
+                    })
                 }}
             ></div>
-            {isSubmitted && <FileDownload slug={slug} message={thankYouMessage}/>}
+            {isSubmitted && slug && <FileDownload slug={slug} message={thankYouMessage}/>}
+            {isSubmitted && !slug && <div>{thankYouMessage}</div>}
         </div>
     );
 };
