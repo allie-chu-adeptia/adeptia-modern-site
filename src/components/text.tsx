@@ -69,7 +69,7 @@ export function Eyebrow({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'text-sm font-semibold uppercase tracking-wide text-[var(--primary-blue)] data-[dark=true]:text-gray-200'
+        'text-sm font-semibold uppercase tracking-wide text-[var(--primary-blue)] data-[dark=true]:text-[#f5ffbd]'
       )}
       {...props}
     />

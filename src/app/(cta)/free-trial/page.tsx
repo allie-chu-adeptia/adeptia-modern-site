@@ -23,15 +23,15 @@ export default function FreeTrial() {
                                 </Heading>
                                 <div className="mt-10 flex flex-col gap-8">
                                     <div>
-                                        <Eyebrow className="text-[#f5ffbd]">Unlimited Access for Two Weeks</Eyebrow>
+                                        <Eyebrow dark={true}>Unlimited Access for Two Weeks</Eyebrow>
                                         <p className="mt-2 text-white">Get immediate access to the Adeptia platform when you sign up, no payment method required. Integrate with applications, partners, files and more.</p>
                                     </div>
                                     <div>
-                                        <Eyebrow className="text-[#f5ffbd]">Get Started in Minutes</Eyebrow>
+                                        <Eyebrow dark={true}>Get Started in Minutes</Eyebrow>
                                         <p className="mt-2 text-white">We provide a library of free demo videos upon signing up for the trial, so you can quickly learn the ropes and start building integrations.</p>
                                     </div>
                                     <div>
-                                        <Eyebrow className="text-[#f5ffbd]">Built for All Technical Abilities</Eyebrow>
+                                        <Eyebrow dark={true}>Built for All Technical Abilities</Eyebrow>
                                         <p className="mt-2 text-white">Whether you&apos;ve been a developer for 15 years or have never written a line of code, Adeptia&apos;s intuitive, no-code platform can simplify your most complex integrations. Try it out today!</p>
                                     </div>
                                 </div>

@@ -18,16 +18,16 @@ export default function ContactUs() {
             <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
               <div className="relative px-6 pt-12 pb-12 sm:pt-12 lg:static lg:px-8 lg:py-48">
                 <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-                  <Heading as="h1">How can we help?</Heading>
-                  <Heading as="h3" className="mt-6">Ask about Adeptia Connect, pricing, implementation, or anything else. Our experts are ready to partner with you.
+                  <Heading as="h1" dark={true}>How can we help?</Heading>
+                  <Heading as="h3" className="mt-6" dark={true}>Ask about Adeptia Connect, pricing, implementation, or anything else. Our experts are ready to partner with you.
                   </Heading>
                   <div className="mt-10">
-                    <Eyebrow>US Headquarters</Eyebrow>
-                    <dl className="mt-4 space-y-4 text-base/7 text-gray-600">
+                    <Eyebrow dark={true}>US Headquarters</Eyebrow>
+                    <dl className="mt-4 space-y-4 text-base/7 text-gray-200">
                       <div className="flex gap-x-4">
                         <dt className="flex-none">
                           <span className="sr-only">Address</span>
-                          <BuildingOffice2Icon aria-hidden="true" className="h-7 w-6 text-gray-400" />
+                          <BuildingOffice2Icon aria-hidden="true" className="h-7 w-6 text-gray-200" />
                         </dt>
                         <dd>
                           332 S Michigan Ave
@@ -40,10 +40,10 @@ export default function ContactUs() {
                       <div className="flex gap-x-4">
                         <dt className="flex-none">
                           <span className="sr-only">Telephone</span>
-                          <PhoneIcon aria-hidden="true" className="h-7 w-6 text-gray-400" />
+                          <PhoneIcon aria-hidden="true" className="h-7 w-6 text-gray-200" />
                         </dt>
                         <dd>
-                          <a href="tel:+1 (312) 299-1727" className="hover:text-gray-900">
+                          <a href="tel:+1 (312) 299-1727" className="hover:text-gray-300">
                             +1 (312) 299-1727
                           </a>
                         </dd>
@@ -51,12 +51,12 @@ export default function ContactUs() {
                     </dl>
                   </div>
                   <div className="mt-10">
-                    <Eyebrow>Adeptia India</Eyebrow>
-                    <dl className="mt-4 space-y-4 text-base/7 text-gray-600">
+                    <Eyebrow dark={true}>Adeptia India</Eyebrow>
+                    <dl className="mt-4 space-y-4 text-base/7 text-gray-200">
                       <div className="flex gap-x-4">
                         <dt className="flex-none">
                           <span className="sr-only">Address</span>
-                          <BuildingOffice2Icon aria-hidden="true" className="h-7 w-6 text-gray-400" />
+                          <BuildingOffice2Icon aria-hidden="true" className="h-7 w-6 text-gray-200" />
                         </dt>
                         <dd>
                           India Research & Development Center
