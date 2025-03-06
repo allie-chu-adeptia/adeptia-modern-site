@@ -1,10 +1,12 @@
 import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker } from "../sanity/types/sanity.types";
 import { HeaderStyle } from "../lib/headerStyle";
 import IconRender from "@/lib/iconRender";
-import { Link } from "@/components/link";
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
 import { image } from '@/sanity/lib/image'
+import { Button } from "@/components/button";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { FirstMileData } from "@/animations/firstMileData";
 
 type spacing = 'tight' | 'loose'
 
@@ -55,19 +57,16 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-gray-700")}>{subpoint.subheader}</dd>
                         {subpoint.button && <p className="mt-6">
-                            {subpoint.button?.url ? (
-                                <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
-                                    {subpoint.button.title} <span aria-hidden="true">→</span>
-                                </a>
-                            ) : (
-                                <Link
-                                    slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
-                                    href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
-                                    className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}
-                                >
-                                    {subpoint.button.title} <span aria-hidden="true">→</span>
-                                </Link>
-                            )}
+                            <Button
+                                slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
+                                href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
+                                dark={dark}
+                                variant={"tertiary"}
+                            >
+
+                                {subpoint.button.title}
+                                <ChevronRightIcon className="size-4 transform translate-x-1 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />
+                            </Button>
                         </p>}
                     </div>
                 ) : (
@@ -86,19 +85,16 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                         <dd className={clsx("mt-4 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
                             <p className="flex-auto">{subpoint.subheader}</p>
                             {subpoint.button && <p className="mt-6">
-                                {subpoint.button?.url ? (
-                                    <a href={subpoint.button.url} target="_blank" rel="noopener noreferrer" className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}>
-                                        {subpoint.button.title} <span aria-hidden="true">→</span>
-                                    </a>
-                                ) : (
-                                    <Link
-                                        slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
-                                        href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
-                                        className={clsx("text-sm/6 font-semibold", dark ? "text-[var(--primary-blue-lighter)]" : "text-[var(--primary-blue)]")}
-                                    >
-                                        {subpoint.button.title} <span aria-hidden="true">→</span>
-                                    </Link>
-                                )}
+                                <Button
+                                    slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
+                                    href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
+                                    dark={dark}
+                                    variant={"tertiary"}
+                                >
+
+                                    {subpoint.button.title}
+                                    <ChevronRightIcon className="size-4 transform translate-x-1 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />
+                                </Button>
                             </p>}
                         </dd>
                     </div>
@@ -108,10 +104,17 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
     )
 }
 
-function OffCenterImage(
-    { contentSection, spacing, dark }:
-        { contentSection: ExpandedContentSection, spacing: spacing, dark: boolean }
-) {
+function OffCenterImage({
+    contentSection,
+    spacing,
+    dark,
+    animation
+}: {
+    contentSection: ExpandedContentSection,
+    spacing: spacing,
+    dark: boolean,
+    animation?: string
+}) {
     const alignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
     const link_alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
 
@@ -126,74 +129,102 @@ function OffCenterImage(
                         </dl>}
                         {contentSection.button && (
                             <div className={`mt-10 w-full flex ${link_alignment}`}>
-                                <Link
+                                <Button
                                     slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                                     href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                                    className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
+                                    dark={dark}
+                                    variant={"blue"}
                                 >
+
                                     {contentSection.button?.title}
-                                </Link>
+                                </Button>
                             </div>
                         )}
                     </div>
                 </div>
-                {contentSection.image && (
-                    <div className={clsx("flex items-center justify-end rounded-xl", alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
-                        <img
-                            alt={cleanString(contentSection.image?.altText || '')}
-                            src={image(contentSection.image).size(2400, 1800).url()}
-                            className="w-[48rem] rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
-                        />
-                    </div>
-                )}
+                <div className={clsx("flex items-center justify-end rounded-xl", alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
+                    {animation ? (
+                        <div className="relative h-80 shrink-0">
+                            {cleanString(animation) === 'firstMileDataTypes' && (
+                                <FirstMileData dark={dark} />
+                            )}
+                        </div>
+                    ) : (
+                        contentSection.image && (
+                            <div className="relative pt-8">
+                                <img
+                                    alt={cleanString(contentSection.image?.altText || '')}
+                                    src={image(contentSection.image).size(2400, 1600).url()}
+                                    className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
+                                />
+                            </div>
+                        )
+                    )}
+                </div>
             </div>
         </>
     )
 }
 
-function CenteredImage(
-    { contentSection, spacing, dark }:
-        { contentSection: ExpandedContentSection, spacing: spacing, dark: boolean }
-) {
+function CenteredImage({
+    contentSection,
+    spacing,
+    dark,
+    animation
+}: {
+    contentSection: ExpandedContentSection,
+    spacing: spacing,
+    dark: boolean,
+    animation?: string
+}) {
     const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
     const numSubpoints = contentSection.subPoints?.length === 2 || contentSection.subPoints?.length === 4 ? '2' : '3'
-    console.log(contentSection.button?.link)
+    console.log(contentSection.subPoints)
 
     return (
-        <div>
+        <>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
                 {contentSection.button && (
                     <div className={`mt-10 w-full flex ${alignment}`}>
-                        <Link
+                        <Button
                             slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                             href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                            className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
+                            dark={dark}
+                            variant={"blue"}
                         >
+
                             {contentSection.button?.title}
-                        </Link>
+                        </Button>
                     </div>
                 )}
             </div>
-            <div className="relative pt-16">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    {contentSection.image && (
-                        <img
-                            alt={cleanString(contentSection.image?.altText || '')}
-                            src={image(contentSection.image).size(2400, 1800).url()}
-                            className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10")}
-                        />
-                    )}
-                </div>
-            </div>
             {contentSection.subPoints && (
-                <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
-                    <dl className={`mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base/7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-${numSubpoints} lg:gap-x-8 lg:gap-y-16`}>
-                        {contentSection.subPoints && <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />}
+                <div className="mx-auto my-8 max-w-7xl px-6 sm:my-10 md:my-12 lg:px-8">
+                    <dl className={`mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base/7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-${numSubpoints} lg:gap-x-16 lg:gap-y-16`}>
+                        <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />
                     </dl>
                 </div>
             )}
-        </div>
+            <div className="mx-auto max-w-5xl px-6 lg:px-8">
+                {animation ? (
+                    <div className="relative h-80 shrink-0 my-12">
+                        {cleanString(animation) === 'firstMileDataTypes' && (
+                            <FirstMileData dark={dark} />
+                        )}
+                    </div>
+                ) : (
+                    contentSection.image && <div className="relative pt-8">
+
+                        <img
+                            alt={cleanString(contentSection.image?.altText || '')}
+                            src={image(contentSection.image).size(1800, 1200).url()}
+                            className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
+                        />
+                    </div>
+                )}
+            </div>
+        </>
     )
 }
 
@@ -204,21 +235,22 @@ function NoImage(
     const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
     const contentAlignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
     const numSubpoints = contentSection.subPoints?.length === 2 || contentSection.subPoints?.length === 4 ? '2' : '3'
-    console.log(numSubpoints)
 
     return (
         contentSection.styleAndLayout?.layout === 'center' ? (
-            <div className="noImage contentSection flex flex-col items-center gap-y-12">
+            <div className="noImage contentSection flex flex-col items-center gap-y-8">
                 <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
                 {contentSection.button && (
-                    <div className={`mt-10 w-full flex ${alignment}`}>
-                        <Link
+                    <div className={`mb-6 w-full flex ${alignment}`}>
+                        <Button
                             slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                             href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                            className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
+                            dark={dark}
+                            variant={"blue"}
                         >
+
                             {contentSection.button?.title}
-                        </Link>
+                        </Button>
                     </div>
                 )}
                 <div className="mx-auto mt-16 lg:mt-0 lg:col-span-3">
@@ -232,14 +264,16 @@ function NoImage(
                 <div className={`lg:col-span-2 flex flex-col ${contentAlignment === 'right' ? 'lg:order-2' : 'lg:order-1'}`}>
                     <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
                     {contentSection.button && (
-                        <div className={`mt-10 w-full flex ${alignment}`}>
-                            <Link
+                        <div className={`mt-6 w-full flex ${alignment}`}>
+                            <Button
                                 slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                                 href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                                className="inline-flex rounded-md bg-[var(--primary-blue)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-blue-lighter)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-blue)]"
+                                dark={dark}
+                                variant={"blue"}
                             >
+
                                 {contentSection.button?.title}
-                            </Link>
+                            </Button>
                         </div>
                     )}
                 </div>
@@ -258,11 +292,51 @@ export function ContentSectionComponent({ contentSection }: { contentSection: Ex
     const cleanDark = cleanString(contentSection.styleAndLayout?.background?.style || '')
     const dark = cleanDark === 'dark' || cleanDark === 'accent' ? true : false
 
+    console.log("contentSection separator", contentSection)
+
     return (
         <div className="contentSection">
-            {!contentSection.image && <NoImage contentSection={contentSection} spacing={spacing} dark={dark} />}
-            {contentSection.image && contentSection.styleAndLayout?.layout !== 'center' && <OffCenterImage contentSection={contentSection} spacing={spacing} dark={dark} />}
-            {contentSection.image && contentSection.styleAndLayout?.layout === 'center' && <CenteredImage contentSection={contentSection} spacing={spacing} dark={dark} />}
+            {contentSection.animation ? (
+                contentSection.styleAndLayout?.layout === 'center' ? (
+                    <CenteredImage
+                        contentSection={contentSection}
+                        spacing={spacing}
+                        dark={dark}
+                        animation={contentSection.animation}
+                    />
+                ) : (
+                    <OffCenterImage
+                        contentSection={contentSection}
+                        spacing={spacing}
+                        dark={dark}
+                        animation={contentSection.animation}
+                    />
+                )
+            ) : (
+                <>
+                    {!contentSection.image && (
+                        <NoImage
+                            contentSection={contentSection}
+                            spacing={spacing}
+                            dark={dark}
+                        />
+                    )}
+                    {contentSection.image && contentSection.styleAndLayout?.layout !== 'center' && (
+                        <OffCenterImage
+                            contentSection={contentSection}
+                            spacing={spacing}
+                            dark={dark}
+                        />
+                    )}
+                    {contentSection.image && contentSection.styleAndLayout?.layout === 'center' && (
+                        <CenteredImage
+                            contentSection={contentSection}
+                            spacing={spacing}
+                            dark={dark}
+                        />
+                    )}
+                </>
+            )}
         </div>
     )
 }

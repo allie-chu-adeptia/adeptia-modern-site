@@ -482,6 +482,7 @@ export type ContentSection = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  animation?: 'firstMileDataTypes'
   button?: Button
   styleAndLayout?: {
     layout?: 'left' | 'right' | 'center'
@@ -614,6 +615,9 @@ export type Page = {
     | ({
         _key: string
       } & ContentSectionCarousel)
+    | ({
+        _key: string
+      } & CareerSection)
   >
 }
 
@@ -946,6 +950,12 @@ export type BackgroundStyle = {
   style?: 'light' | 'medium' | 'dark' | 'dark-accent' | 'light-accent'
 }
 
+export type CareerSection = {
+  _type: 'careerSection'
+  header?: HeaderStyle
+  careers?: boolean
+}
+
 export type HeaderStyle = {
   _type: 'headerStyle'
   eyebrow?: string
@@ -1010,6 +1020,7 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | BackgroundStyle
+  | CareerSection
   | HeaderStyle
   | IconPicker
 export declare const internalGroqTypeReferenceTo: unique symbol

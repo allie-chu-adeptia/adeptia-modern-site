@@ -123,7 +123,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           hotspot,
           crop
         },
-        body,
+        animation,
         button {
           _id,
           title,
@@ -220,6 +220,11 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
             }
           }
         }
+      },
+      _type == "careerSection" => {
+        _type,
+        header,
+        careers
       }
     }
 }`)

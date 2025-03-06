@@ -69,6 +69,7 @@ const FEATURED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
   && featured == true
 ]|order(publishDate desc)[0...$quantity]{
   _type,
+  type,
   _id,
   title,
   "slug": metadata.slug.current,

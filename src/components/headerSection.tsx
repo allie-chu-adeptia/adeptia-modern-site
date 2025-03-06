@@ -34,7 +34,7 @@ export function DefaultHeaderSection({
     return (
         <BackgroundColor color={background} className="relative overflow-hidden">
             <div className="relative z-10">
-                <Container paddingLvl="sm">
+                <Container paddingLvl="md">
                     <HeaderSectionComponent headerSection={headerSection} />
                     <div className="mt-10 flex items-center justify-center gap-x-3">
                         {headerSection.cta?.map((cta, index) => (
@@ -70,7 +70,7 @@ export function HeaderSectionComponent({ headerSection }: { headerSection: Expan
     console.log("alignment", alignment)
 
     return (
-        <div className={`flex flex-col items-center justify-center min-h-96`}>
+        <div className={`flex flex-col items-center justify-center min-h-64 lg:min-h-96`}>
             <HeaderStyle header={headerSection.header} style={headerSection.background} level={1} />
             <div className={`mt-10 w-full flex ${alignment} gap-x-3`}>
                 {headerSection.cta?.map((cta, index) => (

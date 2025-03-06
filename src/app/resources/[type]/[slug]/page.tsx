@@ -12,7 +12,6 @@ import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import HubSpotForm from '@/lib/hubspotContactForm'
-import Script from 'next/script'
 import { NoGateFileDownload } from '@/lib/displayDownload'
 
 type sParams = Promise<{ slug: string }>;
@@ -34,7 +33,6 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
 
   return (
     <main className="overflow-hidden">
-      <Script src="https://js.hsforms.net/forms/shell.js" strategy="beforeInteractive" />
       <Container>
         <Eyebrow className="mt-16">
           {dayjs(resource.publishDate).format('dddd, MMMM D, YYYY')}

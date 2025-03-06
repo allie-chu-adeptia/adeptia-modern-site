@@ -21,11 +21,12 @@ export function LogoSectionComponent({
   logoSection: ExpandedLogoSection
   className?: string
 }) {
+  const numLogos = logoSection.logo?.length || 5;
   return (
     <div
       className={clsx(
         className,
-        "mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5",
+        `mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-${numLogos} ${numLogos % 2 === 1 ? '[&>*:last-child]:col-span-4 [&>*:last-child]:place-self-center sm:[&>*:last-child]:col-span-6 lg:[&>*:last-child]:col-span-1' : ''}`,
       )}
     >
       {logoSection.logo?.map((logo, index) => (

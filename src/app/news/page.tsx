@@ -3,7 +3,7 @@ import { Container } from '@/components/container'
 import { Aggregator } from '@/aggregators/aggregator'
 import {
   getNews,
-  getNewsCount,
+  getNewsCount
 } from '@/sanity/queries/news'
 import type { Metadata } from 'next'
 import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'

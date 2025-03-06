@@ -53,7 +53,10 @@ const HubSpotForm = ({
                     },
                     onFormSubmit: () => {
                         setIsSubmitted(true);
-                        router.push(`${window.location.pathname}/thank-you`);
+                        const token = Math.random().toString(36).substring(2, 15);
+                        sessionStorage.setItem("downloadToken", token);
+                        sessionStorage.setItem("slug", slug || "No slug found");
+                        router.push(`${window.location.pathname}/thank-you?token=${token}`);
                     }
                 });
             }
@@ -65,7 +68,7 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region, router, sfdcCampaignId]);
+    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
@@ -74,7 +77,7 @@ const HubSpotForm = ({
             <div
                 id={generatedId}
                 ref={formContainer}
-                style={{ 
+                style={{
                     display: isLoading || isSubmitted ? 'none' : 'flex',
                     maxWidth: '500px',
                     minWidth: '300px',
@@ -90,7 +93,7 @@ const HubSpotForm = ({
                     })
                 }}
             ></div>
-            {isSubmitted && slug && <FileDownload slug={slug} message={thankYouMessage}/>}
+            {isSubmitted && slug && <FileDownload slug={slug} message={thankYouMessage} />}
             {isSubmitted && !slug && <div>{thankYouMessage}</div>}
         </div>
     );

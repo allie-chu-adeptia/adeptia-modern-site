@@ -5,6 +5,7 @@ import {
   getCategories,
   getResources,
   getResourcesCount,
+  getFeaturedResources
 } from '@/sanity/queries/resources'
 import { Metadata } from 'next'
 import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
@@ -60,6 +61,7 @@ export default async function Resource(
           getItems={getResources}
           getItemsCount={getResourcesCount}
           getCategories={getCategories}
+          getFeaturedItems={getFeaturedResources}
           itemsPerPage={21}
           currPage={page}
           filterCategory={category}

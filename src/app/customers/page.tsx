@@ -33,7 +33,7 @@ export default async function CustomerPage(
     return (
         <>
             <DefaultHeaderSection header={CustomersHeader} />
-            <Container>
+            <Container paddingLvl="md">
                 <Aggregator
                     getItems={getCustomers}
                     getItemsCount={getCustomersCount}

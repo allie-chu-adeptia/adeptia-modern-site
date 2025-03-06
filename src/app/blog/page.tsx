@@ -3,6 +3,7 @@ import {
   getCategories,
   getPosts,
   getPostsCount,
+  getFeaturedPosts
 } from '@/sanity/queries/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -54,7 +55,7 @@ export default async function Blog(
           getItems={getPosts}
           getItemsCount={getPostsCount}
           getCategories={getCategories}
-          // getFeaturedItems={getFeaturedPosts}
+          getFeaturedItems={getFeaturedPosts}
           itemsPerPage={21}
           currPage={page}
           filterCategory={category}

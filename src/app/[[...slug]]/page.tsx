@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 // Sanity types and queries
 import { getPage } from '@/sanity/queries/page'
-import type { Page, TextSection, Faq, StatSection, BackgroundStyle, ContentSectionCarousel } from '@/sanity/types/sanity.types'
+import type { Page, TextSection, Faq, StatSection, BackgroundStyle, ContentSectionCarousel, CareerSection } from '@/sanity/types/sanity.types'
 import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types"
 
 // Components
@@ -27,6 +27,7 @@ import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import { getPath } from '@/lib/routing'
 import { BackgroundMotion } from '@/lib/backgroundMotion'
 import { buildMetadata } from '@/lib/metadata'
+import CareerSectionComponent from '@/components/careerSection'
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const lightBackground: BackgroundStyle = {
@@ -118,6 +119,11 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     {block._type === 'contentSectionCarousel' && (
                         <Container paddingLvl="md">
                             <ContentSectionCarouselComponent contentSectionCarousel={block as ContentSectionCarousel    } />
+                        </Container>
+                    )}
+                    {block._type === 'careerSection' && (
+                        <Container paddingLvl="none">
+                            <CareerSectionComponent careerSection={block as CareerSection} />
                         </Container>
                     )}
                 </div>

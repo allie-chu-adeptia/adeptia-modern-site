@@ -7,7 +7,8 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/aggregators/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/globals.css"
+    "./src/app/globals.css",
+    "./src/animations/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: 'class',
   theme: {

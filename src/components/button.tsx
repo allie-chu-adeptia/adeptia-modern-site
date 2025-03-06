@@ -22,7 +22,7 @@ const variants = {
     'disabled:opacity-50 disabled:hover:bg-white/15',
   ),
   tertiary: clsx(
-    'inline-flex items-center gap-x-1 px-4 py-[calc(theme(spacing.2)-1px)]',
+    'inline-flex items-center gap-x-1 py-[calc(theme(spacing.2)-1px)]',
     'whitespace-nowrap text-base font-regular text-black group',
     'data-[dark=true]:text-white',
     'disabled:opacity-50 disabled:hover:bg-gray-950'

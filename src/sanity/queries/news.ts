@@ -59,7 +59,7 @@ const FEATURED_NEWS_QUERY = defineQuery(/* groq */ `*[
   excerpt
 }`)
 
-export async function getFeaturedResources(quantity: number) {
+export async function getFeaturedNews(quantity: number) {
   return await sanityFetch({
     query: FEATURED_NEWS_QUERY,
     params: { quantity },
