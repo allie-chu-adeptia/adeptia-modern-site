@@ -133,7 +133,6 @@ const ResourcesMenu: TopLevelMenu = {
             name: 'Support', items: [
                 { name: 'Product Support', href: '/products/product-support' },
                 { name: 'Product Documentation', href: 'https://docs.adeptia.com/' },
-                { name: 'Training', href: '/support/training' },
             ]
         }
     ]
@@ -146,7 +145,7 @@ const CompanyMenu: TopLevelMenu = {
             name: 'Company', items: [
                 { name: 'About', href: '/about' },
                 { name: 'News', href: '/news' },
-                { name: 'Leadership', href: '/about/management-team' },
+                { name: 'Leadership', href: '/about#id-leadership' },
                 { name: 'Careers', href: '/careers' },
                 { name: 'Contact', href: '/about/contact-us' },
             ]
