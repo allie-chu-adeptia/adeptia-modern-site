@@ -57,21 +57,25 @@ export function DefaultHeaderSection({
     )
 }
 
-export function HeaderSectionComponent({ headerSection }: { headerSection: ExpandedHeaderSection }) {
+export function HeaderSectionComponent({
+    headerSection,
+    home
+}: {
+    headerSection: ExpandedHeaderSection
+    home?: boolean
+}) {
     const cleanStyle = cleanString(headerSection.background?.style || '')
     const dark = cleanStyle === 'dark' || cleanStyle === 'dark-accent' ? true : false
 
-    if (headerSection.cta && headerSection.cta.length > 0) {
-        console.log("headerSection.cta", headerSection.cta)
-        console.log("headerSection.length", headerSection.cta.length)
-    }
-
     const alignment = headerSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
-    console.log("alignment", alignment)
 
     return (
         <div className={`flex flex-col items-center justify-center min-h-64 lg:min-h-96`}>
-            <HeaderStyle header={headerSection.header} style={headerSection.background} level={1} />
+            {home ? (
+                <HeaderStyle header={headerSection.header} style={headerSection.background} level={1} home={home} />
+            ) : (
+                <HeaderStyle header={headerSection.header} style={headerSection.background} level={1} />
+            )}
             <div className={`mt-10 w-full flex ${alignment} gap-x-3`}>
                 {headerSection.cta?.map((cta, index) => (
                     <Button

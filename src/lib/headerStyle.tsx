@@ -3,6 +3,7 @@ import { Heading } from "../components/text"
 import { BackgroundStyle } from "@/sanity/types/sanity.types"
 import cleanString from "./cleanString"
 import clsx from "clsx"
+import { nokora } from "../components/text"
 
 export interface HeaderStyleProps {
   header?: {
@@ -14,7 +15,8 @@ export interface HeaderStyleProps {
   }
   style?: BackgroundStyle
   level?: number,
-  className?: string
+  className?: string,
+  home?: boolean
 }
 
 const lightBackground: BackgroundStyle = {
@@ -26,7 +28,8 @@ export function HeaderStyle({
   header,
   style = lightBackground,
   level = 2,
-  className
+  className,
+  home
 }: HeaderStyleProps) {
   const textAlignment: { [key: string]: string } = {
     'centered': 'text-center',
@@ -50,24 +53,56 @@ export function HeaderStyle({
       className
     )} id={header?.anchorID ? `id-${cleanString(header?.anchorID).toLowerCase().replace(/\s+/g, '-')}` : ''}>
       <div className={`${textAlignment[header?.layout || 'centered']}`}>
+
         {header?.eyebrow && <Eyebrow dark={dark}>
           {header?.eyebrow}
         </Eyebrow>}
-        <Heading
-          as={level == 1 ? "h1" : "h2"}
-          dark={dark}
-          className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
-        >
-          {header?.header}
-        </Heading>
-        {header?.subheader && <Heading
-          as={level != 3 ? "h3" : "h4"}
-          dark={dark}
-          className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
-        >
-          {header?.subheader}
-        </Heading>}
+
+        {home ? (
+          <>
+            <h1 className={clsx(
+              'text-pretty max-w-3xl',
+              `text-5xl lg:text-7xl data-[dark=true]:text-white ${nokora.className}`,
+              dark ? 'text-white' : 'text-gray-950'
+            )}>
+              {header?.header}<span className="text-4xl lg:text-6xl"><sup>™</sup></span>
+            </h1>
+            <h2 className={clsx(
+              'text-pretty max-w-3xl',
+              `text-2xl lg:text-3xl data-[dark=true]:text-white mt-4`,
+              dark ? 'text-[#E1ECFF]' : 'text-gray-950'
+            )}>
+              {header?.subheader?.split(/(first-mile data™|intelligent business operations)/).map((text, index) => (
+                text.match(/(first-mile data™|intelligent business operations)/) ?
+                  <span
+                    key={index}
+                    className="text-[#F5FFBD] bg-white/10 px-2 py-0 rounded-md"
+                  >
+                    {text}
+                  </span> :
+                  text
+              ))}
+            </h2>
+          </>
+        ) : (
+          <>
+            <Heading
+              as={level == 1 ? "h1" : "h2"}
+              dark={dark}
+              className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
+            >
+              {header?.header}
+            </Heading>
+            {header?.subheader && <Heading
+              as={level != 3 ? "h3" : "h4"}
+              dark={dark}
+              className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
+            >
+              {header?.subheader}
+            </Heading>}
+          </>
+        )}
       </div>
-    </div>
+    </div >
   )
 }

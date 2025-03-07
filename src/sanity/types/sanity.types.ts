@@ -189,65 +189,6 @@ export type TextSection = {
   text?: PortableText
 }
 
-export type Tag = {
-  _id: string
-  _type: 'tag'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  slug?: Slug
-}
-
-export type Post = {
-  _id: string
-  _type: 'post'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  metadata?: Metadata
-  date?: string
-  modified?: string
-  status?:
-    | 'publish'
-    | 'future'
-    | 'draft'
-    | 'pending'
-    | 'private'
-    | 'trash'
-    | 'auto-draft'
-    | 'inherit'
-  content?: PortableText
-  excerpt?: PortableText
-  featuredMedia?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
-  featuredMediaAlt?: string
-  featured?: boolean
-  author?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'teamMember'
-  }
-  categories?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'category'
-  }>
-}
-
 export type Cta = {
   _id: string
   _type: 'cta'
@@ -295,6 +236,18 @@ export type Category = {
   _rev: string
   name?: string
   slug?: Slug
+}
+
+export type TeamMemberSection = {
+  _type: 'teamMemberSection'
+  header?: HeaderStyle
+  teamMembers?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'teamMember'
+  }>
 }
 
 export type ContentSectionCarousel = {
@@ -618,6 +571,9 @@ export type Page = {
     | ({
         _key: string
       } & CareerSection)
+    | ({
+        _key: string
+      } & TeamMemberSection)
   >
 }
 
@@ -984,11 +940,10 @@ export type AllSanitySchemaTypes =
   | Content
   | Redirect
   | TextSection
-  | Tag
-  | Post
   | Cta
   | Company
   | Category
+  | TeamMemberSection
   | ContentSectionCarousel
   | TestimonialSection
   | Testimonial

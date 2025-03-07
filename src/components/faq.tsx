@@ -17,7 +17,6 @@ export function FaqComponent({
 }) {
     
     if (String(faq.displayStyle) === 'inline') {
-        console.log('displaying inline')
         return (
             <div className="bg-white">
                 <div className="mx-auto max-w-7xl">

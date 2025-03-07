@@ -24,8 +24,6 @@ export default async function NewsArticle(props: { params: Promise<sParams> }) {
   const { slug } = await props.params
   const post = (await getNewsArticle(slug) as ExpandedPost) || notFound()
 
-  console.log(post)
-
   return (
     <main className="overflow-hidden">
       <Container>

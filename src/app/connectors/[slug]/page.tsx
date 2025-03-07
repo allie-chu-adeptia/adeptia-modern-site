@@ -33,7 +33,7 @@ export default async function ConnectorPage(props: { params: Promise<sParams> })
                 <Container>
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
                         <div>
-                            <CategoryChip categories={connector.categories} pathName="connectors" />
+                            <CategoryChip categories={connector.categories} />
                         </div>
                         <div>
                             <StylePortableText value={connector.body as PortableTextBlock[]} />

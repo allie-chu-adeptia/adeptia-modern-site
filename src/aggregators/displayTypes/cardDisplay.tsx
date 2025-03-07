@@ -110,7 +110,7 @@ export function CoverImageWText(
                 </div>
                 {categories && (
                     <div className="mt-5">
-                        <CategoryChip categories={categories} pathName={pathName} />
+                        <CategoryChip categories={categories} />
                     </div>
                 )}
                 {author && author.profilePic && (

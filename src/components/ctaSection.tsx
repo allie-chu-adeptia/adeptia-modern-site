@@ -145,7 +145,6 @@ export function CtaSectionComponent(
   }
 
   const Component = displayStyle ? displayStyleMap[displayStyle] : null
-  console.log(ctaSection)
 
   return Component ? <Component ctaSection={ctaSection} /> : null
 }

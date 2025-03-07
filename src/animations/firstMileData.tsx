@@ -27,12 +27,13 @@ function Logo({
       className={clsx(
         className,
         'absolute top-2 inline-flex items-center gap-2 px-3 py-1',
-        'rounded-full bg-[#F9FAFB] ring-1 ring-inset ring-[#6B7180]/10',
-        background ? 'bg-[#E1ECFF] ring-white/15' : '',
+        'rounded-full text-gray-700 bg-[#F9FAFB] ring-1 ring-inset ring-[#6B7180]/10',
+        'text-md/6 font-medium',
+        background ? 'text-[#B9BCC4] text-xs/6 font-normal' : '',
         '[--move-x-from:-100%] [--move-x-to:calc(100%+100cqw)] [animation-iteration-count:infinite] [animation-name:move-x] [animation-play-state:running] [animation-timing-function:linear]',
       )}
     >
-      <p className="text-sm/6 font-medium text-black">{label}</p>
+      <p>{label}</p>
     </div>
   )
 }

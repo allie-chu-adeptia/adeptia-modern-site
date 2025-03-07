@@ -28,8 +28,11 @@ import { getPath } from '@/lib/routing'
 import { BackgroundMotion } from '@/lib/backgroundMotion'
 import { buildMetadata } from '@/lib/metadata'
 import CareerSectionComponent from '@/components/careerSection'
+import { TeamMemberSection, ExpandedTeamMember } from '@/components/teamMemberSection'
 
 function PageContent({ page }: { page: ExpandedPage }) {
+    const home = page.metadata?.slug?.current === 'home'
+
     const lightBackground: BackgroundStyle = {
         _type: 'backgroundStyle',
         style: 'light'
@@ -48,10 +51,6 @@ function PageContent({ page }: { page: ExpandedPage }) {
                             </Container>
                         </BackgroundColor>
                     )}
-                    {/* block._type === 'caseStudy' && (
-                        // TODO: Implement CaseStudy component
-                        null
-                    ) */}
                     {block._type === 'contentSection' && (
                         <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
                             <Container paddingLvl="md">
@@ -73,7 +72,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         <BackgroundColor color={block.background ?? lightBackground} className="relative overflow-hidden">
                             <div className="relative z-10">
                                 <Container paddingLvl="md">
-                                    <HeaderSectionComponent headerSection={block as ExpandedHeaderSection} />
+                                    <HeaderSectionComponent headerSection={block as ExpandedHeaderSection} home={home} />
                                 </Container>
                             </div>
                             <BackgroundMotion color={block.background ?? lightBackground} />
@@ -84,10 +83,6 @@ function PageContent({ page }: { page: ExpandedPage }) {
                             <LogoSectionComponent logoSection={block as ExpandedLogoSection} />
                         </Container>
                     )}
-                    {/* block._type === 'relatedConnector' && (
-                        // TODO: Implement RelatedConnector component
-                        null
-                    ) */}
                     {block._type === 'relatedResource' && (
                         <Container paddingLvl="md">
                             <RelatedResourceSection
@@ -124,6 +119,11 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     {block._type === 'careerSection' && (
                         <Container paddingLvl="none">
                             <CareerSectionComponent careerSection={block as CareerSection} />
+                        </Container>
+                    )}
+                    {block._type === 'teamMemberSection' && (
+                        <Container paddingLvl="none">
+                            <TeamMemberSection team={block as unknown as ExpandedTeamMember} />
                         </Container>
                     )}
                 </div>

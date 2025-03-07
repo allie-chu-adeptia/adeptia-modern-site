@@ -19,7 +19,6 @@ type sParams = Promise<{ slug: string }>;
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
   const params = await props.params;
   const post : ExpandedPost | undefined = await getPost(params.slug)
-  console.log(post)
   return buildMetadata(post?.metadata)
 }
 
@@ -54,7 +53,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
                 </div>
               </div>
             )}
-            <CategoryChip categories={post.categories} pathName="blog" />
+            <CategoryChip categories={post.categories} />
           </div>
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">

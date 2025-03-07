@@ -35,7 +35,7 @@ export default async function ConnectorsPage(
         typeof searchParams.category === 'string'
             ? searchParams.category
             : undefined
-    console.log(category)
+
     const connectors = await getConnectors(category)
 
     return (

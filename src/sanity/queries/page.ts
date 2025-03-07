@@ -225,6 +225,18 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         _type,
         header,
         careers
+      },
+      _type == "teamMemberSection" => {
+        _type,
+        header,
+        teamMembers[] -> {
+          _id,
+          name,
+          title,
+          "profilePic": profilePic.asset->url,
+          linkedIn,
+          slug
+        }
       }
     }
 }`)
@@ -248,7 +260,6 @@ const RELATED_RESOURCES_QUERY = defineQuery(/* groq */ `*[
 }`)
 
 export async function getRelatedResources(category: string, currentPageId: string, resourceTypes: string[]) {
-  console.log('Query params:', { category, currentPageId, resourceTypes });
   const result = await sanityFetch({
     query: RELATED_RESOURCES_QUERY,
     params: {
@@ -257,7 +268,6 @@ export async function getRelatedResources(category: string, currentPageId: strin
       resourceTypes
     }
   });
-  console.log('Query result:', result);
   return result;
 }
 

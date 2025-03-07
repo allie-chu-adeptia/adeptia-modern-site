@@ -1,10 +1,9 @@
 import { Link } from "@/components/link"
 import { ExpandedCategory } from "@/sanity/types/local.types"
 
-export function CategoryChip({ categories, pathName }: { categories?: ExpandedCategory[], pathName: string }) {
+export function CategoryChip({ categories }: { categories?: ExpandedCategory[] }) {
 
     return (
-        console.log("category pathname", pathName),
         Array.isArray(categories) && (
             <div className="flex flex-wrap gap-2">
                 {categories.map((category: ExpandedCategory, index: number) => (

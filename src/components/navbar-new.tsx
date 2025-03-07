@@ -51,6 +51,7 @@ const PlatformMenu: TopLevelMenu = {
                 { name: 'iPaaS', href: '/products/connect/#id-ipaas' },
                 { name: 'Files', href: '/products/connect/#id-files' },
                 { name: 'App Connectors', href: '/connectors' },
+                { name: 'See All', href: '/products/connect' }
             ]
         },
         {
@@ -73,6 +74,7 @@ const PlatformMenu: TopLevelMenu = {
                 { name: 'Error Monitoring and RCA', href: '/products/manage-and-monitor/#id-error-monitoring-rca' },
                 { name: 'Data Observability', href: '/products/manage-and-monitor/#id-observability' },
                 { name: 'Audit Trail', href: '/products/manage-and-monitor/#id-audit-trail' },
+                { name: 'See All', href: '/products/manage-and-monitor' }
             ]
         },
     ]
@@ -170,10 +172,10 @@ const recentPosts = [
     {
         id: 1,
         title: 'Welcome to a New Era of Adeptia Connect',
-        href: '#',
+        href: '/blog/new-era-adeptia-connect',
         date: 'Feb 12, 2025',
         datetime: '2025-02-12',
-        category: { title: 'Adeptia Connect', href: '#' },
+        category: { title: 'Adeptia Connect', href: '/blog' },
         imageUrl:
             'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/1-10-2025-Data-Formats-Accelerate-Revenue-Social-image-1-e1739374770497-600x346.png.webp',
         description:
@@ -182,10 +184,10 @@ const recentPosts = [
     {
         id: 2,
         title: 'What is Data Mapping?',
-        href: '#',
+        href: '/blog/what-data-mapping',
         date: 'Dec 20, 2024',
         datetime: '2024-12-20',
-        category: { title: 'AI', href: '#' },
+        category: { title: 'AI', href: '/blog' },
         imageUrl:
             'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/Blog-data-mapping-600x353.jpg.webp',
         description: 'Data mapping is a crucial design step in data migration, data integration, and data transformation projects. Modern-day data mapping solutions leverage artificial intelligence (AI) to map data fields from a source format to a target format.',
@@ -196,14 +198,14 @@ const recentReviews = [
     {
         id: 1,
         title: 'Gartner Peer Insights Reviews',
-        href: '#',
+        href: 'https://www.gartner.com/reviews/market/data-integration-tools/vendor/adeptia?utm_source=adeptia&utm_medium=referral&utm_campaign=widget&utm_content=ZTY4YzdiMDItM2YyMS00MjEyLWJkMzUtNmRkNTBiNWI4NzE5',
         imageUrl:
             'https://cdn.sanity.io/images/5ujtwa6a/production/60e4b6bfa0e5bacc85a5c11859a8798de206cece-1872x2172.png',
     },
     {
         id: 2,
         title: 'G2 Reviews',
-        href: '#',
+        href: 'https://www.g2.com/products/adeptia-connect/reviews?utm_source=review-widget',
         imageUrl:
             'https://cdn.sanity.io/images/5ujtwa6a/production/b05460e0c29abf9cfafe14631f0691576ba02c63-1872x2172.png',
     },
@@ -553,22 +555,16 @@ function CompanyPopover({
                                     key={recentReviews[0].id}
                                     className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
                                 >
-                                    <div className="relative flex-none">
-                                        <img
-                                            alt=""
-                                            src={recentReviews[0].imageUrl}
-                                            className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                    <a href={recentReviews[0].href} target="_blank">
+                                        <div className="relative flex-none">
+                                            <img
+                                                alt="Adeptia Review Logo"
+                                                src={recentReviews[0].imageUrl}
+                                                className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
                                         />
-                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
-                                    </div>
-                                    <div>
-                                        {/* <h4 className="mt-0 text-sm/6 font-semibold text-gray-900">
-                                        <a href={recentReviews[0].href}>
-                                        <span className="absolute inset-0" />
-                                        {recentReviews[0].title}
-                                        </a>
-                                    </h4> */}
-                                    </div>
+                                            <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                        </div>
+                                    </a>
                                 </article>
                             </div>
 
@@ -577,22 +573,16 @@ function CompanyPopover({
                                     key={recentReviews[1].id}
                                     className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
                                 >
-                                    <div className="relative flex-none">
-                                        <img
-                                            alt=""
-                                            src={recentReviews[1].imageUrl}
-                                            className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
-                                        />
-                                        <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
-                                    </div>
-                                    <div>
-                                        {/* <h4 className="mt-0 text-sm/6 font-semibold text-gray-900">
-                                            <a href={recentReviews[1].href}>
-                                            <span className="absolute inset-0" />
-                                            {recentReviews[1].title}
-                                            </a>
-                                        </h4> */}
-                                    </div>
+                                    <a href={recentReviews[1].href} target="_blank">
+                                        <div className="relative flex-none">
+                                            <img
+                                                alt="Adeptia Review Logo"
+                                                src={recentReviews[1].imageUrl}
+                                                className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
+                                            />
+                                            <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
+                                        </div>
+                                    </a>
                                 </article>
                             </div>
                         </div>
@@ -639,7 +629,7 @@ function ResourcesPopover({
                                 >
                                     <div className="relative flex-none">
                                         <img
-                                            alt=""
+                                            alt="Blog Cover Image"
                                             src={recentPosts[0].imageUrl}
                                             className="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto"
                                         />
@@ -675,7 +665,7 @@ function ResourcesPopover({
                                 >
                                     <div className="relative flex-none">
                                         <img
-                                            alt=""
+                                            alt="Blog Cover Image"
                                             src={recentPosts[1].imageUrl}
                                             className="aspect-[2/1] w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto"
                                         />

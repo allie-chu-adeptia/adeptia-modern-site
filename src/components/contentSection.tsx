@@ -179,7 +179,6 @@ function CenteredImage({
 }) {
     const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
     const numSubpoints = contentSection.subPoints?.length === 2 || contentSection.subPoints?.length === 4 ? '2' : '3'
-    console.log(contentSection.subPoints)
 
     return (
         <>
@@ -291,8 +290,6 @@ export function ContentSectionComponent({ contentSection }: { contentSection: Ex
     const spacing: spacing = contentSection.subPoints && contentSection.subPoints.length <= 4 ? 'loose' : 'tight'
     const cleanDark = cleanString(contentSection.styleAndLayout?.background?.style || '')
     const dark = cleanDark === 'dark' || cleanDark === 'accent' ? true : false
-
-    console.log("contentSection separator", contentSection)
 
     return (
         <div className="contentSection">

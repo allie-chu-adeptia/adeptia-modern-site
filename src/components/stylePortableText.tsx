@@ -128,8 +128,6 @@ export default function StylePortableText({
               </Link>
             ),
             internalLink: ({value, children}) => {
-              console.log(value)
-              console.log("slug: ", value.reference.metadata.slug.current)
               const slug = value.reference.metadata.slug.current
               return (
                 <Link

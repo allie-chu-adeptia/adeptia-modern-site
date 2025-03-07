@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 import { Nokora } from 'next/font/google'
 
 // Initialize the Nokora font
-const nokora = Nokora({
+export const nokora = Nokora({
   subsets: ['khmer'],  // Required subset
   weight: ['400', '700'],  // Available weights you want to use
   display: 'swap',
@@ -30,8 +30,8 @@ export function Heading({
       className={clsx(
         className,
         'text-pretty font-medium data-[dark=true]:text-white',
-        Element === 'h1' && `text-6xl ${nokora.className}`,
-        Element === 'h2' && `text-gray-950 text-3xl ${nokora.className}`,
+        Element === 'h1' && `text-5xl lg:text-7xl ${nokora.className}`,
+        Element === 'h2' && `text-gray-950 text-3xl lg:text-4xl ${nokora.className}`,
         Element !== 'h2' && 'text-gray-700',
         Element === 'h3' && 'text-xl sm:text-2xl',
         Element === 'h4' && 'text-lg sm:text-xl',
