@@ -94,7 +94,7 @@ export function HeaderStyle({
               {header?.header}
             </Heading>
             {header?.subheader && <Heading
-              as={level != 3 ? "h3" : "h4"}
+              as="h3"
               dark={dark}
               className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
             >

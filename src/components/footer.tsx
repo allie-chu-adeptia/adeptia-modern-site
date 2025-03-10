@@ -7,7 +7,7 @@ import { Logo } from './logo'
 /* eslint prefer-const: 0 */
 
 function SitemapHeading({ children, className }: { children: React.ReactNode, className?: string }) {
-  return <h3 className={`text-sm/6 font-medium text-gray-950/50 ${className}`}>{children}</h3>
+  return <h3 className={`text-sm/6 font-bold text-gray-800 ${className}`}>{children}</h3>
 }
 
 function SitemapLinks({ children }: { children: React.ReactNode }) {

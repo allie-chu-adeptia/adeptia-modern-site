@@ -721,7 +721,7 @@ export function NavbarNew() {
             <Disclosure>
                 <div className="py-4 flex justify-between items-center">
                     <div className="flex items-center gap-x-10">
-                        <ClientLink href="/">
+                        <ClientLink href="/home">
                             <LogoLight className="h-8 w-auto lg:h-10" />
                         </ClientLink>
                         <div className="hidden lg:flex gap-8">
