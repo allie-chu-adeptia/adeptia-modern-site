@@ -58,7 +58,7 @@ export function HeaderStyle({
   // Pre-compute common class combinations
   const headerClasses = clsx(
     'text-pretty max-w-3xl',
-    `text-5xl lg:text-7xl data-[dark=true]:text-white ${nokora.className}`,
+    `text-5xl lg:text-7xl data-[dark=true]:text-white`,
     dark ? 'text-white' : 'text-gray-950'
   );
 
