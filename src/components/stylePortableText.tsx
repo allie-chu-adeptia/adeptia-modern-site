@@ -5,9 +5,9 @@ import {
 } from "next-sanity";
 import { image } from '@/sanity/lib/image'
 import { Link } from '@/components/link'
-import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { buildTable } from "../lib/buildTable";
 import { Heading } from "@/components/text";
+import cleanString from "@/lib/cleanString";
 
 export default function StylePortableText({
   className,
@@ -57,16 +57,10 @@ export default function StylePortableText({
       image: ({ value }) => (
         <figure className="mt-16">
           <img
-            alt={value.altText || ''}
+            alt={(cleanString(value.altText || ''))}
             src={image(value).width(2000).url()}
             className="aspect-video rounded-xl bg-gray-50 object-cover"
           />
-          {value.altText && (
-            <figcaption className="mt-4 flex gap-x-2 text-sm/6 text-gray-500">
-              <CheckCircleIcon aria-hidden="true" className="mt-0.5 size-5 flex-none text-gray-300" />
-              {value.altText}
-            </figcaption>
-          )}
         </figure>
       ),
       separator: ({ value }) => {

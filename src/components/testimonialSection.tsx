@@ -34,7 +34,7 @@ export async function TestimonialSectionComponent({
 }) {
     if (cleanString(testimonialSection.layout || '') === 'simpleCentered') {
         return (
-            <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+            <section className="relative isolate overflow-hidden bg-white px-6 py-12 sm:py-16 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:max-w-4xl">
                     {testimonialSection.testimonial?.companyLogo && (
                         <img
@@ -72,7 +72,7 @@ export async function TestimonialSectionComponent({
     } else {
         return (
             <section className="isolate overflow-hidden bg-white px-6 lg:px-8">
-                <div className="relative mx-auto max-w-2xl py-24 sm:py-32 lg:max-w-4xl">
+                <div className="relative mx-auto max-w-2xl py-12 sm:py-16 lg:max-w-4xl">
                     <figure className="grid grid-cols-1 items-center gap-x-6 gap-y-8 lg:gap-x-10">
                         <div className="relative col-span-2 lg:col-start-1 lg:row-start-2">
                             <blockquote className="text-xl/8 font-regular text-gray-800 sm:text-2xl/9">

@@ -133,6 +133,10 @@ const POST_QUERY = defineQuery(/* groq */ `*[
   excerpt,
   body[]{
     ...,
+    _type == "image" => {
+      ...,
+      "altText": asset->title
+    },
     markDefs[]{
       ...,
       _type == "internalLink" => {
