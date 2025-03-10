@@ -57,7 +57,7 @@ export function DefaultHeaderSection({
     )
 }
 
-export function HeaderSectionComponent({
+export const HeaderSectionComponent = React.memo(function HeaderSectionComponent({
     headerSection,
     home
 }: {
@@ -119,4 +119,4 @@ export function HeaderSectionComponent({
             )}
         </div>
     )
-}
+})
