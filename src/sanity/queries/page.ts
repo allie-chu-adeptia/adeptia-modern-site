@@ -80,15 +80,10 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           _type,
           _id,
           header,
-          campaignTitle,
           buttonText,
           displayStyle,
           "link": pageReference->metadata.slug.current
         },
-        image {
-          asset->,
-          "altText": asset->title,
-        }
       },
       _type == "headerSection" => {
         _type,

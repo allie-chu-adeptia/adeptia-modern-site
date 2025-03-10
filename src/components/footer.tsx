@@ -114,6 +114,7 @@ function SocialLinks() {
       <Link
         href="https://www.linkedin.com/company/adeptia/"
         target="_blank"
+        rel="noopener"
         aria-label="Visit us on LinkedIn"
         className="text-gray-950 data-[hover]:text-gray-950/75"
       >

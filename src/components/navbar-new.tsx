@@ -176,7 +176,7 @@ const recentPosts = [
         datetime: '2025-02-12',
         category: { title: 'Adeptia Connect', href: '/blog' },
         imageUrl:
-            'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/1-10-2025-Data-Formats-Accelerate-Revenue-Social-image-1-e1739374770497-600x346.png.webp',
+            'https://cdn.sanity.io/images/5ujtwa6a/production/6731fad91b61ed9829192e3ac8cac74901f8e88c-2048x1180.png',
         description:
             'Today, Adeptia launched the latest version of Adeptia Connect, which includes several exciting new enhancements! Hear from CTO and cofounder Deepak Singh what this means for our customers and prospects.',
     },
@@ -188,7 +188,7 @@ const recentPosts = [
         datetime: '2024-12-20',
         category: { title: 'AI', href: '/blog' },
         imageUrl:
-            'https://www.adeptia.com/wp-content/webp-express/webp-images/uploads/Blog-data-mapping-600x353.jpg.webp',
+            'https://cdn.sanity.io/images/5ujtwa6a/production/340e21ca0ea99dead0c085f7dd7c6822858912db-1000x589.jpg',
         description: 'Data mapping is a crucial design step in data migration, data integration, and data transformation projects. Modern-day data mapping solutions leverage artificial intelligence (AI) to map data fields from a source format to a target format.',
     },
 ]
@@ -554,7 +554,7 @@ function CompanyPopover({
                                     key={recentReviews[0].id}
                                     className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
                                 >
-                                    <a href={recentReviews[0].href} target="_blank">
+                                    <a href={recentReviews[0].href} target="_blank" rel="noopener">
                                         <div className="relative flex-none">
                                             <img
                                                 alt="Adeptia Review Logo"
@@ -572,7 +572,7 @@ function CompanyPopover({
                                     key={recentReviews[1].id}
                                     className="relative isolate flex max-w-2xl flex-col gap-x-4 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
                                 >
-                                    <a href={recentReviews[1].href} target="_blank">
+                                    <a href={recentReviews[1].href} target="_blank" rel="noopener">
                                         <div className="relative flex-none">
                                             <img
                                                 alt="Adeptia Review Logo"

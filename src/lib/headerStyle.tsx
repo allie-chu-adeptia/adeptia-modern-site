@@ -4,6 +4,7 @@ import { BackgroundStyle } from "@/sanity/types/sanity.types"
 import cleanString from "./cleanString"
 import clsx from "clsx"
 import React from "react"
+import { nokora } from '../components/text'
 
 type LayoutOption = 'centered' | 'left-aligned' | 'right-aligned';
 
@@ -57,7 +58,7 @@ export function HeaderStyle({
   // Pre-compute common class combinations
   const headerClasses = clsx(
     'text-pretty max-w-3xl',
-    `text-5xl lg:text-7xl data-[dark=true]:text-white`,
+    `text-5xl lg:text-7xl data-[dark=true]:text-white ${nokora.className}`,
     dark ? 'text-white' : 'text-gray-950'
   );
 

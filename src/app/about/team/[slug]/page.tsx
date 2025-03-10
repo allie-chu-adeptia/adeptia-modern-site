@@ -26,7 +26,7 @@ export default async function ManagementTeamMember(props: { params: Promise<{ sl
                     <Heading as='h2' className="text-center">{member.name}</Heading>
                     <Subheading className="text-center">{member.title}</Subheading>
                     {member.linkedIn && (
-                        <a href={member.linkedIn} target="_blank" className="text-gray-400 hover:text-gray-500">
+                        <a href={member.linkedIn} target="_blank" rel="noopener" className="text-gray-400 hover:text-gray-500">
                             <span className="sr-only">LinkedIn</span>
                             <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" className="size-5">
                                 <path
