@@ -3,7 +3,6 @@ import { Heading } from "../components/text"
 import { BackgroundStyle } from "@/sanity/types/sanity.types"
 import cleanString from "./cleanString"
 import clsx from "clsx"
-import { nokora } from "../components/text"
 import React from "react"
 
 type LayoutOption = 'centered' | 'left-aligned' | 'right-aligned';
