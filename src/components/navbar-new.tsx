@@ -489,7 +489,7 @@ function SolutionsPopover({
 }) {
     return (
         <Popover>
-            {popoverButton('Solutions', onMouseEnter)}
+            {popoverButton('Use Cases', onMouseEnter)}
             <PopoverPanel static className="absolute inset-x-0 top-0 mt-[72px]">
                 <div
                     className={`absolute left-0 right-0 transform transition-all duration-200 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-2'
