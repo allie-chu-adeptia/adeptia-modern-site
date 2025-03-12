@@ -39,8 +39,8 @@ const darkBackground: BackgroundStyle = {
 
 function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   return (
-    <BackgroundColor color={darkBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
-      <div className="px-6 pt-16 shadow-2xl rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+    <BackgroundColor color={darkBackground} className="relative isolate overflow-hidden px-6 shadow-lg rounded-3xl sm:px-16">
+      <div className="px-6 pt-16 shadow-lg rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
         <div className={clsx(
           "mx-auto max-w-md lg:mx-0 lg:flex-auto lg:py-32",
           textAlignment[ctaSection.cta?.[0]?.header?.layout || 'centered']
@@ -76,7 +76,7 @@ function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection 
 
 function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   return (
-    <BackgroundColor color={darkAccentBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
+    <BackgroundColor color={darkAccentBackground} className="relative isolate overflow-hidden px-6 shadow-lg rounded-3xl sm:px-16">
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkAccentBackground} />
@@ -103,7 +103,7 @@ function CenteredCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) 
 
 function SplitCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
   return (
-    <BackgroundColor color={lightBackground} className="relative isolate overflow-hidden px-6 shadow-2xl rounded-3xl sm:px-16">
+    <BackgroundColor color={lightBackground} className="relative isolate overflow-hidden px-6 shadow-lg rounded-3xl sm:px-16">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
         <div className="flex flex-col gap-4">
           <Heading as="h1">
