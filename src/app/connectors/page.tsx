@@ -57,7 +57,7 @@ export default async function ConnectorsPage(
                         <div className={`grid grid-cols-8 gap-8`}>
                             {featuredConnectors.map((connector: ExpandedConnector) => (
                                 <div key={connector.slug} className="flex flex-col items-center w-1/8">
-                                    <div className="w-32 flex justify-start flex-col">
+                                    <div className="w-32 flex justify-center flex-col">
                                         <div className="grid grid-cols-1 rounded-[2rem] ring-1 shadow-[inset_0_0_2px_1px_#ffffff4d] ring-black/5 w-32 h-32">
                                             <div className="grid grid-cols-1 rounded-[2rem] p-2 shadow-md shadow-black/5">
                                                 <div className="rounded-3xl bg-white p-4 pb-3 ring-1 shadow-2xl ring-black/5 flex items-center justify-center">
@@ -92,7 +92,7 @@ export default async function ConnectorsPage(
                             />
                         </div>
                     )}
-                    <div className="flex flex-wrap justify-left gap-8 pt-4">
+                    <div className="flex flex-wrap justify-center gap-8 pt-4">
                         {connectors.map((connector: ExpandedConnector) => (
                             <div key={connector.slug} className="flex flex-col items-center w-1/8">
                                 <div className="w-32 flex justify-start flex-col">

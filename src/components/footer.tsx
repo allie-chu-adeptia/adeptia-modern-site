@@ -43,7 +43,7 @@ function Sitemap() {
         <SitemapLinks>
           <SitemapLink href="/products/artificial-intelligence-mapping">AI Data Mapping</SitemapLink>
           <SitemapLink href="/products/pre-built-automations">Pre-Built Automations</SitemapLink>
-          <SitemapLink href="/products/artificial-intelligence-mapping">AI Business Rules</SitemapLink>
+          <SitemapLink href="/products/ai-business-rules">AI Business Rules</SitemapLink>
           <SitemapLink href="/products/idp">Intelligent Document Processing</SitemapLink>
           <SitemapLink href="/products/no-code-automation-builder">No-Code Automation Builder</SitemapLink>
           <SitemapLink href="/products/manage-and-monitor">Manage and Monitor</SitemapLink>
@@ -66,7 +66,7 @@ function Sitemap() {
       <div>
         <SitemapHeading>Solutions by Initative</SitemapHeading>
         <SitemapLinks>
-          <SitemapLink href="/solutions/by-initiative#id-ai-data-readiness">Digital Transformation</SitemapLink>
+          <SitemapLink href="/solutions/by-initiative#id-digital-transformation">Digital Transformation</SitemapLink>
           <SitemapLink href="/solutions/by-initiative#id-business-process-automation">Business Process Automation</SitemapLink>
           <SitemapLink href="/solutions/by-initiative#id-ai-data-readiness">AI Data Readiness</SitemapLink>
         </SitemapLinks>
@@ -89,7 +89,7 @@ function Sitemap() {
         <SitemapHeading className="mt-8">Company</SitemapHeading>
         <SitemapLinks>
           <SitemapLink href="/about">About Adeptia</SitemapLink>
-          <SitemapLink href="/about/management-team">Leadership</SitemapLink>
+          <SitemapLink href="/about#id-leadership">Leadership</SitemapLink>
           <SitemapLink href="/careers">Careers</SitemapLink>
           <SitemapLink href="/about/contact-us">Contact Us</SitemapLink>
           <SitemapLink href="/terms-of-service">Terms of service</SitemapLink>
