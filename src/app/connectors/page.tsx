@@ -51,7 +51,7 @@ export default async function ConnectorsPage(
         <>
             <DefaultHeaderSection header={ConnectorsPageHeader} />
             {!category && (
-                <div className="pb-16 pt-16 bg-[#F8F7F7]">
+                <div className="pb-16 pt-16 bg-[#F8F7F7] hidden lg:block">
                     <Container>
                         <Heading as="h2" className="mb-6">Featured Connectors</Heading>
                         <div className={`grid grid-cols-8 gap-8`}>
