@@ -60,7 +60,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         </BackgroundColor>
                     )}
                     {block._type === 'ctaSection' && (
-                        <Container paddingLvl="md">
+                        <Container paddingLvl="tight-top-bottom">
                             <CtaSectionComponent ctaSection={block as ExpandedCtaSection} />
                         </Container>
                     )}
