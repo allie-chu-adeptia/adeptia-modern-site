@@ -2,7 +2,7 @@
 
 import { clsx } from 'clsx'
 
-type PaddingLvl = 'none' | 'sm' | 'md' | 'lg'
+type PaddingLvl = 'none' | 'sm' | 'md' | 'lg' | 'header'
 
 export function Container({
   paddingLvl,
@@ -22,6 +22,8 @@ export function Container({
     padding = 'py-[50px] lg:py-[75px]'
   } else if (paddingLvl == 'lg') {
     padding = 'py-[50px] lg:py-[96px]'
+  } else if (paddingLvl == 'header') {
+    padding = 'py-8'
   }
   return (
     <div className={clsx(className, padding)}>

@@ -154,7 +154,7 @@ function OffCenterImage({
                             <div className="relative pt-8">
                                 <img
                                     alt={cleanString(contentSection.image?.altText || '')}
-                                    src={image(contentSection.image).size(2400, 1600).url()}
+                                    src={image(contentSection.image).size(2400, 1800).url()}
                                     className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
                                 />
                             </div>

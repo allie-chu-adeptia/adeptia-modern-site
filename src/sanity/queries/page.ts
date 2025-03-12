@@ -219,6 +219,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
       _type == "careerSection" => {
         _type,
         header,
+        button,
         careers
       },
       _type == "teamMemberSection" => {
@@ -231,6 +232,15 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           "profilePic": profilePic.asset->url,
           linkedIn,
           slug
+        }
+      },
+      _type == "calloutSection" => {
+        _type,
+        header,
+        background,
+        calloutPoint[] {
+          calloutHeader,
+          calloutBody
         }
       }
     }

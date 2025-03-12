@@ -34,12 +34,13 @@ export function DefaultHeaderSection({
     return (
         <BackgroundColor color={background} className="relative overflow-hidden">
             <div className="relative z-10">
-                <Container paddingLvl="md">
+                <Container paddingLvl="header">
                     <HeaderSectionComponent headerSection={headerSection} />
-                    <div className="mt-10 flex items-center justify-center gap-x-3">
-                        {headerSection.cta?.map((cta, index) => (
-                            <Button
-                                key={cta._id}
+                    {headerSection.cta && (
+                        <div className="mt-10 flex items-center justify-center gap-x-3">
+                            {headerSection.cta?.map((cta, index) => (
+                                <Button
+                                    key={cta._id}
                                 slug={cta.link}
                                 href={""}
                                 variant={index === 0 ? "primary" : "tertiary"}
@@ -48,8 +49,9 @@ export function DefaultHeaderSection({
                                 {cta.buttonText}
                                 {index != 0 && <ChevronRightIcon className="size-4 transform translate-x-1 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" />}
                             </Button>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </Container>
             </div>
             <BackgroundMotion color={background} />

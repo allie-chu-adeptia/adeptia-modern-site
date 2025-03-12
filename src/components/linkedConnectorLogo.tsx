@@ -5,6 +5,12 @@ import { ClientLink } from '@/components/clientLink'
 import { ExpandedConnector } from '@/sanity/types/local.types'
 import { image } from '@/sanity/lib/image'
 
+export function LinkedFeaturedConnectorLogo({ connector, size }: { connector: ExpandedConnector, size: number }) {
+    return (
+        <LinkedSubpageConnectorLogo connector={connector} size={size} />
+    )
+}
+
 export function LinkedSubpageConnectorLogo({ connector, size }: { connector: ExpandedConnector, size: number }) {
     return (
         <motion.div

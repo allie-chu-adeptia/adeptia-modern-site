@@ -238,6 +238,17 @@ export type Category = {
   slug?: Slug
 }
 
+export type CalloutSection = {
+  _type: 'calloutSection'
+  header?: HeaderStyle
+  background?: BackgroundStyle
+  calloutPoint?: Array<{
+    calloutHeader?: string
+    calloutBody?: string
+    _key: string
+  }>
+}
+
 export type TeamMemberSection = {
   _type: 'teamMemberSection'
   header?: HeaderStyle
@@ -574,6 +585,9 @@ export type Page = {
     | ({
         _key: string
       } & TeamMemberSection)
+    | ({
+        _key: string
+      } & CalloutSection)
   >
 }
 
@@ -805,31 +819,6 @@ export type Customer = {
   body?: PortableText
 }
 
-export type Button = {
-  _type: 'button'
-  title?: string
-  url?: string
-  link?:
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'resource'
-      }
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'customer'
-      }
-}
-
 export type Metadata = {
   _type: 'metadata'
   seoTitle?: string
@@ -903,13 +892,39 @@ export type SanityImageMetadata = {
 
 export type BackgroundStyle = {
   _type: 'backgroundStyle'
-  style?: 'light' | 'medium' | 'dark' | 'dark-accent' | 'light-accent'
+  style?: 'light' | 'off-white' | 'medium' | 'dark' | 'dark-accent' | 'light-accent'
 }
 
 export type CareerSection = {
   _type: 'careerSection'
   header?: HeaderStyle
+  button?: Button
   careers?: boolean
+}
+
+export type Button = {
+  _type: 'button'
+  title?: string
+  url?: string
+  link?:
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'page'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'resource'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'customer'
+      }
 }
 
 export type HeaderStyle = {
@@ -943,6 +958,7 @@ export type AllSanitySchemaTypes =
   | Cta
   | Company
   | Category
+  | CalloutSection
   | TeamMemberSection
   | ContentSectionCarousel
   | TestimonialSection
@@ -967,7 +983,6 @@ export type AllSanitySchemaTypes =
   | HubspotForm
   | Connector
   | Customer
-  | Button
   | Metadata
   | SanityImageCrop
   | SanityImageHotspot
@@ -976,6 +991,7 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | BackgroundStyle
   | CareerSection
+  | Button
   | HeaderStyle
   | IconPicker
 export declare const internalGroqTypeReferenceTo: unique symbol

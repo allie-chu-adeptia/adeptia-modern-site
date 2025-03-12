@@ -13,6 +13,7 @@ export function BackgroundColor({
 }) {
     const backgroundColors = {
         'light': 'bg-white',
+        'off-white': 'bg-[#F8F7F7]',
         'medium': 'bg-brand-backgroundMedium',
         'dark': 'bg-brand-backgroundDark',
         'dark-accent': 'bg-gradient-to-r from-brand-gradientDark via-brand-gradientMedium to-brand-gradientLight',
@@ -20,7 +21,7 @@ export function BackgroundColor({
     }
 
     const bgColor = backgroundColors[cleanString(color.style || 'light') as keyof typeof backgroundColors]
-
+    
     return (
         <div className={clsx(bgColor, "w-full", className)}>
             {children}

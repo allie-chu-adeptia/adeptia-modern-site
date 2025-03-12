@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import Script from 'next/script'
-import { Heading } from '@/components/text'
+// import { Heading } from '@/components/text'
 
 export default function ZipRecruiterEmbed() {
     useEffect(() => {
@@ -19,8 +19,7 @@ export default function ZipRecruiterEmbed() {
     }, []);
 
     return (
-        <div className="pb-24 max-w-3xl mx-auto">
-            <Heading as="h2" className="mb-4">Current Openings</Heading>
+        <div className="pb-24 max-w-3xl mt-4 mx-auto">
             <div id="jobs-widget" style={{ width: '100%', height: '100%' }}></div>
             <Script
                 src="https://www.ziprecruiter.com/jobs-widget/v1/f3fe935e/all?show_posted_days=0"

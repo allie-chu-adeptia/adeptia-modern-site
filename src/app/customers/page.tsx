@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://www.adeptia.com/customers',
     },
+    robots: {
+        index: true,
+        follow: true,
+    },
 }
 
 const CustomersHeader: HeaderStyleType = {

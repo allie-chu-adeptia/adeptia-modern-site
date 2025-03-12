@@ -97,6 +97,10 @@ export const metadata: Metadata = {
   title: 'Pricing',
   description:
     'Pricing for Adeptia Connect.',
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
     canonical: 'https://www.adeptia.com/pricing',
   },

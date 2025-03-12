@@ -19,9 +19,6 @@ const nextConfig: NextConfig = {
     );
     return redirects;
   },
-};
-
-module.exports = {
   async headers() {
     return [
       // Content Security Policy

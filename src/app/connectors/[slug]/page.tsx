@@ -31,14 +31,20 @@ export default async function ConnectorPage(props: { params: Promise<sParams> })
             <DefaultHeaderSection header={ConnectorHeader} />
             <div className="mt-16">
                 <Container>
-                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
-                        <div>
-                            <CategoryChip categories={connector.categories} />
+                    {connector.categories ? (
+                        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
+                            <div>
+                                <CategoryChip categories={connector.categories} />
+                            </div>
+                            <div>
+                                <StylePortableText value={connector.body as PortableTextBlock[]} />
+                            </div>
                         </div>
+                    ) : (
                         <div>
                             <StylePortableText value={connector.body as PortableTextBlock[]} />
                         </div>
-                    </div>
+                    )}
                 </Container>
             </div>
         </>

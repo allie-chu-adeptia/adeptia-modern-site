@@ -96,6 +96,7 @@ const SolutionsMenu: TopLevelMenu = {
                 { name: 'Digital Transformation', href: '/solutions/by-initiative#id-digital-transformation' },
                 { name: 'Business Process Automation', href: '/solutions/by-initiative#id-business-process-automation' },
                 { name: 'AI Data Readiness', href: '/solutions/by-initiative#id-ai-data-readiness' },
+                { name: 'Regulatory Compliance', href: '/solutions/by-initiative#id-regulatory-compliance' },
                 // { name: 'First Mile Data Problems', href: '/solutions/by-initiative#id-first-mile-data-problems' },
             ]
         },
@@ -721,7 +722,7 @@ export function NavbarNew() {
             <Disclosure>
                 <div className="py-4 flex justify-between items-center">
                     <div className="flex items-center gap-x-10">
-                        <ClientLink href="/home">
+                        <ClientLink href="/">
                             <LogoLight className="h-8 w-auto lg:h-10" />
                         </ClientLink>
                         <div className="hidden lg:flex gap-8">

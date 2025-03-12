@@ -18,7 +18,7 @@ export default async function TermsOfService() {
         <Container>
             <div className="bg-white py-16 md:py-24 lg:py-32">
                 <HeaderStyle header={header.header} />
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-4xl">
                         <StylePortableText value={termsOfService.termsOfService as PortableTextBlock[]} />
                     </div>

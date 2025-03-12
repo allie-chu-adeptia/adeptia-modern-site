@@ -49,7 +49,7 @@ const FEATURED_CONNECTORS_QUERY = defineQuery(/* groq */ `*[
   },
 }`)
 
-export async function getFeaturedConnectors(quantity: number = 3) {
+export async function getFeaturedConnectors(quantity: number = 5) {
   return await sanityFetch({ 
     query: FEATURED_CONNECTORS_QUERY, 
     params: { quantity } 
@@ -66,7 +66,7 @@ const CONNECTOR_QUERY = defineQuery(/* groq */ `*[
   logo {
     asset->,
   },
-  "categories": categories[]->{
+  "categories": category[]->{
     name,
     "slug": slug.current,
   },

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 // Sanity types and queries
 import { getPage } from '@/sanity/queries/page'
-import type { Page, TextSection, Faq, StatSection, BackgroundStyle, ContentSectionCarousel, CareerSection } from '@/sanity/types/sanity.types'
+import type { Page, TextSection, Faq, StatSection, BackgroundStyle, ContentSectionCarousel, CareerSection, CalloutSection } from '@/sanity/types/sanity.types'
 import { ExpandedCategory, ExpandedPage, ExpandedPost } from "@/sanity/types/local.types"
 
 // Components
@@ -21,6 +21,7 @@ import { ExpandedCtaSection, CtaSectionComponent } from '@/components/ctaSection
 import { ExpandedHeaderSection, HeaderSectionComponent } from '@/components/headerSection'
 import { ExpandedContentSection, ContentSectionComponent } from '@/components/contentSection'
 import { ExpandedTestimonialSection, TestimonialSectionComponent } from '@/components/testimonialSection'
+import { CalloutSectionComponent } from '@/components/calloutSection'
 
 // Utilities
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
@@ -71,7 +72,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     {block._type === 'headerSection' && (
                         <BackgroundColor color={block.background ?? lightBackground} className="relative overflow-hidden">
                             <div className="relative z-10">
-                                <Container paddingLvl="md">
+                                <Container paddingLvl="header">
                                     <HeaderSectionComponent headerSection={block as ExpandedHeaderSection} home={home} />
                                 </Container>
                             </div>
@@ -79,7 +80,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         </BackgroundColor>
                     )}
                     {block._type === 'logoSection' && (
-                        <Container paddingLvl="sm">
+                        <Container paddingLvl="md">
                             <LogoSectionComponent logoSection={block as ExpandedLogoSection} />
                         </Container>
                     )}
@@ -125,6 +126,13 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         <Container paddingLvl="none">
                             <TeamMemberSection team={block as unknown as ExpandedTeamMember} />
                         </Container>
+                    )}
+                    {block._type === 'calloutSection' && (
+                        <BackgroundColor color={block.background ?? lightBackground}>
+                            <Container paddingLvl="md">
+                                <CalloutSectionComponent calloutSection={block as CalloutSection} />
+                            </Container>
+                        </BackgroundColor>
                     )}
                 </div>
             ))}
