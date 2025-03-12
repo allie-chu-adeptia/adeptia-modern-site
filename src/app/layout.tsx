@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
 import { SanityLive } from "@/sanity/lib/live";
+import { Analytics } from "@vercel/analytics/react"
 
 
 const geistSans = Geist({
@@ -38,6 +39,7 @@ export default async function RootLayout({
         <NavbarNew />
         {children}
         <SanityLive />
+        <Analytics />
         {/* {(await draftMode()).isEnabled && (
           <>
             <DisableDraftMode />
