@@ -2,8 +2,7 @@ import { Container } from '@/components/container'
 import {
   getCategories,
   getPosts,
-  getPostsCount,
-  getFeaturedPosts
+  getPostsCount
 } from '@/sanity/queries/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -55,7 +54,6 @@ export default async function Blog(
           getItems={getPosts}
           getItemsCount={getPostsCount}
           getCategories={getCategories}
-          getFeaturedItems={getFeaturedPosts}
           itemsPerPage={21}
           currPage={page}
           filterCategory={category}

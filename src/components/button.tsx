@@ -23,7 +23,7 @@ const variants = {
   ),
   tertiary: clsx(
     'inline-flex items-center gap-x-1 py-[calc(theme(spacing.2)-1px)]',
-    'whitespace-nowrap text-base font-regular text-[var(--primary-blue-darker)] hover:text-[var(--primary-blue)] group',
+    'whitespace-nowrap text-base font-regular text-[var(--primary-blue)] hover:text-[var(--primary-blue-darker)] group',
     'data-[dark=true]:text-white',
     'disabled:opacity-50 disabled:hover:bg-gray-950'
   ),

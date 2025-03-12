@@ -56,7 +56,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                             {subpoint.header}
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-gray-700")}>{subpoint.subheader}</dd>
-                        {subpoint.button && <p className="mt-6">
+                        {subpoint.button && <p className="mt-4 lg:mt-6">
                             <Button
                                 slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
                                 href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
@@ -73,7 +73,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                     <div key={index} className="flex flex-col">
                         <dt className={clsx("flex flex-col items-left text-base/7 font-semibold", dark ? "text-white" : "text-gray-800")}>
                             {subpoint.icon &&
-                                <div className="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
+                                <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
                                     <IconRender
                                         name={subpoint.icon.name}
                                         aria-hidden="true"
@@ -82,9 +82,9 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                                 </div>}
                             {subpoint.header}
                         </dt>
-                        <dd className={clsx("mt-4 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
+                        <dd className={clsx("mt-1 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
                             <p className="flex-auto">{subpoint.subheader}</p>
-                            {subpoint.button && <p className="mt-6">
+                            {subpoint.button && <p className="mt-4 lg:mt-6">
                                 <Button
                                     slug={subpoint.button?.link ? `${subpoint.button.link}` : undefined}
                                     href={subpoint.button?.url ? `${subpoint.button.url}` : ''}
@@ -120,15 +120,15 @@ function OffCenterImage({
 
     return (
         <>
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-2 lg:mx-0 lg:gap-y-16 lg:max-w-none lg:grid-cols-2">
                 <div className={clsx("flex flex-col justify-center lg:pr-8 lg:pt-4", alignment === 'right' ? 'lg:pl-16 lg:order-2' : '')}>
                     <div className="lg:max-w-lg">
                         <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
-                        {contentSection.subPoints && <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
+                        {contentSection.subPoints && <dl className="mt-6 lg:mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                             <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />
                         </dl>}
                         {contentSection.button && (
-                            <div className={`mt-10 w-full flex ${link_alignment}`}>
+                            <div className={`mt-6 lg:mt-10 w-full flex ${link_alignment}`}>
                                 <Button
                                     slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                                     href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
@@ -185,7 +185,7 @@ function CenteredImage({
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
                 {contentSection.button && (
-                    <div className={`mt-10 w-full flex ${alignment}`}>
+                    <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
                         <Button
                             slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
                             href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
@@ -252,11 +252,13 @@ function NoImage(
                         </Button>
                     </div>
                 )}
-                <div className="mx-auto mt-16 lg:mt-0 lg:col-span-3">
-                    <dl className={`grid max-w-xl grid-cols-1 gap-x-20 gap-y-16 lg:max-w-none lg:grid-cols-${numSubpoints}`}>
-                        {contentSection.subPoints && <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />}
-                    </dl>
-                </div>
+                {contentSection.subPoints && (
+                    <div className="mx-auto lg:col-span-3 mt-8">
+                        <dl className={`grid max-w-xl grid-cols-1 gap-x-20 gap-y-16 lg:max-w-none lg:grid-cols-${numSubpoints}`}>
+                            {contentSection.subPoints && <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />}
+                        </dl>
+                    </div>
+                )}
             </div>
         ) : (
             <div className="noImage contentSection grid grid-cols-1 lg:grid-cols-5 items-center gap-x-12">
@@ -276,7 +278,7 @@ function NoImage(
                         </div>
                     )}
                 </div>
-                <div className={`mx-auto mt-20 lg:mt-0 lg:col-span-3 ${contentAlignment === 'right' ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div className={`mx-auto mt-16 lg:mt-0 lg:col-span-3 ${contentAlignment === 'right' ? 'lg:order-1' : 'lg:order-2'}`}>
                     <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-16 lg:max-w-none lg:grid-cols-2">
                         {contentSection.subPoints && <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />}
                     </dl>

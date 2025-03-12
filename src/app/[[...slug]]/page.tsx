@@ -54,7 +54,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                     )}
                     {block._type === 'contentSection' && (
                         <BackgroundColor color={block.styleAndLayout?.background ?? lightBackground}>
-                            <Container paddingLvl="md">
+                            <Container paddingLvl={block.styleAndLayout?.spacing ?? 'md'}>
                                 <ContentSectionComponent contentSection={block as ExpandedContentSection} />
                             </Container>
                         </BackgroundColor>
@@ -80,7 +80,7 @@ function PageContent({ page }: { page: ExpandedPage }) {
                         </BackgroundColor>
                     )}
                     {block._type === 'logoSection' && (
-                        <Container paddingLvl="md">
+                        <Container paddingLvl="tight-top-bottom">
                             <LogoSectionComponent logoSection={block as ExpandedLogoSection} />
                         </Container>
                     )}

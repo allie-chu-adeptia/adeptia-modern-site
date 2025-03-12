@@ -128,7 +128,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         styleAndLayout {
           layout,
           background,
-          orientation
+          spacing
         },
         subPoints[] {
           icon,
@@ -201,7 +201,6 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         styleAndLayout {
           layout,
           background,
-          orientation
         },
         subPoints[] {
           icon,

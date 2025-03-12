@@ -451,6 +451,7 @@ export type ContentSection = {
   styleAndLayout?: {
     layout?: 'left' | 'right' | 'center'
     background?: BackgroundStyle
+    spacing?: 'tight-top' | 'tight-bottom' | 'tight-top-bottom'
   }
   subPoints?: Array<{
     icon?: IconPicker
