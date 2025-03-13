@@ -47,7 +47,7 @@ export function CookieBanner() {
   if (!showBanner) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[var(--brand-background-medium)] p-4 shadow-lg z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-[var(--brand-background-medium)] p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1),0_-2px_4px_-2px_rgba(0,0,0,0.1)] z-50">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-sm">
           We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
