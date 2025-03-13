@@ -17,7 +17,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.68.3",
     "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.1.0",
+    "@vercel/speed-insights": "^1.2.0",
     "dayjs": "^1.11.13",
     "feed": "^4.2.2",
     "graphql": "^16.10.0",

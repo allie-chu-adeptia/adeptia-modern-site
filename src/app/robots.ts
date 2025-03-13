@@ -46,6 +46,6 @@ export default function robots(): MetadataRoute.Robots {
         '/?q=user/logout/'
       ],
     },
-    sitemap: 'https://www.adeptia.com/sitemap.xml', // Update with your domain
+    sitemap: 'https://www.adeptia.com/sitemap.xml',
   }
 }
