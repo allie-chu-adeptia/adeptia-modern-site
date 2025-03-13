@@ -12,6 +12,7 @@ export const FileDownload = ({
     slug: string, 
     message: string 
 }) => {
+    console.log("FileDownload", slug, message);
     const [fileURL, setFileURL] = useState<string | null>(null);
     
     useEffect(() => {
