@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ClientLink } from './clientLink'
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataLayer: any[]
   }
 }
@@ -49,7 +51,7 @@ export function CookieBanner() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-sm">
           We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-          <a href="/privacy-policy" className="underline ml-1">Learn more</a>
+          <ClientLink href="/privacy-policy" className="underline ml-1">Learn more</ClientLink>
         </div>
         <div className="flex gap-4">
           <button

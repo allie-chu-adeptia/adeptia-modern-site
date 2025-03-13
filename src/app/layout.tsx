@@ -6,7 +6,6 @@ import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
 import { SanityLive } from "@/sanity/lib/live";
 import { Analytics } from "@vercel/analytics/react"
-import Script from "next/script"
 import { CookieBanner } from "@/components/cookieBanner"
 
 const geistSans = Geist({
