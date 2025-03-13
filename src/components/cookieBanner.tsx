@@ -47,7 +47,7 @@ export function CookieBanner() {
   if (!showBanner) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-[var(--brand-background-medium)] p-4 shadow-lg z-50">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-sm">
           We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
@@ -56,13 +56,13 @@ export function CookieBanner() {
         <div className="flex gap-4">
           <button
             onClick={acceptEssential}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-4 py-2 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50"
           >
             Essential Only
           </button>
           <button
             onClick={acceptAll}
-            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 text-sm bg-[var(--primary-blue)] text-white rounded-md hover:bg-blue-700"
           >
             Accept All
           </button>
