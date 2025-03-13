@@ -34,7 +34,6 @@ export function Container({
   } else if (paddingLevel == 'tight-top-bottom') {
     padding = 'pt-8 pb-8'
   }
-  console.log(padding)
   return (
     <div className={clsx(className, padding)}>
       <div className="mx-auto max-w-2xl px-4 lg:max-w-7xl">{children}</div>

@@ -1,4 +1,4 @@
-import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker } from "../sanity/types/sanity.types";
+import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker, HeaderStyle as HeaderStyleType, BackgroundStyle } from "../sanity/types/sanity.types";
 import { HeaderStyle } from "../lib/headerStyle";
 import IconRender from "@/lib/iconRender";
 import cleanString from "@/lib/cleanString";
@@ -7,6 +7,8 @@ import { image } from '@/sanity/lib/image'
 import { Button } from "@/components/button";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { FirstMileData } from "@/animations/firstMileData";
+import StylePortableText from "./stylePortableText";
+import { PortableTextBlock } from "@portabletext/react";
 
 type spacing = 'tight' | 'loose'
 
@@ -23,7 +25,14 @@ type Subpoint = {
     _key: string
 }
 
-export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' | 'button'> & {
+type ButtonType = {
+    _id: string
+    title: string
+    url: string
+    link: string
+}
+
+export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' | 'button' | 'content'> & {
     image?: {
         asset?: {
             _ref: string
@@ -36,12 +45,8 @@ export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' 
         altText?: string
     }
     subPoints?: Array<Subpoint>
-    button?: {
-        _id: string
-        title: string
-        url?: string
-        link?: string
-    }
+    button?: ButtonType
+    content?: PortableTextBlock[]
 }
 
 // Build an array of subpoints and return as rendered content blocks
@@ -104,6 +109,45 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
     )
 }
 
+function buildHeaderandContent({
+    header,
+    content,
+    button,
+    background,
+    dark,
+    alignment
+}: {
+    header?: HeaderStyleType,
+    content?: PortableTextBlock[],
+    button?: ButtonType,
+    background?: BackgroundStyle,
+    dark: boolean,
+    alignment?: "justify-center" | "justify-start"
+}) {
+    const textAlignmentMap = {
+        'justify-center': 'text-center',
+        'justify-start': 'text-left',
+    } as const
+
+    return (
+        <>
+            <HeaderStyle header={header} style={background} level={3} />
+            {content && <StylePortableText value={content} className={clsx(dark ? 'text-white' : 'text-gray-700', textAlignmentMap[alignment || 'justify-start'])} />}
+            {button &&
+                <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
+                    <Button
+                        slug={button?.link ? `${button.link}` : undefined}
+                        href={button?.url ? `${button.url}` : ''}
+                        dark={dark}
+                        variant={"blue"}
+                    >
+                        {button?.title}
+                    </Button>
+                </div >}
+        </>
+    )
+}
+
 function OffCenterImage({
     contentSection,
     spacing,
@@ -115,34 +159,28 @@ function OffCenterImage({
     dark: boolean,
     animation?: string
 }) {
-    const alignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
-    const link_alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
+    const col_alignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
+    const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
 
     return (
         <>
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-2 lg:mx-0 lg:gap-y-16 lg:max-w-none lg:grid-cols-2">
-                <div className={clsx("flex flex-col justify-center lg:pr-8 lg:pt-4", alignment === 'right' ? 'lg:pl-16 lg:order-2' : '')}>
+                <div className={clsx("flex flex-col justify-center lg:pr-8 lg:pt-4", col_alignment === 'right' ? 'lg:pl-16 lg:order-2' : '')}>
                     <div className="lg:max-w-lg">
-                        <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
+                        {buildHeaderandContent({
+                            header: contentSection.header,
+                            content: contentSection.content as PortableTextBlock[],
+                            button: contentSection.button,
+                            background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
+                            alignment: alignment,
+                            dark: dark
+                        })}
                         {contentSection.subPoints && <dl className="mt-6 lg:mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                             <BuildSubpoints subPoints={contentSection.subPoints} spacing={spacing} dark={dark} />
                         </dl>}
-                        {contentSection.button && (
-                            <div className={`mt-6 lg:mt-10 w-full flex ${link_alignment}`}>
-                                <Button
-                                    slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
-                                    href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                                    dark={dark}
-                                    variant={"blue"}
-                                >
-
-                                    {contentSection.button?.title}
-                                </Button>
-                            </div>
-                        )}
                     </div>
                 </div>
-                <div className={clsx("flex items-center justify-end rounded-xl", alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
+                <div className={clsx("flex items-center justify-end rounded-xl", col_alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
                     {animation ? (
                         <div className="relative h-80 shrink-0">
                             {cleanString(animation) === 'firstMileDataTypes' && (
@@ -183,20 +221,14 @@ function CenteredImage({
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
-                {contentSection.button && (
-                    <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
-                        <Button
-                            slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
-                            href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                            dark={dark}
-                            variant={"blue"}
-                        >
-
-                            {contentSection.button?.title}
-                        </Button>
-                    </div>
-                )}
+                {buildHeaderandContent({
+                    header: contentSection.header,
+                    content: contentSection.content as PortableTextBlock[],
+                    button: contentSection.button,
+                    background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
+                    dark: dark,
+                    alignment: alignment
+                })}
             </div>
             {contentSection.subPoints && (
                 <div className="mx-auto my-8 max-w-7xl px-6 sm:my-10 md:my-12 lg:px-8">
@@ -238,20 +270,13 @@ function NoImage(
     return (
         contentSection.styleAndLayout?.layout === 'center' ? (
             <div className="noImage contentSection flex flex-col items-center gap-y-8">
-                <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
-                {contentSection.button && (
-                    <div className={`mb-6 w-full flex ${alignment}`}>
-                        <Button
-                            slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
-                            href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                            dark={dark}
-                            variant={"blue"}
-                        >
-
-                            {contentSection.button?.title}
-                        </Button>
-                    </div>
-                )}
+                {buildHeaderandContent({
+                    header: contentSection.header,
+                    button: contentSection.button,
+                    background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
+                    dark: dark,
+                    alignment: alignment
+                })}
                 {contentSection.subPoints && (
                     <div className="mx-auto lg:col-span-3 mt-8">
                         <dl className={`grid max-w-xl grid-cols-1 gap-x-20 gap-y-16 lg:max-w-none lg:grid-cols-${numSubpoints}`}>
@@ -263,20 +288,13 @@ function NoImage(
         ) : (
             <div className="noImage contentSection grid grid-cols-1 lg:grid-cols-5 items-center gap-x-12">
                 <div className={`lg:col-span-2 flex flex-col ${contentAlignment === 'right' ? 'lg:order-2' : 'lg:order-1'}`}>
-                    <HeaderStyle header={contentSection.header} style={contentSection.styleAndLayout?.background} level={3} />
-                    {contentSection.button && (
-                        <div className={`mt-6 w-full flex ${alignment}`}>
-                            <Button
-                                slug={contentSection.button?.link ? `${contentSection.button.link}` : undefined}
-                                href={contentSection.button?.url ? `${contentSection.button.url}` : ''}
-                                dark={dark}
-                                variant={"blue"}
-                            >
-
-                                {contentSection.button?.title}
-                            </Button>
-                        </div>
-                    )}
+                    {buildHeaderandContent({
+                        header: contentSection.header,
+                        button: contentSection.button,
+                        background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
+                        dark: dark,
+                        alignment: alignment
+                    })}
                 </div>
                 <div className={`mx-auto mt-16 lg:mt-0 lg:col-span-3 ${contentAlignment === 'right' ? 'lg:order-1' : 'lg:order-2'}`}>
                     <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-16 lg:max-w-none lg:grid-cols-2">

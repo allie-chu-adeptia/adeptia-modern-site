@@ -435,6 +435,7 @@ export type CtaSection = {
 export type ContentSection = {
   _type: 'contentSection'
   header?: HeaderStyle
+  content?: PortableText
   image?: {
     asset?: {
       _ref: string

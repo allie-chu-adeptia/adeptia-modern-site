@@ -112,6 +112,16 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
       _type == "contentSection" => {
         _type,
         header,
+        content[] {
+          ...,
+          markDefs[]{
+            ...,
+            _type == "internalLink" => {
+              ...,
+              "reference": reference->
+            }
+          }
+        },
         image {
           asset->,
           "altText": asset->title,
