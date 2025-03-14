@@ -43,6 +43,7 @@ const CUSTOMER_QUERY = defineQuery(/* groq */ `*[
     && metadata.slug.current == $slug
 ][0]{
     title,
+    metadata,
     companyName,
     logo,
     size,

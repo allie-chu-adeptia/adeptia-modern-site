@@ -3,11 +3,31 @@ import { HeaderStyle, HeaderStyleProps } from "@/lib/headerStyle"
 import { PortableTextBlock } from "@portabletext/react"
 import StylePortableText from "@/components/stylePortableText"
 import { getCompanyPrivacyPolicy } from "@/sanity/queries/company"
+import type { Metadata } from 'next'
 
 const header: HeaderStyleProps = {
     header: {
         header: "Privacy Policy",
         layout: 'centered'
+    }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+
+    return {
+        title: "Privacy Policy",
+        description: "Privacy Policy for Adeptia",
+        alternates: {
+            canonical: "https://www.adeptia.com/privacy-policy",
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
+        openGraph: {
+            title: "Privacy Policy",
+            description: "Privacy Policy for Adeptia",
+        }
     }
 }
 

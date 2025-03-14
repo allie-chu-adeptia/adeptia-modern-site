@@ -7,9 +7,32 @@ import { DefaultHeaderSection } from "@/components/headerSection"
 import StylePortableText from '@/components/stylePortableText'
 import { PortableTextBlock } from "next-sanity"
 import { CategoryChip } from "@/lib/categoryChip"
+import type { Metadata } from 'next'
 
 
 type sParams = Promise<{ slug: string }>;
+
+// Generated metadata for the blog post
+export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
+    const params = await props.params;
+    const connector: ExpandedConnector | undefined = await getConnector(params.slug)
+    return {
+        title: connector?.name,
+        description: "Learn more about the " + connector?.name + " connector",
+        alternates: {
+            canonical: "https://www.adeptia.com/connectors/" + connector?.slug,
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
+        openGraph: {
+            title: connector?.name,
+            description: "Learn more about the " + connector?.name + " connector",
+        }
+    }
+}
+
 
 export default async function ConnectorPage(props: { params: Promise<sParams> }) {
     const { slug } = await props.params
@@ -34,7 +57,7 @@ export default async function ConnectorPage(props: { params: Promise<sParams> })
                     {connector.categories ? (
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[15rem_1fr]">
                             <div>
-                                <CategoryChip categories={connector.categories} />
+                                <CategoryChip categories={connector.categories} nolink={true} />
                             </div>
                             <div>
                                 <StylePortableText value={connector.body as PortableTextBlock[]} />

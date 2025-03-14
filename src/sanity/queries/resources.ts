@@ -95,6 +95,7 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
 ][0]{
   _type,
   type,
+  metadata,
   publishDate,
   title,
   "featuredImage": featuredImage{

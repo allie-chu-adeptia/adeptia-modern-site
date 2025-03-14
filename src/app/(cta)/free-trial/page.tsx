@@ -3,10 +3,22 @@ import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import type { BackgroundStyle } from '@/sanity/types/sanity.types'
 import { Container } from '@/components/container'
 import HubSpotForm from '@/lib/hubspotContactForm'
+import type { Metadata } from 'next'
 
 const darkBackground: BackgroundStyle = {
     _type: 'backgroundStyle',
     style: 'dark'
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+
+    return {
+        title: "Free Trial",
+        description: "Free Trial for Adeptia",
+        alternates: {
+            canonical: "https://www.adeptia.com/free-trial",
+        },
+    }
 }
 
 export default function FreeTrial() {

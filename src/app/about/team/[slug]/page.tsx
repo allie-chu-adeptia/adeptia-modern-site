@@ -5,6 +5,31 @@ import { PortableTextBlock } from '@portabletext/react'
 import { image } from '@/sanity/lib/image'
 import StylePortableText from '@/components/stylePortableText'
 import cleanString from '@/lib/cleanString'
+import { ExpandedConnector } from '@/sanity/types/local.types'
+import type { Metadata } from 'next'
+
+type sParams = Promise<{ slug: string }>;
+
+// Generated metadata for the blog post
+export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
+    const params = await props.params;
+    const member: TeamMember | undefined = await getManagementMember(params.slug)
+    return {
+        title: cleanString(member?.name || ''),
+        description: "Learn more about " + cleanString(member?.name || ''),
+        alternates: {
+            canonical: "https://www.adeptia.com/about/team/" + member?.slug,
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
+        openGraph: {
+            title: cleanString(member?.name || ''),
+            description: "Learn more about " + cleanString(member?.name || ''),
+        }
+    }
+}
 
 export default async function ManagementTeamMember(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;

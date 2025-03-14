@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 function Row({ children }: { children: React.ReactNode }) {
   return (
     <div className="group relative">
-      <div className="absolute inset-x-0 top-1/2 h-0.5 bg-gradient-to-r from-white/15 from-[2px] to-[2px] bg-[length:12px_100%]" />
-      <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-white/5 from-[2px] to-[2px] bg-[length:12px_100%] group-last:hidden" />
+      <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-[#0A4ECD]/15 from-[2px] to-[2px] bg-[length:12px_100%]" />
+      <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-[#0A4ECD]/5 from-[2px] to-[2px] bg-[length:12px_100%] group-last:hidden" />
       {children}
     </div>
   )

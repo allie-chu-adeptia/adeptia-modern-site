@@ -72,6 +72,7 @@ const NEWS_ARTICLE_QUERY = defineQuery(/* groq */ `*[
   && metadata.slug.current == $slug
 ][0]{
   publishDate,
+  metadata,
   title,
   excerpt,
   body[]{

@@ -3,11 +3,31 @@ import { HeaderStyle, HeaderStyleProps } from "@/lib/headerStyle"
 import { PortableTextBlock } from "@portabletext/react"
 import StylePortableText from "@/components/stylePortableText"
 import { getCompanyTermsOfService } from "@/sanity/queries/company"
-
+import type { Metadata } from 'next'
 const header: HeaderStyleProps = {
     header: {
         header: "Terms of Service",
         layout: 'centered'
+    }
+}
+
+// Generated metadata for the blog post
+export async function generateMetadata(): Promise<Metadata> {
+
+    return {
+        title: "Terms of Service",
+        description: "Terms of Service for Adeptia",
+        alternates: {
+            canonical: "https://www.adeptia.com/terms-of-service",
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
+        openGraph: {
+            title: "Terms of Service",
+            description: "Terms of Service for Adeptia",
+        }
     }
 }
 

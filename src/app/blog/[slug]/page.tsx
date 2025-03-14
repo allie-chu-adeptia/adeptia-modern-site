@@ -31,7 +31,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
   return (
     <main className="overflow-hidden">
       <Container>
-        <Heading as="h2" className="mt-16">
+        <Heading as="h1" className="mt-16">
           {post.title}
         </Heading>
         <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
@@ -53,7 +53,7 @@ export default async function BlogPost(props: { params: Promise<sParams> }) {
                 </div>
               </div>
             )}
-            <CategoryChip categories={post.categories} />
+            <CategoryChip categories={post.categories} nolink={true} />
           </div>
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">
