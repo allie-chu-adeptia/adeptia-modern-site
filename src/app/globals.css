@@ -169,3 +169,13 @@ body {
 .submitted-message.hs-main-font-element {
   display: none !important;
 }
+
+label.hs-form-booleancheckbox-display {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+label.hs-form-booleancheckbox-display .hs-input {
+  width: auto !important;
+}
