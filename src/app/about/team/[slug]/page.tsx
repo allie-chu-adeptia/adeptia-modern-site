@@ -14,10 +14,10 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
     const params = await props.params;
     const member: TeamMember | undefined = await getManagementMember(params.slug)
     return {
-        title: cleanString(member?.name || ''),
+        title: "Adeptia Team | " + cleanString(member?.name || ''),
         description: "Learn more about " + cleanString(member?.name || ''),
         alternates: {
-            canonical: "https://www.adeptia.com/about/team/" + member?.slug,
+            canonical: "https://www.adeptia.com/about/team/" + member?.slug?.current,
         },
         robots: {
             index: true,

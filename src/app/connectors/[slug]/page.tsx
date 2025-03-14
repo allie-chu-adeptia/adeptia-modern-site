@@ -17,7 +17,7 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
     const params = await props.params;
     const connector: ExpandedConnector | undefined = await getConnector(params.slug)
     return {
-        title: connector?.name,
+        title: "Adeptia Connectors - " + connector?.name,
         description: "Learn more about the " + connector?.name + " connector",
         alternates: {
             canonical: "https://www.adeptia.com/connectors/" + connector?.slug,

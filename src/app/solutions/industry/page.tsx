@@ -17,7 +17,7 @@ const IndustryHeader: HeaderStyleType = {
 }
 
 export const metadata: Metadata = {
-    title: 'Industry Solutions',
+    title: 'Adeptia | Industry Solutions',
     description:
         'Our industry solutions are designed to help you connect with your business partners in minutes',
     alternates: {

@@ -13,7 +13,7 @@ const darkBackground: BackgroundStyle = {
 export async function generateMetadata(): Promise<Metadata> {
 
     return {
-        title: "Free Trial",
+        title: "Adeptia | Free Trial",
         description: "Free Trial for Adeptia",
         alternates: {
             canonical: "https://www.adeptia.com/free-trial",

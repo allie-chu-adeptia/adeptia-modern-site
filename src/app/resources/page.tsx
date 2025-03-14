@@ -12,7 +12,7 @@ import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 import { DefaultHeaderSection } from '@/components/headerSection'
 
 export const metadata: Metadata = {
-  title: 'Resources',
+  title: 'Adeptia | Resources',
   description:
       'Explore a variety of resources to help you learn more about Adeptia.',
   alternates: {

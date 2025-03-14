@@ -26,7 +26,7 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
   const path = await getPath(resource?.metadata?.slug?.current || '')
 
   return resource ? { 
-    title: cleanString(resource.title || ''), 
+    title: "Adeptia | " + cleanString(resource.title || ''), 
     description: cleanString(resource.excerpt || ''),
     alternates: {
       canonical: 'https://www.adeptia.com/' + path.join('/')

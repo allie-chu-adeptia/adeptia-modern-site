@@ -17,7 +17,7 @@ const UseCaseHeader: HeaderStyleType = {
 }
 
 export const metadata: Metadata = {
-    title: 'Integration Scenario Solutions',
+    title: 'Adeptia | Integration Scenario Solutions',
     description:
         'Our integration scenario solutions are designed to help you connect with your business partners in minutes',
     alternates: {

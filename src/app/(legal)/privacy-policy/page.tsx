@@ -15,7 +15,7 @@ const header: HeaderStyleProps = {
 export async function generateMetadata(): Promise<Metadata> {
 
     return {
-        title: "Privacy Policy",
+        title: "Adeptia | Privacy Policy",
         description: "Privacy Policy for Adeptia",
         alternates: {
             canonical: "https://www.adeptia.com/privacy-policy",

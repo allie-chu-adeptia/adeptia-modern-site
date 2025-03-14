@@ -15,7 +15,7 @@ const header: HeaderStyleProps = {
 export async function generateMetadata(): Promise<Metadata> {
 
     return {
-        title: "Terms of Service",
+        title: "Adeptia | Terms of Service",
         description: "Terms of Service for Adeptia",
         alternates: {
             canonical: "https://www.adeptia.com/terms-of-service",

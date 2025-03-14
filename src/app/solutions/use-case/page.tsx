@@ -17,7 +17,7 @@ const UseCaseHeader: HeaderStyleType = {
 }
 
 export const metadata: Metadata = {
-    title: 'Use Case Solutions',
+    title: 'Adeptia | Use Case Solutions',
     description:
         'Our use case solutions are designed to help you connect with your business partners in minutes',
     alternates: {

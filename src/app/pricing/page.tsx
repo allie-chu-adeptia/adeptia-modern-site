@@ -94,7 +94,7 @@ const sections = [
 ]
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: 'Adeptia | Pricing',
   description:
     'Pricing for Adeptia Connect.',
   robots: {

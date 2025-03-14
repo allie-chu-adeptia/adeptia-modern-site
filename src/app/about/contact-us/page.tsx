@@ -14,7 +14,7 @@ const darkBackground: BackgroundStyle = {
 export async function generateMetadata(): Promise<Metadata> {
 
   return {
-      title: "Contact Us",
+      title: "Adeptia | Contact Us",
       description: "Contact Us",
       alternates: {
           canonical: "https://www.adeptia.com/about/contact-us",

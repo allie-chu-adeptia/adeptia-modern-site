@@ -9,7 +9,7 @@ import { ExpandedPage } from '@/sanity/types/local.types'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Products',
+    title: 'Adeptia | Products',
     description:
         'Adeptia connect is designed to help you connect with your business partners in minutes.',
     alternates: {
