@@ -12,14 +12,18 @@ export const FileDownload = ({
     slug: string, 
     message: string 
 }) => {
-    console.log("FileDownload", slug, message);
+    console.log("FileDownload", slug);
     const [fileURL, setFileURL] = useState<string | null>(null);
     
     useEffect(() => {
         // Only fetch once when component mounts
         const fetchFile = async () => {
+            console.log("Fetching file", slug);
             const downloadedFile = await getDownloadFile(slug);
-            setFileURL(downloadedFile.fileURL);
+            if (!downloadedFile?.fileURL) {
+                console.error("No file URL found for download");
+            }
+            setFileURL(downloadedFile?.fileURL || null);
         };
         
         fetchFile();
@@ -28,7 +32,13 @@ export const FileDownload = ({
     return (
         <div className="fileDownload max-w-[500px] min-w-[300px] w-full my-4 bg-[linear-gradient(276deg,var(--tw-gradient-stops))] from-[#D8E5FC] from-[-17.59%] via-[#CEDBF5] via-[29.8%] to-[#D2D8F7] to-[90.12%] p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
             <Heading as="h3" className="my-4 text-center">{message}</Heading>
-            <Button className="mb-4"variant="primary" href={fileURL || ''} target="_blank" rel="noopener" download>Download File</Button>
+            {fileURL ? (
+                <Button className="mb-4" variant="primary" href={fileURL} target="_blank" rel="noopener" download>
+                    Download File
+                </Button>
+            ) : (
+                <p className="text-red-600 mb-4">Sorry, the download file is not available.</p>
+            )}
         </div>
     );
 };

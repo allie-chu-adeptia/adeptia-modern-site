@@ -18,7 +18,7 @@ const HubSpotForm = ({
     formId: string,
     region: string,
     sfdcCampaignId?: string,
-    slug?: string,
+    slug: string,
     thankYouMessage: string,
     dark?: boolean
 }) => {
@@ -55,7 +55,7 @@ const HubSpotForm = ({
                         setIsSubmitted(true);
                         // const token = Math.random().toString(36).substring(2, 15);
                         // sessionStorage.setItem("downloadToken", token);
-                        // sessionStorage.setItem("slug", slug || "No slug found");
+                        sessionStorage.setItem("slug", slug || "No slug found");
                         // router.push(`${window.location.pathname}/thank-you?token=${token}`);
                         router.push(`${window.location.pathname}/thank-you`);
                     }

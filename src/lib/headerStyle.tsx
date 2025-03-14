@@ -27,6 +27,31 @@ const lightBackground: BackgroundStyle = {
   style: 'light'
 }
 
+const formatMarkedText = (text: string | undefined, dark: boolean) => {
+  if (!text) return '';
+  
+  return text.split(/(\*\*\*.*?\*\*\*)/).map((part, index) => {
+    if (part.startsWith('***') && part.endsWith('***')) {
+      // Remove *** and wrap in styled span
+      const cleanText = part.slice(3, -3);
+      return (
+        <span
+          key={index}
+          className={clsx(
+            'px-2 py-0 rounded-md',
+            dark 
+              ? 'text-[#F5FFBD] bg-white/10'
+              : 'text-[#0A4ECD] bg-[#E1ECFF]'
+          )}
+        >
+          {cleanText}
+        </span>
+      );
+    }
+    return part;
+  });
+};
+
 export function HeaderStyle({
   header,
   style = lightBackground,
@@ -106,16 +131,16 @@ export function HeaderStyle({
             <Heading
               as={level == 1 ? "h1" : "h2"}
               dark={dark}
-              className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
+              className={`mt-4 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
             >
-              {header?.header}
+              {formatMarkedText(header?.header, dark)}
             </Heading>
             {header?.subheader && <Heading
               as="h3"
               dark={dark}
-              className={`mt-2 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
+              className={`mt-3 max-w-3xl ${header?.layout === 'centered' ? 'mx-auto' : ''}`}
             >
-              {header?.subheader}
+              {formatMarkedText(header?.subheader, dark)}
             </Heading>}
           </>
         )}
