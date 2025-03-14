@@ -5,7 +5,6 @@ import { PortableTextBlock } from '@portabletext/react'
 import { image } from '@/sanity/lib/image'
 import StylePortableText from '@/components/stylePortableText'
 import cleanString from '@/lib/cleanString'
-import { ExpandedConnector } from '@/sanity/types/local.types'
 import type { Metadata } from 'next'
 
 type sParams = Promise<{ slug: string }>;
