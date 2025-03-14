@@ -44,8 +44,6 @@ type ImageType = {
     altText?: string
 }
 
-type ImageSize = 'standard' | 'large'
-
 export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' | 'button' | 'content'> & {
     image?: ImageType
     subPoints?: Array<Subpoint>
