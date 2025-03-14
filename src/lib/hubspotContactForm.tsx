@@ -18,7 +18,7 @@ const HubSpotForm = ({
     formId: string,
     region: string,
     sfdcCampaignId?: string,
-    slug: string,
+    slug?: string,
     thankYouMessage: string,
     dark?: boolean
 }) => {
