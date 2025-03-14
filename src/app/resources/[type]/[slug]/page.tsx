@@ -13,6 +13,8 @@ import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import HubSpotForm from '@/lib/hubspotContactForm'
 import { NoGateFileDownload } from '@/lib/displayDownload'
+import cleanString from '@/lib/cleanString'
+import { getPath } from '@/lib/routing'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -21,8 +23,15 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
 
   const { slug } = await props.params
   const resource = await getResource(slug)
+  const path = await getPath(resource?.metadata?.slug?.current || '')
 
-  return resource ? { title: resource.title, description: resource.excerpt } : {}
+  return resource ? { 
+    title: cleanString(resource.title || ''), 
+    description: cleanString(resource.excerpt || ''),
+    alternates: {
+      canonical: 'https://www.adeptia.com/' + path.join('/')
+    }
+  } : {}
 }
 
 // Styles and returns the resource page
