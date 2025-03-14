@@ -32,18 +32,22 @@ type ButtonType = {
     link: string
 }
 
-export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' | 'button' | 'content'> & {
-    image?: {
-        asset?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: 'image'
-        altText?: string
+type ImageType = {
+    asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
     }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+    altText?: string
+}
+
+type ImageSize = 'standard' | 'large'
+
+export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' | 'button' | 'content'> & {
+    image?: ImageType
     subPoints?: Array<Subpoint>
     button?: ButtonType
     content?: PortableTextBlock[]
@@ -148,6 +152,34 @@ function buildHeaderandContent({
     )
 }
 
+// function buildImage({
+//     renderImage,
+//     imageSize,
+// }: {
+//     renderImage?: ImageType,
+//     imageSize: ImageSize,
+// }) {
+//     return (
+//         <div className="relative pt-8">
+//             {renderImage && (
+//                 imageSize === 'standard' ? (
+//                     <img
+//                         alt={cleanString(renderImage.altText || '')}
+//                         src={image(renderImage).size(2400, 1800).url()}
+//                         className="rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
+//                     />
+//                 ) : (
+//                     <img
+//                         alt={cleanString(renderImage.altText || '')}
+//                         src={image(renderImage).size(2400, 1800).url()}
+//                         className="max-w-7xl rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
+//                     />
+//                 )
+//             )}
+//         </div>
+//     )
+// }
+
 function OffCenterImage({
     contentSection,
     spacing,
@@ -237,13 +269,15 @@ function CenteredImage({
                     </dl>
                 </div>
             )}
-            <div className="mx-auto max-w-5xl px-6 lg:px-8">
+            <div className={`mx-auto ${cleanString(contentSection.imageSize || 'standard') === 'standard' ? 'max-w-5xl px-6 lg:px-8' : 'max-w-7xl'}`}>
                 {animation ? (
-                    <div className="relative h-80 shrink-0 my-12">
+                    // <div className="relative h-80 shrink-0 my-12 shadow-2xl ring-1 ring-white/10">
+                    <>
                         {cleanString(animation) === 'firstMileDataTypes' && (
                             <FirstMileData dark={dark} />
                         )}
-                    </div>
+                    </>
+                    // </div>
                 ) : (
                     contentSection.image && <div className="relative pt-8">
 

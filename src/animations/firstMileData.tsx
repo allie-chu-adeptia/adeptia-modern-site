@@ -27,9 +27,9 @@ function Logo({
       className={clsx(
         className,
         'absolute top-2 inline-flex items-center gap-2 px-3 py-1',
-        'rounded-full text-gray-700 bg-[#F9FAFB] ring-1 ring-inset ring-[#6B7180]/10',
+        'rounded-full text-gray-900 bg-[#F9FAFB] ring-1 ring-inset ring-[#6B7180]/10',
         'text-md/6 font-medium',
-        background ? 'text-[#B9BCC4] text-xs/6 font-normal' : '',
+        background ? 'text-[#B9BCC4] text-sm/6 font-normal' : '',
         '[--move-x-from:-100%] [--move-x-to:calc(100%+100cqw)] [animation-iteration-count:infinite] [animation-name:move-x] [animation-play-state:running] [animation-timing-function:linear]',
       )}
     >
@@ -116,12 +116,12 @@ export function FirstMileData({ dark }: { dark: boolean }) {
     variants={{ active: {} }}
     data-dark={dark ? 'true' : undefined}
     className={clsx(
-      'group relative flex flex-col overflow-hidden rounded-lg py-8',
-      'bg-gradient-to-b from-white via-[#E1ECFF] to-white shadow-sm ring-1 ring-black/5',
+      'group relative flex flex-col overflow-hidden rounded-lg py-8 my-8',
+      'bg-gradient-to-b from-[#E1ECFF] via-[#B8CEF3] to-[#E1ECFF] shadow-xl ring-1 ring-black/5',
       'data-[dark]:bg-gray-800 data-[dark]:ring-white/15',
     )}
     >
-      <div className="relative h-80 shrink-0">
+      <div className="relative h-96 shrink-0">
         <FirstMileDataGraphic />
       </div>
     </motion.div>

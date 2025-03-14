@@ -436,6 +436,7 @@ export type ContentSection = {
   _type: 'contentSection'
   header?: HeaderStyle
   content?: PortableText
+  imageSize?: 'standard' | 'large'
   image?: {
     asset?: {
       _ref: string

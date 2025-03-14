@@ -122,6 +122,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
             }
           }
         },
+        imageSize,
         image {
           asset->,
           "altText": asset->title,
