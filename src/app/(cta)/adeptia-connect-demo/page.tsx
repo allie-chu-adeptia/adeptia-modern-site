@@ -13,15 +13,15 @@ const darkBackground: BackgroundStyle = {
 export async function generateMetadata(): Promise<Metadata> {
 
     return {
-        title: "Adeptia | Free Trial",
-        description: "Free Trial for Adeptia",
+        title: "Adeptia | Adeptia Connect Demo",
+        description: "Adeptia Connect Demo",
         alternates: {
-            canonical: "https://www.adeptia.com/free-trial",
+            canonical: "https://www.adeptia.com/adeptia-connect-demo",
         },
     }
 }
 
-export default function FreeTrial() {
+export default function AdeptiaConnectDemo() {
     return (
         <>
             <BackgroundColor color={darkBackground}>
@@ -40,7 +40,8 @@ export default function FreeTrial() {
                                 formId="d095d92f-f507-40c1-ac6a-6b59347da8d8"
                                 region="na1"
                                 sfdcCampaignId="70132000000l3tAAAQ"
-                                thankYouMessage="Thank you for contacting us!"
+                                slug="adeptia-connect-demo"
+                                // thankYouMessage="Thank you for contacting us!"
                                 dark={true}
                             />
                         </div>

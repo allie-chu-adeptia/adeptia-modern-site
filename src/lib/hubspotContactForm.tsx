@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import cleanString from '@/lib/cleanString';
-import { FileDownload } from '@/lib/displayDownload';
+// import { FileDownload } from '@/lib/displayDownload';
 import { useRouter } from 'next/navigation';
 
 const HubSpotForm = ({
@@ -11,7 +11,7 @@ const HubSpotForm = ({
     region = 'na1',
     slug,
     sfdcCampaignId,
-    thankYouMessage,
+    // thankYouMessage,
     dark
 }: {
     portalId: string,
@@ -19,7 +19,7 @@ const HubSpotForm = ({
     region: string,
     sfdcCampaignId?: string,
     slug?: string,
-    thankYouMessage: string,
+    // thankYouMessage: string,
     dark?: boolean
 }) => {
     const router = useRouter();
@@ -52,12 +52,17 @@ const HubSpotForm = ({
                         setIsLoading(false); // Set loading to false when form is ready
                     },
                     onFormSubmit: () => {
+                        console.log("Form submitted");
                         setIsSubmitted(true);
                         // const token = Math.random().toString(36).substring(2, 15);
                         // sessionStorage.setItem("downloadToken", token);
-                        sessionStorage.setItem("slug", slug || "No slug found");
                         // router.push(`${window.location.pathname}/thank-you?token=${token}`);
-                        router.push(`${window.location.pathname}/thank-you`);
+                        console.log("slug", slug);
+                        if (slug) {
+                            console.log("slug is defined");
+                            sessionStorage.setItem("slug", slug);
+                            router.push(`${window.location.pathname}/thank-you`);
+                        }
                     }
                 });
             }
@@ -94,8 +99,7 @@ const HubSpotForm = ({
                     })
                 }}
             ></div>
-            {isSubmitted && slug && <FileDownload slug={slug} message={thankYouMessage} />}
-            {isSubmitted && !slug && <div>{thankYouMessage}</div>}
+            {/* {slug ? <FileDownload slug={slug} message={thankYouMessage} /> : <div>{thankYouMessage}</div>} */}
         </div>
     );
 };
