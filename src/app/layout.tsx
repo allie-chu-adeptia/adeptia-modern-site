@@ -6,7 +6,8 @@ import { NavbarNew } from "@/components/navbar-new";
 import { Footer } from "@/components/footer";
 import { SanityLive } from "@/sanity/lib/live";
 import { Analytics } from "@vercel/analytics/react"
-import { CookieBanner } from "@/components/cookieBanner"
+import { GoogleTagManager } from '@next/third-parties/google'
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-TGBWNG" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -46,15 +48,8 @@ export default async function RootLayout({
         {children}
         <SanityLive />
         <Analytics />
-        {/* {(await draftMode()).isEnabled && (
-          <>
-            <DisableDraftMode />
-            <VisualEditing />
-          </>
-        )} */}
         <SpeedInsights />
         <Footer />
-        <CookieBanner />
       </body>
     </html>
   );
