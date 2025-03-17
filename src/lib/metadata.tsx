@@ -8,7 +8,11 @@ export const buildMetadata = async (metadata?: MetadataType): Promise<Metadata> 
         return {}
     }
 
-    const path = await getPath(metadata.slug?.current || '')
+    let path = await getPath(metadata.slug?.current || '')
+    
+    if (path[0] === 'home') {
+        path = ['']
+    }
 
     return {
         title: metadata.seoTitle || undefined,

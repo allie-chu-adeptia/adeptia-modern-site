@@ -90,7 +90,7 @@ export async function getFeaturedResources(quantity: number) {
 
 const RESOURCE_QUERY = defineQuery(/* groq */ `*[
   _type == "resource"
-  && (type == "Datasheet" || type == "White Paper" || type == "Video" || type == "eBook" || type == "Infographic")
+  && (type == "Datasheet" || type == "White Paper" || type == "Video" || type == "eBook" || type == "Tutorial" || type == "Infographic")
   && metadata.slug.current == $slug
 ][0]{
   _type,
@@ -118,7 +118,7 @@ const RESOURCE_QUERY = defineQuery(/* groq */ `*[
     name,
     "slug": slug.current,
   },
-  type == "Video" => {
+  type == "Video" || type == "Tutorial" => {
     video
   },
   type in ["White Paper", "eBook", "Datasheet", "Infographic"] => {
