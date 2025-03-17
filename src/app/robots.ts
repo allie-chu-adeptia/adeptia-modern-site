@@ -44,6 +44,7 @@ export default function robots(): MetadataRoute.Robots {
         '/?q=user/register/',
         '/?q=user/login/',
         '/?q=user/logout/'
+        ,'/download/'
       ],
     },
     sitemap: 'https://www.adeptia.com/sitemap.xml',
