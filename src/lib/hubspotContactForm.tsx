@@ -85,7 +85,7 @@ const HubSpotForm = ({
                 ref={formContainer}
                 style={{
                     display: isLoading || isSubmitted ? 'none' : 'flex',
-                    maxWidth: '500px',
+                    // maxWidth: '500px',
                     minWidth: '300px',
                     width: '100%',
                     margin: '2rem 0',
