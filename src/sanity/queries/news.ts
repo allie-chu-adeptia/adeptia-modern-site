@@ -75,6 +75,10 @@ const NEWS_ARTICLE_QUERY = defineQuery(/* groq */ `*[
   metadata,
   title,
   excerpt,
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->title,
+  },
   body[]{
     ...,
     markDefs[]{

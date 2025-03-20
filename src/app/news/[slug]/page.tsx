@@ -9,6 +9,7 @@ import { ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
 import { getNewsArticle } from '@/sanity/queries/news'
 import { buildMetadata } from '@/lib/metadata'
+import { image } from '@/sanity/lib/image'
 
 type sParams = Promise<{ slug: string }>;
 
@@ -34,7 +35,15 @@ export default async function NewsArticle(props: { params: Promise<sParams> }) {
           {post.title}
         </Heading>
         <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
-          <div></div>
+          <div>
+            {post.featuredImage && (
+              <img
+                alt={post.featuredImage.altText || ''}
+                src={image(post.featuredImage).size(2016, 1344).url()}
+                className="mt-6 aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
+              />
+            )}
+          </div>
           <div className="text-gray-700">
             <div className="max-w-3xl xl:mx-auto">
               {post.body && (
