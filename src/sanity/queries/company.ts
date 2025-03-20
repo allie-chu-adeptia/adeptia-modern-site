@@ -60,3 +60,15 @@ export async function getCompanyPrivacyPolicy() {
       query: COMPANY_PRIVACY_POLICY_QUERY,
     })
 }
+
+const COMPANY_COOKIE_CONSENT_QUERY = defineQuery(/* groq */ `
+  *[_type == "company" && companyName == "Adeptia"][0] {
+    cookieConsent
+  }
+`)
+
+export async function getCompanyCookieConsent() {
+    return await sanityFetch({
+      query: COMPANY_COOKIE_CONSENT_QUERY,
+    })
+}
