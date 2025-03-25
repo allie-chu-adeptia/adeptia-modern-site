@@ -31,58 +31,86 @@ export default async function TestRevalidationPage() {
           <h2 className="font-semibold">Environment Configuration</h2>
           <p>Environment: {results.environment}</p>
           <p>CDN Enabled: {results.cdnEnabled ? 'Yes' : 'No'}</p>
+          <p>Token Configured: <span className={results.hasToken ? 'text-green-600' : 'text-red-600'}>
+            {results.hasToken ? 'Yes' : 'No'}
+          </span></p>
         </div>
         
         {results.tests.map((test, index) => (
           <div key={index} className="bg-gray-100 p-4 rounded">
             <h2 className="text-xl font-bold mb-4">{test.name}</h2>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <h3 className="font-semibold">First Request</h3>
-                <p>Time: {test.firstRequest.time}ms</p>
-                <p>Status: <span className={test.firstRequest.ok ? 'text-green-600' : 'text-red-600'}>
-                  {test.firstRequest.status}
-                </span></p>
-                <div className="mt-2">
-                  <h4 className="font-semibold">Headers:</h4>
-                  <pre className="mt-1 bg-white p-2 rounded text-sm">
-                    {JSON.stringify(test.firstRequest.headers, null, 2)}
-                  </pre>
+            {test.error ? (
+              <div className="bg-red-100 p-4 rounded mb-4">
+                <h3 className="font-semibold text-red-800">Error</h3>
+                <p>{test.error}</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h3 className="font-semibold">First Request</h3>
+                  <p>Time: {test.firstRequest.time}ms</p>
+                  <p>Status: <span className={test.firstRequest.ok ? 'text-green-600' : 'text-red-600'}>
+                    {test.firstRequest.status}
+                  </span></p>
+                  {test.firstRequest.error && (
+                    <div className="mt-2 bg-red-50 p-2 rounded">
+                      <h4 className="font-semibold text-red-800">Error Response:</h4>
+                      <pre className="mt-1 text-sm">
+                        {JSON.stringify(test.firstRequest.error, null, 2)}
+                      </pre>
+                    </div>
+                  )}
+                  <div className="mt-2">
+                    <h4 className="font-semibold">Headers:</h4>
+                    <pre className="mt-1 bg-white p-2 rounded text-sm">
+                      {JSON.stringify(test.firstRequest.headers, null, 2)}
+                    </pre>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold">Second Request</h3>
+                  <p>Time: {test.secondRequest.time}ms</p>
+                  <p>Status: <span className={test.secondRequest.ok ? 'text-green-600' : 'text-red-600'}>
+                    {test.secondRequest.status}
+                  </span></p>
+                  {test.secondRequest.error && (
+                    <div className="mt-2 bg-red-50 p-2 rounded">
+                      <h4 className="font-semibold text-red-800">Error Response:</h4>
+                      <pre className="mt-1 text-sm">
+                        {JSON.stringify(test.secondRequest.error, null, 2)}
+                      </pre>
+                    </div>
+                  )}
+                  <div className="mt-2">
+                    <h4 className="font-semibold">Headers:</h4>
+                    <pre className="mt-1 bg-white p-2 rounded text-sm">
+                      {JSON.stringify(test.secondRequest.headers, null, 2)}
+                    </pre>
+                  </div>
                 </div>
               </div>
-              
-              <div>
-                <h3 className="font-semibold">Second Request</h3>
-                <p>Time: {test.secondRequest.time}ms</p>
-                <p>Status: <span className={test.secondRequest.ok ? 'text-green-600' : 'text-red-600'}>
-                  {test.secondRequest.status}
-                </span></p>
-                <div className="mt-2">
-                  <h4 className="font-semibold">Headers:</h4>
-                  <pre className="mt-1 bg-white p-2 rounded text-sm">
-                    {JSON.stringify(test.secondRequest.headers, null, 2)}
-                  </pre>
-                </div>
-              </div>
-            </div>
+            )}
             
-            <div className="mt-4 bg-green-50 p-3 rounded">
-              <h3 className="font-semibold">Cache Analysis</h3>
-              <p>Speed improvement: {test.improvement.toFixed(2)}%</p>
-              <p className="mt-2">
-                <strong>Cache-Control (1st):</strong> {test.firstRequest.headers['cache-control'] || 'Not set'}
-              </p>
-              <p>
-                <strong>Cache-Control (2nd):</strong> {test.secondRequest.headers['cache-control'] || 'Not set'}
-              </p>
-              <p className="mt-2">
-                <strong>x-cache (1st):</strong> {test.firstRequest.headers['x-cache'] || 'Not set'}
-              </p>
-              <p>
-                <strong>x-cache (2nd):</strong> {test.secondRequest.headers['x-cache'] || 'Not set'}
-              </p>
-            </div>
+            {!test.error && (
+              <div className="mt-4 bg-green-50 p-3 rounded">
+                <h3 className="font-semibold">Cache Analysis</h3>
+                <p>Speed improvement: {test.improvement?.toFixed(2) ?? 'N/A'}%</p>
+                <p className="mt-2">
+                  <strong>Cache-Control (1st):</strong> {test.firstRequest?.headers?.['cache-control'] || 'Not set'}
+                </p>
+                <p>
+                  <strong>Cache-Control (2nd):</strong> {test.secondRequest?.headers?.['cache-control'] || 'Not set'}
+                </p>
+                <p className="mt-2">
+                  <strong>x-cache (1st):</strong> {test.firstRequest?.headers?.['x-cache'] || 'Not set'}
+                </p>
+                <p>
+                  <strong>x-cache (2nd):</strong> {test.secondRequest?.headers?.['x-cache'] || 'Not set'}
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>

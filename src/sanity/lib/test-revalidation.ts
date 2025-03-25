@@ -1,5 +1,6 @@
 import { client } from './client'
 import { projectId, dataset } from './env'
+import { token } from './token'
 
 // Simple test query
 const TEST_QUERY = `*[_type == "page" && metadata.slug.current == "home"][0] {
@@ -13,6 +14,10 @@ export async function testRevalidation() {
   console.log('Environment:', process.env.NODE_ENV)
   console.log('CDN Usage:', client.config().useCdn ? 'Enabled' : 'Disabled')
   
+  if (!token) {
+    throw new Error('Sanity token is not configured. Please check your environment variables.')
+  }
+  
   if (isDev) {
     console.warn('⚠️ Running in development mode - cache testing will not be accurate!')
     console.warn('Please deploy to production/staging environment for accurate results.')
@@ -23,7 +28,7 @@ export async function testRevalidation() {
   const apiUrl = `https://${projectId}.api.sanity.io/v2025-02-26/data/query/${dataset}?query=${encodeURIComponent(TEST_QUERY)}`
   
   const headers = {
-    'Authorization': `Bearer ${client.config().token}`,
+    'Authorization': `Bearer ${token}`,
   }
 
   // Test with different cache settings
@@ -59,51 +64,63 @@ export async function testRevalidation() {
   const results = []
   
   for (const test of tests) {
-    // First request
-    const startTime = Date.now()
-    const response = await fetch(test.url, {
-      headers: test.headers,
-      next: { revalidate: 86400 }
-    })
-    const responseHeaders = Object.fromEntries(response.headers.entries())
-    const data = await response.json()
-    
-    // Add a delay between requests to better simulate real-world conditions
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // Second request (to test caching)
-    const cacheTime = Date.now()
-    const response2 = await fetch(test.url, {
-      headers: test.headers,
-      next: { revalidate: 86400 }
-    })
-    const responseHeaders2 = Object.fromEntries(response2.headers.entries())
-    const data2 = await response2.json()
-    
-    results.push({
-      name: test.name,
-      firstRequest: {
-        time: Date.now() - startTime,
-        headers: responseHeaders,
-        data: data.result,
-        status: response.status,
-        ok: response.ok
-      },
-      secondRequest: {
-        time: Date.now() - cacheTime,
-        headers: responseHeaders2,
-        data: data2.result,
-        status: response2.status,
-        ok: response2.ok
-      },
-      improvement: ((Date.now() - startTime) - (Date.now() - cacheTime)) / (Date.now() - startTime) * 100
-    })
+    try {
+      // First request
+      const startTime = Date.now()
+      const response = await fetch(test.url, {
+        headers: test.headers,
+        next: { revalidate: 86400 }
+      })
+      const responseHeaders = Object.fromEntries(response.headers.entries())
+      const data = await response.json()
+      
+      // Add a delay between requests to better simulate real-world conditions
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Second request (to test caching)
+      const cacheTime = Date.now()
+      const response2 = await fetch(test.url, {
+        headers: test.headers,
+        next: { revalidate: 86400 }
+      })
+      const responseHeaders2 = Object.fromEntries(response2.headers.entries())
+      const data2 = await response2.json()
+      
+      results.push({
+        name: test.name,
+        firstRequest: {
+          time: Date.now() - startTime,
+          headers: responseHeaders,
+          data: data.result,
+          status: response.status,
+          ok: response.ok,
+          error: !response.ok ? data : null
+        },
+        secondRequest: {
+          time: Date.now() - cacheTime,
+          headers: responseHeaders2,
+          data: data2.result,
+          status: response2.status,
+          ok: response2.ok,
+          error: !response2.ok ? data2 : null
+        },
+        improvement: ((Date.now() - startTime) - (Date.now() - cacheTime)) / (Date.now() - startTime) * 100
+      })
+    } catch (error) {
+      results.push({
+        name: test.name,
+        error: error instanceof Error ? error.message : String(error),
+        firstRequest: { error: error instanceof Error ? error.message : String(error) },
+        secondRequest: { error: error instanceof Error ? error.message : String(error) }
+      })
+    }
   }
   
   return {
     environment: process.env.NODE_ENV,
     cdnEnabled: client.config().useCdn,
     tests: results,
-    isDevelopment: isDev
+    isDevelopment: isDev,
+    hasToken: !!token
   }
 } 
