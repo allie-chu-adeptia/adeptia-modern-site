@@ -9,6 +9,23 @@ export default async function TestRevalidationPage() {
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Revalidation Test Results</h1>
       
+      {results.isDevelopment && (
+        <div className="mb-6 bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded">
+          <h2 className="font-bold text-yellow-800">⚠️ Development Mode Warning</h2>
+          <p className="mt-2">
+            You are running this test in development mode. Cache testing will not be accurate because:
+          </p>
+          <ul className="list-disc ml-6 mt-2">
+            <li>CDN is disabled in development</li>
+            <li>Revalidation is disabled in development</li>
+            <li>Live preview features may interfere with caching</li>
+          </ul>
+          <p className="mt-2 font-semibold">
+            Please deploy to production/staging environment for accurate results.
+          </p>
+        </div>
+      )}
+      
       <div className="space-y-4">
         <div className="bg-blue-100 p-4 rounded">
           <h2 className="font-semibold">Environment Configuration</h2>
@@ -24,6 +41,9 @@ export default async function TestRevalidationPage() {
               <div>
                 <h3 className="font-semibold">First Request</h3>
                 <p>Time: {test.firstRequest.time}ms</p>
+                <p>Status: <span className={test.firstRequest.ok ? 'text-green-600' : 'text-red-600'}>
+                  {test.firstRequest.status}
+                </span></p>
                 <div className="mt-2">
                   <h4 className="font-semibold">Headers:</h4>
                   <pre className="mt-1 bg-white p-2 rounded text-sm">
@@ -35,6 +55,9 @@ export default async function TestRevalidationPage() {
               <div>
                 <h3 className="font-semibold">Second Request</h3>
                 <p>Time: {test.secondRequest.time}ms</p>
+                <p>Status: <span className={test.secondRequest.ok ? 'text-green-600' : 'text-red-600'}>
+                  {test.secondRequest.status}
+                </span></p>
                 <div className="mt-2">
                   <h4 className="font-semibold">Headers:</h4>
                   <pre className="mt-1 bg-white p-2 rounded text-sm">

@@ -1,4 +1,3 @@
-import { sanityFetch } from './client'
 import { client } from './client'
 import { projectId, dataset } from './env'
 
@@ -9,9 +8,15 @@ const TEST_QUERY = `*[_type == "page" && metadata.slug.current == "home"][0] {
 }`
 
 export async function testRevalidation() {
+  const isDev = process.env.NODE_ENV === 'development'
   console.log('Testing revalidation settings...')
   console.log('Environment:', process.env.NODE_ENV)
   console.log('CDN Usage:', client.config().useCdn ? 'Enabled' : 'Disabled')
+  
+  if (isDev) {
+    console.warn('⚠️ Running in development mode - cache testing will not be accurate!')
+    console.warn('Please deploy to production/staging environment for accurate results.')
+  }
   
   // Test both CDN and API endpoints
   const cdnUrl = `https://${projectId}.apicdn.sanity.io/v2025-02-26/data/query/${dataset}?query=${encodeURIComponent(TEST_QUERY)}`
@@ -63,6 +68,9 @@ export async function testRevalidation() {
     const responseHeaders = Object.fromEntries(response.headers.entries())
     const data = await response.json()
     
+    // Add a delay between requests to better simulate real-world conditions
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     // Second request (to test caching)
     const cacheTime = Date.now()
     const response2 = await fetch(test.url, {
@@ -77,12 +85,16 @@ export async function testRevalidation() {
       firstRequest: {
         time: Date.now() - startTime,
         headers: responseHeaders,
-        data: data.result
+        data: data.result,
+        status: response.status,
+        ok: response.ok
       },
       secondRequest: {
         time: Date.now() - cacheTime,
         headers: responseHeaders2,
-        data: data2.result
+        data: data2.result,
+        status: response2.status,
+        ok: response2.ok
       },
       improvement: ((Date.now() - startTime) - (Date.now() - cacheTime)) / (Date.now() - startTime) * 100
     })
@@ -91,6 +103,7 @@ export async function testRevalidation() {
   return {
     environment: process.env.NODE_ENV,
     cdnEnabled: client.config().useCdn,
-    tests: results
+    tests: results,
+    isDevelopment: isDev
   }
 } 
