@@ -15,6 +15,17 @@ import { buildMetadata } from '@/lib/metadata'
 import cleanString from '@/lib/cleanString'
 type sParams = Promise<{ slug: string }>;
 
+export const revalidate = 86400
+
+export async function generateStaticParams() {
+  return [
+    { slug: 'api-data-mapping' },
+    { slug: 'sap-integration-why-its-important' },
+    { slug: 'streamline-erp-system-integration-with-ai' },
+    { slug: 'data-cleaning-ai' },
+]
+}
+
 // Generated metadata for the blog post
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
   const params = await props.params;
@@ -26,7 +37,7 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
 export default async function BlogPost(props: { params: Promise<sParams> }) {
 
   const { slug } = await props.params
-  const post = (await getPost(slug) as ExpandedPost) || notFound()
+  const post = (await getPost(slug, revalidate) as ExpandedPost) || notFound()
 
   return (
     <main className="overflow-hidden">

@@ -319,36 +319,30 @@ export async function getFallbackResources(resourceTypes: string[]) {
 }
 
 // Fetches a single page by its slug, including:
-export async function getPage(slug: string) {
+export async function getPage(slug: string, options: { next: { revalidate: number } }) {
   return await sanityFetch({
     query: PAGE_QUERY,
-    params: { slug }
+    params: { slug },
+    revalidate: options.next.revalidate
   })
 }
 
-// Fetches a leaf page (one with no children) by its slug
-// Returns basic page info and parent hierarchy
-// Used for generating paths/breadcrumbs
-const PATH_QUERY = defineQuery(/* groq */ `*[
-  _type == "page"
-  && metadata.slug.current == $lastSlug
-  && count(
-    *[_type == "page" && parent._ref == ^._id]
-  ) == 0
-][0]{
-  _id,
-  title,
-  metadata,
-  parent->{
-    _id,
-    metadata,
-    parent->
-  },
-}`)
-
-export async function getPath(lastSlug: string) {
-  return await sanityFetch({
-    query: PATH_QUERY,
-    params: { lastSlug }
-  })
-}
+// // Fetches a leaf page (one with no children) by its slug
+// // Returns basic page info and parent hierarchy
+// // Used for generating paths/breadcrumbs
+// const PATH_QUERY = defineQuery(/* groq */ `*[
+//   _type == "page"
+//   && metadata.slug.current == $lastSlug
+//   && count(
+//     *[_type == "page" && parent._ref == ^._id]
+//   ) == 0
+// ][0]{
+//   _id,
+//   title,
+//   metadata,
+//   parent->{
+//     _id,
+//     metadata,
+//     parent->
+//   },
+// }`)

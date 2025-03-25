@@ -1,7 +1,7 @@
 import { getAllPages } from '@/sanity/queries/sitemap'
 import { getServerSideSitemap } from 'next-sitemap'
 import { ExpandedPage } from '@/sanity/types/local.types'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 
 export async function GET() {
     const baseUrl = 'https://www.adeptia.com'
@@ -9,7 +9,7 @@ export async function GET() {
 
     // Create sitemap entries for pages and await all promises
     const pageEntries = await Promise.all(pages.map(async (page: ExpandedPage) => {
-        const path : string[] = await getPath(page.slug)
+        const path : string[] = await getPathFromRouteMap(page.slug)
         const pathString : string = path.join('/')
         return {
             url: `${baseUrl}/${pathString}`,

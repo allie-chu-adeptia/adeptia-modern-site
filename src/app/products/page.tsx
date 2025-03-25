@@ -1,7 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import { defineQuery } from 'next-sanity'
 import { Container } from '@/components/container'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 import { Aggregator } from '@/aggregators/aggregator'
 import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 import { DefaultHeaderSection } from '@/components/headerSection'
@@ -46,7 +46,7 @@ async function getItems(startIndex: number, endIndex: number) {
 
     // Get full paths for each page
     const pagesWithPaths = await Promise.all(pages.map(async (page: ExpandedPage) => {
-        const path = await getPath(page.metadata?.slug?.current || '')
+        const path = await getPathFromRouteMap(page.metadata?.slug?.current || '')
         return {
             ...page,
             pathName: path.slice(0, -1).join('/'),

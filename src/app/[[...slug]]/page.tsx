@@ -25,11 +25,27 @@ import { CalloutSectionComponent } from '@/components/calloutSection'
 
 // Utilities
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 import { BackgroundMotion } from '@/lib/backgroundMotion'
 import { buildMetadata } from '@/lib/metadata'
 import CareerSectionComponent from '@/components/careerSection'
 import { TeamMemberSection, ExpandedTeamMember } from '@/components/teamMemberSection'
+
+export const revalidate = 86400
+
+export async function generateStaticParams() {
+    // List your most frequently visited pages
+    return [
+      { slug: [] },
+      { slug: ['about']},
+      { slug: ['careers']},
+      { slug: ['products', 'connect']},
+      { slug: ['products', 'how-it-works']},
+      { slug: ['products', 'artificial-intelligence-mapping']},
+      { slug: ['connectors']},
+      { slug: ['blog']},
+    ]
+  }
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const home = page.metadata?.slug?.current === 'home'
@@ -141,8 +157,10 @@ function PageContent({ page }: { page: ExpandedPage }) {
 }
 
 async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
+    const options = { next: { revalidate: 86400 } }
+
     if (!slug) {
-        const homePage = await getPage('home')
+        const homePage = await getPage('home', options)
         if (!homePage) {
             return notFound()
         }
@@ -150,7 +168,7 @@ async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
     }
 
     const lastSlug = slug[slug.length - 1]
-    const page = await getPage(lastSlug)
+    const page = await getPage(lastSlug, options)
 
     if (!page) {
         return undefined
@@ -158,7 +176,7 @@ async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
 
     try {
 
-        const actualPath = await getPath(lastSlug)
+        const actualPath = await getPathFromRouteMap(lastSlug)
         if (!actualPath) {
             return undefined
         }

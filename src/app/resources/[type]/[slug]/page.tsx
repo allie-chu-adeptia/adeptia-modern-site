@@ -14,16 +14,24 @@ import StylePortableText from '@/components/stylePortableText'
 import HubSpotForm from '@/lib/hubspotContactForm'
 import { NoGateFileDownload } from '@/lib/displayDownload'
 import cleanString from '@/lib/cleanString'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 
 type sParams = Promise<{ slug: string }>;
+
+export const revalidate = 86400
+
+export async function generateStaticParams() {
+  return [
+    { slug: 'data-integration-it-burden-to-business-accelerant' },
+  ]
+}
 
 // Generated metadata for the resource page
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
 
   const { slug } = await props.params
   const resource = await getResource(slug)
-  const path = await getPath(resource?.metadata?.slug?.current || '')
+  const path = await getPathFromRouteMap(resource?.metadata?.slug?.current || '')
 
   return resource ? { 
     title: "Adeptia | " + cleanString(resource.title || ''), 

@@ -44,3 +44,17 @@ export async function getRouteInfo(slug: string): Promise<RouteInfo | null> {
         { slug }
     )
 }
+
+export async function fetchAllRoutesAtOnce() {
+  return await client.fetch(`
+    *[_type in ["page", "resource", "connector", "customer", "teamMember"]] {
+      _id,
+      _type,
+      metadata {
+        slug
+      },
+      parent->{_id, link},
+      type
+    }
+  `)
+}

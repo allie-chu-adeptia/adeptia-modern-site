@@ -35,7 +35,7 @@
 import * as Headless from '@headlessui/react'
 import NextLink, { type LinkProps } from 'next/link'
 import { forwardRef } from 'react'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 
 interface CustomLinkProps extends LinkProps{
   slug?: string
@@ -49,7 +49,7 @@ export const Link = forwardRef(async function Link(
   let finalHref = props.href
 
   if (props.slug) {
-    const pathSegments = await getPath(props.slug)
+    const pathSegments = await getPathFromRouteMap(props.slug)
     finalHref = `/${pathSegments.join('/')}`
   }
 

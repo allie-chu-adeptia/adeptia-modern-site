@@ -19,6 +19,17 @@ export const metadata: Metadata = {
   },
 }
 
+export const revalidate = 86400
+
+// Generate static params for the first page of blogs
+export async function generateStaticParams() {
+  // This will pre-render the first page
+  return [
+    { searchParams: {} } // First page with no parameters
+  ]
+}
+  
+
 const BlogPageHeader: HeaderStyleType = {
   _type: "headerStyle",
   header: "Adeptia Blog",

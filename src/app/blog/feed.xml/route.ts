@@ -2,8 +2,14 @@ import { image } from '@/sanity/lib/image'
 import { getPostsForFeed } from '@/sanity/queries/blog'
 import { Feed } from 'feed'
 import assert from 'node:assert'
+import { cache } from 'react'
 
 import { ExpandedPost } from '@/sanity/types/local.types'
+
+// Cache the posts fetching
+const getCachedPosts = cache(async () => {
+  return await getPostsForFeed()
+})
 
 export async function GET(req: Request) {
   const siteUrl = new URL(req.url).origin
@@ -26,7 +32,8 @@ export async function GET(req: Request) {
     },
   })
 
-  const posts = await getPostsForFeed()
+  // Use cached posts
+  const posts = await getCachedPosts()
 
   posts.forEach((post: ExpandedPost) => {
     try {
@@ -61,7 +68,7 @@ export async function GET(req: Request) {
     status: 200,
     headers: {
       'content-type': 'application/xml',
-      'cache-control': 's-maxage=31556952',
+      'cache-control': 'public, s-maxage=3600, stale-while-revalidate=86400',
     },
   })
 }

@@ -9,16 +9,16 @@ export const client = createClient({
   apiVersion,
   useCdn: isDevelopment ? false : true,
   perspective: 'published',
-  stega: {
-    enabled: isDevelopment,
-    studioUrl: 'http://localhost:3333/studio',
-  },
+  // stega: {
+  //   enabled: isDevelopment,
+  //   studioUrl: 'http://localhost:3333/studio',
+  // },
 })
 
 export async function sanityFetch<const QueryString extends string>({
   query,
   params = {},
-  revalidate = 60,
+  revalidate = 24 * 60 * 60,
   tags = [],
 }: {
   query: QueryString

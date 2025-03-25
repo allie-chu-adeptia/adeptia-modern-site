@@ -9,6 +9,13 @@ import type { Metadata } from 'next'
 
 type sParams = Promise<{ slug: string }>;
 
+export const revalidate = 86400
+
+export async function generateStaticParams() {
+  return [
+    { slug: 'charles-nardi' }
+  ]
+}
 // Generated metadata for the blog post
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
     const params = await props.params;

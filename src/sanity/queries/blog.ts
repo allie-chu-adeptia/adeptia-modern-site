@@ -157,10 +157,11 @@ const POST_QUERY = defineQuery(/* groq */ `*[
   }
 }`)
 
-export async function getPost(slug: string) {
+export async function getPost(slug: string, revalidate?: number) {
   const post = await sanityFetch({
     query: POST_QUERY,
     params: { slug },
+    revalidate: revalidate
   })
   
   if (!post) {

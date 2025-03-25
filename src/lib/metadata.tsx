@@ -1,14 +1,14 @@
 import { Metadata } from 'next'
 import { Metadata as MetadataType } from '@/sanity/types/sanity.types'
 
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 
 export const buildMetadata = async (metadata?: MetadataType): Promise<Metadata> => {
     if (!metadata) {
         return {}
     }
 
-    let path = await getPath(metadata.slug?.current || '')
+    let path = await getPathFromRouteMap(metadata.slug?.current || '')
     
     if (path[0] === 'home') {
         path = ['']

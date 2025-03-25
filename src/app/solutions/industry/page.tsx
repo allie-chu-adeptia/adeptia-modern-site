@@ -5,7 +5,7 @@ import { Aggregator } from '@/aggregators/aggregator'
 import { HeaderStyle as HeaderStyleType } from '@/sanity/types/sanity.types'
 import { DefaultHeaderSection } from '@/components/headerSection'
 import { ExpandedPage } from '@/sanity/types/local.types'
-import { getPath } from '@/lib/routing'
+import { getPathFromRouteMap } from '@/lib/routing'
 import { Metadata } from 'next'
 
 const IndustryHeader: HeaderStyleType = {
@@ -46,7 +46,7 @@ async function getIndustryItems(startIndex: number, endIndex: number) {
 
     // Get full paths for each page
     const pagesWithPaths = await Promise.all(pages.map(async (page: ExpandedPage) => {
-        const path = await getPath(page.metadata?.slug?.current || '')
+        const path = await getPathFromRouteMap(page.metadata?.slug?.current || '')
         return {
             ...page,
             pathName: path.slice(0, -1).join('/'),
