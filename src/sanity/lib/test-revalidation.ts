@@ -8,6 +8,16 @@ const TEST_QUERY = `*[_type == "page" && metadata.slug.current == "home"][0] {
   title
 }`
 
+type TestConfig = {
+  name: string;
+  url: string;
+  headers: Record<string, string>;
+  cacheConfig: {
+    next?: { revalidate: number };
+    cache?: RequestCache;
+  };
+}
+
 export async function testRevalidation() {
   const isDev = process.env.NODE_ENV === 'development'
   console.log('Testing revalidation settings...')
@@ -23,7 +33,7 @@ export async function testRevalidation() {
     console.warn('Please deploy to production/staging environment for accurate results.')
   }
   
-  // Test both CDN and API endpoints
+  // Test both CDN and API endpoints with different caching strategies
   const cdnUrl = `https://${projectId}.apicdn.sanity.io/v2025-02-26/data/query/${dataset}?query=${encodeURIComponent(TEST_QUERY)}`
   const apiUrl = `https://${projectId}.api.sanity.io/v2025-02-26/data/query/${dataset}?query=${encodeURIComponent(TEST_QUERY)}`
   
@@ -32,32 +42,30 @@ export async function testRevalidation() {
   }
 
   // Test with different cache settings
-  const tests = [
+  const tests: TestConfig[] = [
     {
-      name: 'Default CDN',
+      name: 'Next.js Cache (24h)',
       url: cdnUrl,
       headers: { ...headers },
+      cacheConfig: { next: { revalidate: 86400 } }
     },
     {
-      name: 'CDN with Cache-Control',
+      name: 'Next.js Cache (1h) + SWR',
       url: cdnUrl,
-      headers: { 
-        ...headers,
-        'Cache-Control': 'public, max-age=86400'
-      },
+      headers: { ...headers },
+      cacheConfig: { next: { revalidate: 3600 } }
     },
     {
-      name: 'CDN with Sanity Cache Tag',
+      name: 'Sanity CDN Default',
       url: cdnUrl,
-      headers: {
-        ...headers,
-        'Sanity-Cache-Time': '86400'
-      },
+      headers: { ...headers },
+      cacheConfig: { cache: 'force-cache' }
     },
     {
-      name: 'Direct API',
+      name: 'Direct API (no cache)',
       url: apiUrl,
       headers: { ...headers },
+      cacheConfig: { cache: 'no-store' }
     }
   ]
 
@@ -69,7 +77,7 @@ export async function testRevalidation() {
       const startTime = Date.now()
       const response = await fetch(test.url, {
         headers: test.headers,
-        next: { revalidate: 86400 }
+        ...test.cacheConfig
       })
       const responseHeaders = Object.fromEntries(response.headers.entries())
       const data = await response.json()
@@ -81,7 +89,7 @@ export async function testRevalidation() {
       const cacheTime = Date.now()
       const response2 = await fetch(test.url, {
         headers: test.headers,
-        next: { revalidate: 86400 }
+        ...test.cacheConfig
       })
       const responseHeaders2 = Object.fromEntries(response2.headers.entries())
       const data2 = await response2.json()
