@@ -54,7 +54,7 @@ export default async function RootLayout({
 
         <NavbarNew />
         {children}
-        <SanityLive />
+        {process.env.NODE_ENV === 'development' && <SanityLive />}
         <Analytics />
         <SpeedInsights />
         <Footer />
