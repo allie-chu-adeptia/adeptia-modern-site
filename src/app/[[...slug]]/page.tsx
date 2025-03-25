@@ -42,8 +42,6 @@ export async function generateStaticParams() {
       { slug: ['products', 'connect']},
       { slug: ['products', 'how-it-works']},
       { slug: ['products', 'artificial-intelligence-mapping']},
-      { slug: ['connectors']},
-      { slug: ['blog']},
     ]
   }
 
