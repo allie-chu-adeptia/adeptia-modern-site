@@ -1,6 +1,12 @@
 import { testRevalidation } from '@/sanity/lib/test-revalidation'
 
-export const dynamic = 'force-dynamic' // Ensure the page isn't cached by Next.js
+// For mostly static pages
+export const runtime = 'edge'  // Optional: Use edge runtime for better performance
+export const revalidate = 86400  // 24 hours
+export const fetchCache = 'force-cache'
+
+// For dynamic pages
+export const dynamic = 'force-dynamic'
 
 export default async function TestRevalidationPage() {
   const results = await testRevalidation()
