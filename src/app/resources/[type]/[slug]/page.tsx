@@ -107,7 +107,7 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
                     formId={resource.HSForm.formID}
                     region="na1"
                     slug={slug}
-                    // thankYouMessage={resource.HSForm.thankYouMessage}
+                    umamiEventName={"resource_download"}
                   />
                 ) : (
                   <NoGateFileDownload slug={slug} />

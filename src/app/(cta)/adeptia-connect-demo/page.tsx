@@ -40,9 +40,9 @@ export default function AdeptiaConnectDemo() {
                                 formId="d095d92f-f507-40c1-ac6a-6b59347da8d8"
                                 region="na1"
                                 sfdcCampaignId="70132000000l3tAAAQ"
-                                slug="adeptia-connect-demo"
-                                // thankYouMessage="Thank you for contacting us!"
                                 dark={true}
+                                umamiEventName="adeptia_connect_demo_submission"
+                                thankYouMessage="Thank you for your submission! We'll be in touch shortly."
                             />
                         </div>
                     </div>

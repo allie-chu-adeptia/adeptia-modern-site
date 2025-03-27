@@ -55,8 +55,8 @@ export default function FreeTrial() {
                                 formId="93e21d94-8532-4e9c-a9ae-3b9ca884348c"
                                 region="na1"
                                 sfdcCampaignId="701VI00000LaeR3YAJ"
-                                slug="free-trial"
-                                // thankYouMessage="Thanks for submitting the form. You'll receive an email to create an account password shortly."
+                                umamiEventName="free_trial_submission"
+                                thankYouMessage="Thank you for your submission! We'll be in touch shortly."
                                 dark={true}
                             />
                         </div>

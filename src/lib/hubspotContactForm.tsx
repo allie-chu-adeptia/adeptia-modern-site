@@ -2,8 +2,11 @@
 
 import { useEffect, useState, useRef } from 'react';
 import cleanString from '@/lib/cleanString';
-// import { FileDownload } from '@/lib/displayDownload';
 import { useRouter } from 'next/navigation';
+import { NoGateFileDownload } from './displayDownload';
+import { trackUmamiEvent } from './trackUmamiEvent';
+import { Heading } from '@/components/text';
+
 
 const HubSpotForm = ({
     portalId,
@@ -11,16 +14,18 @@ const HubSpotForm = ({
     region = 'na1',
     slug,
     sfdcCampaignId,
-    // thankYouMessage,
-    dark
+    dark,
+    umamiEventName,
+    thankYouMessage
 }: {
     portalId: string,
     formId: string,
     region: string,
     sfdcCampaignId?: string,
     slug?: string,
-    // thankYouMessage: string,
-    dark?: boolean
+    dark?: boolean,
+    umamiEventName: string,
+    thankYouMessage?: string
 }) => {
     const router = useRouter();
     const formContainer = useRef<HTMLDivElement>(null);
@@ -32,7 +37,6 @@ const HubSpotForm = ({
 
         const scriptV2 = document.createElement('script');
         scriptV2.src = 'https://js.hsforms.net/forms/embed/v2.js';
-        // scriptV2.charset = 'utf-8';
         scriptV2.type = 'text/javascript';
         document.body.appendChild(scriptV2);
 
@@ -49,19 +53,12 @@ const HubSpotForm = ({
                     target: `#${formContainer.current?.id}`,
                     sfdcCampaignId: sfdcCampaignId,
                     onFormReady: () => {
-                        setIsLoading(false); // Set loading to false when form is ready
+                        setIsLoading(false);
                     },
                     onFormSubmit: () => {
-                        console.log("Form submitted");
                         setIsSubmitted(true);
-                        // const token = Math.random().toString(36).substring(2, 15);
-                        // sessionStorage.setItem("downloadToken", token);
-                        // router.push(`${window.location.pathname}/thank-you?token=${token}`);
-                        console.log("slug", slug);
-                        if (slug) {
-                            console.log("slug is defined");
-                            sessionStorage.setItem("slug", slug);
-                            router.push(`${window.location.pathname}/thank-you`);
+                        if (umamiEventName) {
+                            trackUmamiEvent(umamiEventName);
                         }
                     }
                 });
@@ -74,33 +71,45 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug]);
+    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug, umamiEventName]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
     return (
-        <div className="flex justify-center flex-col items-center">
-            <div
-                id={generatedId}
-                ref={formContainer}
-                style={{
-                    display: isLoading || isSubmitted ? 'none' : 'flex',
-                    // maxWidth: '500px',
-                    minWidth: '300px',
-                    width: '100%',
-                    margin: '2rem 0',
-                    background: '#F8F7F7',
-                    padding: '2rem',
-                    borderRadius: '1rem',
-                    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.15)',
-                    ...(dark && {
-                        background: '#E1ECFF',
-                        color: '#fff',
-                    })
-                }}
-            ></div>
-            {/* {slug ? <FileDownload slug={slug} message={thankYouMessage} /> : <div>{thankYouMessage}</div>} */}
-        </div>
+        <>
+            {isSubmitted ? (
+                <div className="flex justify-center flex-col items-center h-full">
+                    {slug ? (
+                        <NoGateFileDownload slug={slug} />
+                    ) : (
+                        <div className="min-w-[300px] w-full my-10 bg-[linear-gradient(276deg,var(--tw-gradient-stops))] from-[#D8E5FC] from-[-17.59%] via-[#CEDBF5] via-[29.8%] to-[#D2D8F7] to-[90.12%] p-10 rounded-lg shadow-md">
+                            <div className="flex flex-col items-start">
+                                <Heading as="h3">{thankYouMessage || 'Thank you for your submission!'}</Heading>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div
+                    id={generatedId}
+                    ref={formContainer}
+                    style={{
+                        display: isLoading || isSubmitted ? 'none' : 'flex',
+                        minWidth: '300px',
+                        width: '100%',
+                        margin: '2rem 0',
+                        background: '#F8F7F7',
+                        padding: '2rem',
+                        borderRadius: '1rem',
+                        boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.15)',
+                        ...(dark && {
+                            background: '#E1ECFF',
+                            color: '#fff'
+                        })
+                    }}
+                />
+            )}
+        </>
     );
 };
 
