@@ -55,7 +55,7 @@ export default function FreeTrial() {
                                 formId="93e21d94-8532-4e9c-a9ae-3b9ca884348c"
                                 region="na1"
                                 sfdcCampaignId="701VI00000LaeR3YAJ"
-                                umamiEventName="free_trial_submission"
+                                eventName="free_trial_submission"
                                 thankYouMessage="Thank you for your submission! We'll be in touch shortly."
                                 dark={true}
                             />

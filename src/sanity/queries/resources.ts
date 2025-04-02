@@ -171,3 +171,59 @@ export async function getDownloadFile(slug: string) {
     params: { slug }
   })
 }
+
+const TOTAL_TUTORIALS_QUERY = defineQuery(/* groq */ `count(*[
+  _type == "resource"
+  && (type == "Tutorial")
+  && defined(metadata.slug.current)
+  && (featured != true || defined($category))
+  && select(defined($category) => $category in category[]->slug.current, true)
+  && select(defined($type) => type == $type, true)
+])`)
+
+export async function getTutorialsCount(category?: string, type?: string) {
+  return await sanityFetch({ 
+    query: TOTAL_TUTORIALS_QUERY,
+    params: {
+      category: category ?? null,
+      type: type ?? null,
+    },
+  })
+}
+
+const TUTORIALS_QUERY = defineQuery(/* groq */ `*[
+  _type == "resource"
+  && (type == "Tutorial")
+  && defined(metadata.slug.current)
+  && select(defined($category) => $category in category[]->slug.current, true)
+  && select(defined($type) => type == $type, true)
+]|order(publishDate desc)[$startIndex...$endIndex]{
+  _type,
+  _id,
+  type,
+  title,
+  "slug": metadata.slug.current,
+  publishDate,
+  excerpt,
+  category[]->{
+    _id,
+    name,
+    "slug": slug.current
+  },
+  "featuredImage": featuredImage{
+    ...,
+    "altText": asset->altText,
+  },
+}`)
+
+export async function getTutorials(startIndex: number, endIndex: number, category?: string, type?: string) {
+  return await sanityFetch({
+    query: TUTORIALS_QUERY,
+    params: {
+        startIndex,
+        endIndex,
+        category: category ?? null,
+        type: type ?? null,
+    },
+})
+}

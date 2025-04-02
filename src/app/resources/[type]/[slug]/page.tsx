@@ -107,16 +107,16 @@ export default async function ResourcePage(props: { params: Promise<sParams> }) 
                     formId={resource.HSForm.formID}
                     region="na1"
                     slug={slug}
-                    umamiEventName={"resource_download"}
+                    eventName={"resource_download"}
                   />
                 ) : (
                   <NoGateFileDownload slug={slug} />
                 )
               )}
               <div className="mt-10">
-                <Button variant="outline" href="/resources">
+                <Button variant="outline" href={resource.type === "Tutorial" ? "/resources/tutorial" : "/resources"}>
                   <ChevronLeftIcon className="size-4" />
-                  Back to all resources
+                  Back to {resource.type === "Tutorial" ? "tutorials" : "all resources"}
                 </Button>
               </div>
             </div>

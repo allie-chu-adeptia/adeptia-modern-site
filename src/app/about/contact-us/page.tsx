@@ -90,7 +90,7 @@ export default function ContactUs() {
                   formId="6fc152cd-0cd2-4c8b-8a63-12b529c840d9"
                   region="na1"
                   sfdcCampaignId="701Hs000002MKRpIAO"
-                  umamiEventName="contact_us_submission"
+                  eventName="contact_us_submission"
                   thankYouMessage="Thank you for contacting us! Someone will get back to you shortly."
                 />
               </div>

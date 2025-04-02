@@ -5,6 +5,7 @@ import cleanString from '@/lib/cleanString';
 import { useRouter } from 'next/navigation';
 import { NoGateFileDownload } from './displayDownload';
 import { trackUmamiEvent } from './trackUmamiEvent';
+import { track } from '@vercel/analytics';
 import { Heading } from '@/components/text';
 
 
@@ -15,7 +16,7 @@ const HubSpotForm = ({
     slug,
     sfdcCampaignId,
     dark,
-    umamiEventName,
+    eventName,
     thankYouMessage
 }: {
     portalId: string,
@@ -24,7 +25,7 @@ const HubSpotForm = ({
     sfdcCampaignId?: string,
     slug?: string,
     dark?: boolean,
-    umamiEventName: string,
+    eventName: string,
     thankYouMessage?: string
 }) => {
     const router = useRouter();
@@ -57,8 +58,9 @@ const HubSpotForm = ({
                     },
                     onFormSubmit: () => {
                         setIsSubmitted(true);
-                        if (umamiEventName) {
-                            trackUmamiEvent(umamiEventName);
+                        if (eventName) {
+                            trackUmamiEvent(eventName);
+                            track('event', { event: eventName });
                         }
                     }
                 });
@@ -71,7 +73,7 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug, umamiEventName]);
+    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug, eventName]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 

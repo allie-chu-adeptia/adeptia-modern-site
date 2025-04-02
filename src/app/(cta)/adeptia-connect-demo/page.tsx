@@ -41,7 +41,7 @@ export default function AdeptiaConnectDemo() {
                                 region="na1"
                                 sfdcCampaignId="70132000000l3tAAAQ"
                                 dark={true}
-                                umamiEventName="adeptia_connect_demo_submission"
+                                eventName="adeptia_connect_demo_submission"
                                 thankYouMessage="Thank you for your submission! We'll be in touch shortly."
                             />
                         </div>
