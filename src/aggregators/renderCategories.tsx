@@ -32,7 +32,7 @@ export async function CategoriesFilter({
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2">
+    <div className="flex flex-wrap items-center justify-between gap-2 relative z-20">
       <Menu>
         <MenuButton className="flex items-center justify-between gap-2 font-medium">
           {categories.find((category: Category) => category.slug?.toString() === selected)?.name ||
@@ -41,7 +41,7 @@ export async function CategoriesFilter({
         </MenuButton>
         <MenuItems
           anchor="bottom start"
-          className="min-w-40 rounded-lg bg-white p-1 shadow-lg ring-1 ring-gray-200 [--anchor-gap:6px] [--anchor-offset:-4px] [--anchor-padding:10px]"
+          className="min-w-40 rounded-lg bg-white p-1 shadow-lg ring-1 ring-gray-200 [--anchor-gap:6px] [--anchor-offset:-4px] [--anchor-padding:10px] relative z-50"
           key="categories-menu"
         >
           <MenuItem key="all-categories">
