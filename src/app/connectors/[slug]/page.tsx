@@ -29,6 +29,14 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
         openGraph: {
             title: connector?.name,
             description: "Learn more about the " + connector?.name + " connector",
+            images: [
+                {
+                    url: "https://cdn.sanity.io/images/5ujtwa6a/production/d1c087b2825443cc71e0a490e13613a419e31990-8000x5463.png",
+                    width: 800,
+                    height: 545,
+                    alt: "Adeptia Image Banner",
+                },
+            ],
         }
     }
 }

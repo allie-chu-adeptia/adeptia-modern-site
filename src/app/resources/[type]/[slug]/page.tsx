@@ -38,6 +38,16 @@ export async function generateMetadata(props: { params: Promise<sParams> }): Pro
     description: cleanString(resource.excerpt || ''),
     alternates: {
       canonical: 'https://www.adeptia.com/' + path.join('/')
+    },
+    openGraph: {
+      images: [
+        {
+          url: image(resource.featuredImage).size(800, 545).url(),
+          width: 800,
+          height: 545,
+          alt: resource.featuredImage.altText || '',
+        },
+      ],
     }
   } : {}
 }

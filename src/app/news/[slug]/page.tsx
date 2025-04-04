@@ -16,7 +16,7 @@ type sParams = Promise<{ slug: string }>;
 export async function generateMetadata(props: { params: Promise<sParams> }) {
   const { slug } = await props.params
   const post = (await getNewsArticle(slug) as ExpandedPost) || notFound()
-  return buildMetadata(post?.metadata)
+  return buildMetadata(post?.metadata, post?.featuredImage)
 }
 
 // Styles and returns the news article page

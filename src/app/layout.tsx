@@ -27,6 +27,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.adeptia.com'
   }
+  ,
+  openGraph: {
+    images: [
+      {
+        url: 'https://cdn.sanity.io/images/5ujtwa6a/production/d1c087b2825443cc71e0a490e13613a419e31990-8000x5463.png',
+        width: 800,
+        height: 545,
+        alt: 'Adeptia AI Data Exchange Platform'
+      }
+    ],
+    type: 'website',
+    locale: 'en_US'
+  }
 };
 
 export default async function RootLayout({

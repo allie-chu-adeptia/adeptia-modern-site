@@ -20,6 +20,7 @@ export interface ExpandedImage {
     _ref: string
     _type: 'reference'
   }
+  url: string
 }
 
 export interface ExpandedConnector extends Omit<Connector, 'logo' | 'categories'> {

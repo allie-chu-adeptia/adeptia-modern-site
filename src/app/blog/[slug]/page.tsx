@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: { params: Promise<sParams> }): Promise<Metadata> {
   const params = await props.params;
   const post : ExpandedPost | undefined = await getPost(params.slug)
-  return buildMetadata(post?.metadata)
+  return buildMetadata(post?.metadata, post?.featuredImage)
 }
 
 // Styles and returns the blog post page

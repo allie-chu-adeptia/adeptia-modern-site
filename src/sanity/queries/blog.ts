@@ -128,7 +128,7 @@ const POST_QUERY = defineQuery(/* groq */ `*[
   title,
   "featuredImage": featuredImage{
     ...,
-    "altText": asset->title,
+    "altText": asset->title
   },
   excerpt,
   body[]{
