@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { GoogleTagManager } from '@next/third-parties/google'
 import Script from "next/script";
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

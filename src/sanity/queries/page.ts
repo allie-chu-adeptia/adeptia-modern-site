@@ -319,11 +319,10 @@ export async function getFallbackResources(resourceTypes: string[]) {
 }
 
 // Fetches a single page by its slug, including:
-export async function getPage(slug: string, options: { next: { revalidate: number } }) {
+export async function getPage(slug: string) {
   return await sanityFetch({
     query: PAGE_QUERY,
     params: { slug },
-    revalidate: options.next.revalidate
   })
 }
 
