@@ -7,6 +7,7 @@ import { NoGateFileDownload } from './displayDownload';
 import { trackUmamiEvent } from './trackUmamiEvent';
 import { track } from '@vercel/analytics';
 import { Heading } from '@/components/text';
+import {usePlausible} from 'next-plausible'
 
 
 const HubSpotForm = ({
@@ -33,6 +34,7 @@ const HubSpotForm = ({
     const [isLoading, setIsLoading] = useState(true); // Add loading state
     const [isSubmitted, setIsSubmitted] = useState(false);
     const cleanFormId = cleanString(formId);
+    const plausible = usePlausible()
 
     useEffect(() => {
 
@@ -61,6 +63,7 @@ const HubSpotForm = ({
                         if (eventName) {
                             trackUmamiEvent(eventName);
                             track('event', { event: eventName });
+                            plausible(eventName);
                         }
                     }
                 });
