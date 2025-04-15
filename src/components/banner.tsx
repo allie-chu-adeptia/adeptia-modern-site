@@ -10,7 +10,7 @@ export default function Banner() {
              }}>
             <p className="text-md/6 text-white">
                 <ClientLink href="/solutions/industry/insurance-integration#id-limra-signup" className="flex items-center gap-x-2">
-                    <strong className="font-semibold text-[var(--flourescent)]">LIMRA 2025 Workplace Benefits Conference</strong>
+                    <strong className="font-semibold text-[var(--flourescent)]">Meet us at LIMRA 2025 Workplace Benefits Conference</strong>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2" height="2" fill="none" viewBox="0 0 2 2">
                         <circle cx="1" cy="1" r="1" fill="#fff" />
                     </svg>
