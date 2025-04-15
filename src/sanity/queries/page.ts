@@ -81,6 +81,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           _id,
           header,
           buttonText,
+          buttonOrForm,
+          "formId": formReference->formID,
+          "thankYouMessage": formReference->thankYouMessage,
           displayStyle,
           "link": pageReference->metadata.slug.current
         },
@@ -95,6 +98,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           header,
           campaignTitle,
           buttonText,
+          buttonOrForm,
+          "formId": formReference->formID,
+          "thankYouMessage": formReference->thankYouMessage,
           displayStyle,
           "link": pageReference->metadata.slug.current
         },

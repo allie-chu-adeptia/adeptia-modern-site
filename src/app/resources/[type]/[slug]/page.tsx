@@ -11,7 +11,7 @@ import { PortableTextBlock } from 'next-sanity'
 import { notFound } from 'next/navigation'
 import { ExpandedCategory, ExpandedPost } from '@/sanity/types/local.types'
 import StylePortableText from '@/components/stylePortableText'
-import HubSpotForm from '@/lib/hubspotContactForm'
+import { HubSpotForm } from "@/lib/hubspotContactForm";
 import { NoGateFileDownload } from '@/lib/displayDownload'
 import cleanString from '@/lib/cleanString'
 import { getPathFromRouteMap } from '@/lib/routing'

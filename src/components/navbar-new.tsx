@@ -15,6 +15,7 @@ import {
     CurrencyDollarIcon,
     BuildingOfficeIcon,
 } from '@heroicons/react/20/solid'
+import Banner from "./banner";
 
 type Page = {
     name: string
@@ -562,7 +563,7 @@ function CompanyPopover({
                                                 alt="Adeptia Review Logo"
                                                 src={recentReviews[0].imageUrl}
                                                 className="aspect-[2/1] w-full rounded-lg px-8 bg-white object-cover sm:aspect-video sm:h-32 lg:h-auto"
-                                        />
+                                            />
                                             <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />
                                         </div>
                                     </a>
@@ -719,41 +720,44 @@ export function NavbarNew() {
     };
 
     return (
-        <Container paddingLvl="none" className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
-            <Disclosure>
-                <div className="py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-x-10">
-                        <ClientLink href="/">
-                            <LogoLight className="h-8 w-auto lg:h-10" />
-                        </ClientLink>
-                        <div className="hidden lg:flex gap-8">
-                            <PlatformPopover
-                                isOpen={openMenu === 'platform'}
-                                onMouseEnter={() => handleMouseEnter('platform')}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                            <SolutionsPopover
-                                isOpen={openMenu === 'solutions'}
-                                onMouseEnter={() => handleMouseEnter('solutions')}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                            <ResourcesPopover
-                                isOpen={openMenu === 'resources'}
-                                onMouseEnter={() => handleMouseEnter('resources')}
-                                onMouseLeave={handleMouseLeave}
-                            />
-                            <CompanyPopover
-                                isOpen={openMenu === 'company'}
-                                onMouseEnter={() => handleMouseEnter('company')}
-                                onMouseLeave={handleMouseLeave}
-                            />
+        <>
+            <Banner />
+            <Container paddingLvl="none" className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
+                <Disclosure>
+                    <div className="py-4 flex justify-between items-center">
+                        <div className="flex items-center gap-x-10">
+                            <ClientLink href="/">
+                                <LogoLight className="h-8 w-auto lg:h-10" />
+                            </ClientLink>
+                            <div className="hidden lg:flex gap-8">
+                                <PlatformPopover
+                                    isOpen={openMenu === 'platform'}
+                                    onMouseEnter={() => handleMouseEnter('platform')}
+                                    onMouseLeave={handleMouseLeave}
+                                />
+                                <SolutionsPopover
+                                    isOpen={openMenu === 'solutions'}
+                                    onMouseEnter={() => handleMouseEnter('solutions')}
+                                    onMouseLeave={handleMouseLeave}
+                                />
+                                <ResourcesPopover
+                                    isOpen={openMenu === 'resources'}
+                                    onMouseEnter={() => handleMouseEnter('resources')}
+                                    onMouseLeave={handleMouseLeave}
+                                />
+                                <CompanyPopover
+                                    isOpen={openMenu === 'company'}
+                                    onMouseEnter={() => handleMouseEnter('company')}
+                                    onMouseLeave={handleMouseLeave}
+                                />
+                            </div>
                         </div>
+                        <Button className="hidden lg:block" variant="primary" dark={true} href="/adeptia-connect-demo">Schedule a Demo</Button>
+                        <MobileNavButton />
                     </div>
-                    <Button className="hidden lg:block" variant="primary" dark={true} href="/adeptia-connect-demo">Schedule a Demo</Button>
-                    <MobileNavButton />
-                </div>
-                <MobileNav />
-            </Disclosure>
-        </Container>
+                    <MobileNav />
+                </Disclosure>
+            </Container>
+        </>
     )
 }

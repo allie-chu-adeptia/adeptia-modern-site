@@ -7,19 +7,9 @@ import { NoGateFileDownload } from './displayDownload';
 import { trackUmamiEvent } from './trackUmamiEvent';
 import { track } from '@vercel/analytics';
 import { Heading } from '@/components/text';
-import {usePlausible} from 'next-plausible'
+import { usePlausible } from 'next-plausible'
 
-
-const HubSpotForm = ({
-    portalId,
-    formId,
-    region = 'na1',
-    slug,
-    sfdcCampaignId,
-    dark,
-    eventName,
-    thankYouMessage
-}: {
+interface HubspotFormProps {
     portalId: string,
     formId: string,
     region: string,
@@ -28,7 +18,17 @@ const HubSpotForm = ({
     dark?: boolean,
     eventName: string,
     thankYouMessage?: string
-}) => {
+}
+
+
+function BuildHubspotForm({
+    portalId,
+    formId,
+    region = 'na1',
+    slug,
+    sfdcCampaignId,
+    eventName,
+}: HubspotFormProps) {
     const router = useRouter();
     const formContainer = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true); // Add loading state
@@ -80,6 +80,29 @@ const HubSpotForm = ({
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
+    return {isSubmitted, isLoading, generatedId, formContainer}
+};
+
+export function HubSpotForm({
+    portalId,
+    formId,
+    region,
+    sfdcCampaignId,
+    slug,
+    dark,
+    eventName,
+    thankYouMessage
+}: HubspotFormProps) {
+
+    const { isSubmitted, isLoading, generatedId, formContainer } = BuildHubspotForm({
+        portalId,
+        formId,
+        region,
+        sfdcCampaignId,
+        slug,
+        eventName,
+    })
+
     return (
         <>
             {isSubmitted ? (
@@ -116,6 +139,54 @@ const HubSpotForm = ({
             )}
         </>
     );
-};
+}
 
-export default HubSpotForm;
+export function EmbeddedHubspotForm({
+    portalId,
+    formId,
+    region,
+    sfdcCampaignId,
+    slug,
+    dark,
+    eventName,
+    thankYouMessage 
+}: HubspotFormProps) {
+
+    const { isSubmitted, isLoading, generatedId, formContainer } = BuildHubspotForm({
+        portalId,
+        formId,
+        region,
+        sfdcCampaignId,
+        slug,
+        eventName
+    })
+
+    return (
+        <>
+            {isSubmitted ? (
+                <div className="flex justify-center flex-col items-center h-full">
+                    {slug ? (
+                        <NoGateFileDownload slug={slug} />
+                    ) : (
+                        <div className="min-w-[300px] w-full my-10 bg-white/40 p-10 rounded-lg shadow-md">
+                            <div className="flex flex-col items-center justify-center">
+                                <Heading dark={dark} as="h3">{thankYouMessage || 'Thank you for your submission!'}</Heading>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div
+                    id={generatedId}
+                    ref={formContainer}
+                    style={{
+                        display: isLoading || isSubmitted ? 'none' : 'flex',
+                        minWidth: '300px',
+                        width: '100%'
+                    }}
+                />
+            )}
+        </>
+    );
+    
+}

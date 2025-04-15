@@ -42,7 +42,7 @@ body {
   padding: 0.25rem !important;
   border: 1px solid #c3cfe5 !important;
   border-radius: 0.375rem !important;
-  margin-top: 0.5rem !important;
+  margin-top: 0.3rem !important;
   color: #000000 !important;
 }
 
@@ -51,8 +51,8 @@ body {
   display: block !important;
   font-size: 0.875rem !important;
   font-weight: 500 !important;
-  color: #435063 !important;
-  margin-top: 1rem !important;
+  color: #8a97ab !important;
+  margin-top: 0.5rem !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05rem !important;
   &.hs-error-msg {
@@ -67,7 +67,7 @@ body {
 .form-columns-1,
 .form-columns-2 {
   max-width: 100% !important;
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .form-columns-2 .hs-form-field {
@@ -179,4 +179,8 @@ label.hs-form-booleancheckbox-display {
 
 label.hs-form-booleancheckbox-display .hs-input {
   width: auto !important;
+}
+
+.hs-input {
+  background-color: rgba(255, 255, 255, 0.6) !important;
 }

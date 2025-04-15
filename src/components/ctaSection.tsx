@@ -10,6 +10,7 @@ import { BackgroundMotion } from "@/lib/backgroundMotion";
 import { BackgroundColor } from "@/lib/backgroundColorWrapper";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { ExpandedCta } from "@/sanity/types/local.types";
+import { EmbeddedHubspotForm } from "@/lib/hubspotContactForm";
 
 export interface ExpandedCtaSection extends Omit<CtaSection, 'cta' | 'image'> {
   cta?: ExpandedCta[]
@@ -38,35 +39,50 @@ const darkBackground: BackgroundStyle = {
 }
 
 function LeftAlignedCtaSection({ ctaSection }: { ctaSection: ExpandedCtaSection }) {
+  const formOrButton = cleanString(ctaSection.cta?.[0]?.buttonOrForm || 'button')
+
   return (
     <BackgroundColor color={darkBackground} className="relative isolate overflow-hidden px-6 shadow-lg rounded-3xl sm:px-16">
-      <div className="px-6 pt-16 shadow-lg rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+      <div className="px-6 pt-16 shadow-lg rounded-3xl sm:px-8 md:pt-24 lg:flex lg:gap-x-20 lg:px-12 lg:pt-0">
         <div className={clsx(
           "mx-auto max-w-md lg:mx-0 lg:flex-auto lg:py-32",
           textAlignment[ctaSection.cta?.[0]?.header?.layout || 'centered']
         )}>
           <HeaderStyle header={ctaSection.cta?.[0]?.header} style={darkBackground} />
-          <div className="mt-10 flex items-center justify-center gap-x-3 lg:justify-start">
-            {ctaSection.cta?.map((cta, index) => (
-              <Button
-                key={cta._id}
-                slug={cta.link}
-                href=''
-                variant={index === 0 ? "primary" : "tertiary"}
-                dark={true}
-              >
-                {cta.buttonText}
-              </Button>
-            ))}
-          </div>
+          {formOrButton === 'button' && (
+            <div className="mt-10 flex items-center justify-center gap-x-3 lg:justify-start">
+              {ctaSection.cta?.map((cta, index) => (
+                <Button
+                  key={cta._id}
+                  slug={cta.link}
+                  href=''
+                  variant={index === 0 ? "primary" : "tertiary"}
+                  dark={true}
+                >
+                  {cta.buttonText}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="relative mt-16 h-80 lg:mt-8">
-          {ctaSection.image && (
-            <img
-              alt={cleanString(ctaSection.image?.altText || '')}
-              src={image(ctaSection.image).size(1824, 1080).url()}
-              className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10 outline outline-1 outline-white/20"
+        <div className="relative w-full max-w-[500px] min-w-[300px] lg:flex lg:items-center lg:py-24 py-16">
+          {formOrButton === 'form' ? (
+            <EmbeddedHubspotForm
+              formId={ctaSection.cta?.[0]?.formId || ''}
+              portalId="456732"
+              region="na1"
+              eventName={ctaSection.cta?.[0]?.campaignTitle || 'ctaForm'}
+              dark={true}
+              thankYouMessage={ctaSection.cta?.[0]?.thankYouMessage || 'Thank you for your submission!'}
             />
+          ) : (
+            ctaSection.image && (
+              <img
+                alt={cleanString(ctaSection.image?.altText || '')}
+                src={image(ctaSection.image).size(1824, 1080).url()}
+                className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10 outline outline-1 outline-white/20"
+              />
+            )
           )}
         </div>
       </div>

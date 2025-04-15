@@ -3,7 +3,7 @@ import { Eyebrow, Heading } from '@/components/text'
 import { BackgroundColor } from '@/lib/backgroundColorWrapper'
 import type { BackgroundStyle } from '@/sanity/types/sanity.types'
 import { Container } from '@/components/container'
-import HubSpotForm from '@/lib/hubspotContactForm'
+import { HubSpotForm } from "@/lib/hubspotContactForm";
 import type { Metadata } from 'next'
 
 const darkBackground: BackgroundStyle = {
