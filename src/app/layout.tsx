@@ -8,6 +8,8 @@ import { SanityLive } from "@/sanity/lib/live";
 import { Analytics } from "@vercel/analytics/react"
 import { GoogleTagManager } from '@next/third-parties/google'
 import Script from "next/script";
+import PlausibleProvider from 'next-plausible'
+
 
 export const revalidate = 3600
 
@@ -48,18 +50,20 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGBWNG" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
+        <PlausibleProvider domain="adeptia.com" taggedEvents={true}>
+          {/* Google Tag Manager (noscript) */}
+          <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGBWNG" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
+          </noscript>
+          {/* End Google Tag Manager (noscript) */}
 
-        <NavbarNew />
-        {children}
-        <SanityLive />
-        <Analytics />
-        <SpeedInsights />
-        <Footer />
+          <NavbarNew />
+          {children}
+          <SanityLive />
+          <Analytics />
+          <SpeedInsights />
+          <Footer />
+        </PlausibleProvider>
       </body>
     </html>
   );
