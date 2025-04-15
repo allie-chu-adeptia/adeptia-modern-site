@@ -15,7 +15,7 @@ import { buildMetadata } from '@/lib/metadata'
 import cleanString from '@/lib/cleanString'
 type sParams = Promise<{ slug: string }>;
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 export async function generateStaticParams() {
   return [

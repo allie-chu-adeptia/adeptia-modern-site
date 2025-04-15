@@ -31,7 +31,7 @@ import { buildMetadata } from '@/lib/metadata'
 import CareerSectionComponent from '@/components/careerSection'
 import { TeamMemberSection, ExpandedTeamMember } from '@/components/teamMemberSection'
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 export async function generateStaticParams() {
     // List your most frequently visited pages
@@ -155,10 +155,8 @@ function PageContent({ page }: { page: ExpandedPage }) {
 }
 
 async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
-    const options = { next: { revalidate: 86400 } }
-
     if (!slug) {
-        const homePage = await getPage('home', options)
+        const homePage = await getPage('home')
         if (!homePage) {
             return notFound()
         }
@@ -166,7 +164,7 @@ async function getPageData(slug?: string[]): Promise<ExpandedPage | undefined> {
     }
 
     const lastSlug = slug[slug.length - 1]
-    const page = await getPage(lastSlug, options)
+    const page = await getPage(lastSlug)
 
     if (!page) {
         return undefined

@@ -81,6 +81,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           _id,
           header,
           buttonText,
+          buttonOrForm,
+          "formId": formReference->formID,
+          "thankYouMessage": formReference->thankYouMessage,
           displayStyle,
           "link": pageReference->metadata.slug.current
         },
@@ -95,6 +98,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           header,
           campaignTitle,
           buttonText,
+          buttonOrForm,
+          "formId": formReference->formID,
+          "thankYouMessage": formReference->thankYouMessage,
           displayStyle,
           "link": pageReference->metadata.slug.current
         },
@@ -319,11 +325,10 @@ export async function getFallbackResources(resourceTypes: string[]) {
 }
 
 // Fetches a single page by its slug, including:
-export async function getPage(slug: string, options: { next: { revalidate: number } }) {
+export async function getPage(slug: string) {
   return await sanityFetch({
     query: PAGE_QUERY,
     params: { slug },
-    revalidate: options.next.revalidate
   })
 }
 

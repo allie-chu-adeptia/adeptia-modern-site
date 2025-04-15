@@ -40,8 +40,11 @@ export interface IconObject {
   tags: string[];
 }
 
-export interface ExpandedCta extends Omit<Cta, 'link'> {
+export interface ExpandedCta extends Omit<Cta, 'link' | 'buttonOrForm' | 'formId' | 'thankYouMessage'> {
   link: string
+  buttonOrForm: string
+  formId: string
+  thankYouMessage: string
 }
 
 export interface ExpandedPost extends Omit<Resource, 'author' | 'categories' | 'category' | 'HSForm'> {

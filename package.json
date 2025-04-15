@@ -27,6 +27,7 @@
     "graphql": "^16.10.0",
     "gsap": "npm:@gsap/shockingly@^3.12.7",
     "next": "^15.2.2",
+    "next-plausible": "^3.12.4",
     "next-sanity": "^9.9.5",
     "next-sitemap": "^4.2.3",
     "prismjs": "^1.30.0",

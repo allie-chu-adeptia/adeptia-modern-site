@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 // Generate static params for the first page of blogs
 export async function generateStaticParams() {

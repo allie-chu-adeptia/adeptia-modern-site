@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 
 type sParams = Promise<{ slug: string }>;
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 export async function generateStaticParams() {
   return [
