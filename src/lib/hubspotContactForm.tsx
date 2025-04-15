@@ -76,7 +76,7 @@ const HubSpotForm = ({
                 existingScript.remove();
             }
         };
-    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug, eventName]);
+    }, [portalId, cleanFormId, region, router, sfdcCampaignId, slug, eventName, plausible]);
 
     const generatedId = useRef(`hubspot-form-${cleanFormId}`).current;
 
