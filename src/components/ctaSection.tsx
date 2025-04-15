@@ -153,6 +153,12 @@ export function CtaSectionComponent(
   { ctaSection }: { ctaSection: ExpandedCtaSection }
 ) {
   const displayStyle = cleanString(ctaSection.cta?.[0]?.displayStyle || '')
+  const buttonOrForm = cleanString(ctaSection.cta?.[0]?.buttonOrForm || '')
+
+  // Forms and images can only be displayed in the left aligned style
+  if (buttonOrForm === 'form' || ctaSection.image) {
+    return <LeftAlignedCtaSection ctaSection={ctaSection} />
+  }
 
   const displayStyleMap: { [key: string]: React.ComponentType<{ ctaSection: ExpandedCtaSection }> } = {
     "primary": CenteredCtaSection,
