@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description: "Adeptia AI Data Exchange Platform",
   alternates: {
     canonical: 'https://www.adeptia.com'
-  }
+  },
 };
 
 export default async function RootLayout({
@@ -38,6 +38,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <GoogleTagManager gtmId="GTM-TGBWNG" />
+      <head>
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Nokora:wght@400;700&display=swap"
+          as="style"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

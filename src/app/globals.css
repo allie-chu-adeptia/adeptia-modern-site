@@ -11,6 +11,29 @@
   }
 }
 
+@layer base {
+  @font-face {
+    font-family: 'Nokora';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: local('Nokora');
+  }
+  
+  @font-face {
+    font-family: 'Nokora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional;
+    src: local('Nokora');
+  }
+  
+  /* Ensure text shows immediately even if font isn't loaded */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-nokora, system-ui, Arial, sans-serif);
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

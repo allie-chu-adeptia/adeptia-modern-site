@@ -7,7 +7,11 @@ import { Nokora } from 'next/font/google'
 export const nokora = Nokora({
   subsets: ['khmer'],  // Required subset
   weight: ['400', '700'],  // Available weights you want to use
-  display: 'swap',
+  display: 'optional',
+  fallback: ['system-ui', 'Arial', 'sans-serif'],
+  preload: true,
+  adjustFontFallback: true, 
+  variable: '--font-nokora',
 })
 
 type HeadingProps = {
@@ -30,12 +34,12 @@ export function Heading({
       className={clsx(
         className,
         'text-pretty font-medium data-[dark=true]:text-white',
-        Element === 'h1' && `text-5xl lg:text-6xl ${nokora.className}`,
-        Element === 'h2' && `text-gray-950 text-3xl lg:text-5xl ${nokora.className}`,
+        Element === 'h1' && `text-5xl lg:text-6xl font-[var(--font-nokora),system-ui,sans-serif]`,
+        Element === 'h2' && `text-gray-950 text-3xl lg:text-5xl font-[var(--font-nokora),system-ui,sans-serif]`,
         Element !== 'h2' && 'text-gray-700',
         Element === 'h3' && 'text-xl sm:text-2xl',
         Element === 'h4' && 'text-lg sm:text-xl',
-        Element === 'h5' && `text-md sm:text-lg ${nokora.className}`,
+        Element === 'h5' && `text-md sm:text-lg font-[var(--font-nokora),system-ui,sans-serif]`,
       )}
     />
   )
@@ -53,7 +57,8 @@ export function Subheading({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        '${nokora.className} text-xs/5 font-semibold uppercase tracking-widest text-gray-500 data-[dark=true]:text-gray-400',
+        nokora.className,
+        'text-xs/5 font-semibold uppercase tracking-widest text-gray-500 data-[dark=true]:text-gray-400',
       )}
     />
   )
