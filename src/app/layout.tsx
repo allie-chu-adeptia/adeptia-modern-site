@@ -39,14 +39,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <GoogleTagManager gtmId="GTM-TGBWNG" />
-      <head>
-        <Script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="e1747c23-c3f4-44ac-a465-b4e247a565be"
-          data-tag="adeptia.com"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

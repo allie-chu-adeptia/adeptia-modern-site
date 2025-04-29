@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 import cleanString from '@/lib/cleanString';
 import { useRouter } from 'next/navigation';
 import { NoGateFileDownload } from './displayDownload';
-import { trackUmamiEvent } from './trackUmamiEvent';
 import { track } from '@vercel/analytics';
 import { Heading } from '@/components/text';
 import { usePlausible } from 'next-plausible'
@@ -61,7 +60,6 @@ function BuildHubspotForm({
                     onFormSubmit: () => {
                         setIsSubmitted(true);
                         if (eventName) {
-                            trackUmamiEvent(eventName);
                             track('event', { event: eventName });
                             plausible(eventName);
                         }

@@ -1,3 +1,14 @@
+
+// To reactive, add this to layout.tsx
+{/* <head>
+<Script
+  defer
+  src="https://cloud.umami.is/script.js"
+  data-website-id="e1747c23-c3f4-44ac-a465-b4e247a565be"
+  data-tag="adeptia.com"
+/>
+</head> */}
+
 export const trackUmamiEvent = async (eventName: string) => {
     try {
         window.umami.track(eventName, {
