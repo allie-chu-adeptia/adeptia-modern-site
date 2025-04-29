@@ -15,7 +15,6 @@ import {
     CurrencyDollarIcon,
     BuildingOfficeIcon,
 } from '@heroicons/react/20/solid'
-import Banner from "./banner";
 
 type Page = {
     name: string
@@ -721,7 +720,7 @@ export function NavbarNew() {
 
     return (
         <>
-            <Banner />
+            {/* <Banner /> */}
             <Container paddingLvl="none" className="bg-[linear-gradient(278deg,_#3C7BEF_13.25%,_#0A4ECD_67.5%,_#3B25E0_111.89%)] sticky top-0 z-50 shadow-lg">
                 <Disclosure>
                     <div className="py-4 flex justify-between items-center">

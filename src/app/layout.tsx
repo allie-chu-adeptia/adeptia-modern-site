@@ -7,7 +7,6 @@ import { Footer } from "@/components/footer";
 import { SanityLive } from "@/sanity/lib/live";
 import { Analytics } from "@vercel/analytics/react"
 import { GoogleTagManager } from '@next/third-parties/google'
-import Script from "next/script";
 import PlausibleProvider from 'next-plausible'
 
 
