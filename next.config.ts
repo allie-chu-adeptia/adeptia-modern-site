@@ -2,10 +2,11 @@ import type { NextConfig } from "next";
 import { createClient } from "@sanity/client";
 
 const client = createClient({
-  projectId: "5ujtwa6a",
-  dataset: "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '5ujtwa6a',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   useCdn: false,
-  apiVersion: "2025-02-26"
+  apiVersion: "2025-02-26",
+  perspective: process.env.NODE_ENV === 'development' ? 'drafts' : 'published'
 });
 
 const nextConfig: NextConfig = {
