@@ -30,8 +30,8 @@ export function Heading({
       className={clsx(
         className,
         'text-pretty font-medium data-[dark=true]:text-white',
-        Element === 'h1' && `text-5xl lg:text-6xl ${nokora.className}`,
-        Element === 'h2' && `text-gray-950 text-3xl lg:text-5xl ${nokora.className}`,
+        Element === 'h1' && `text-5xl/[1.1] lg:text-6xl/[1.1] ${nokora.className}`,
+        Element === 'h2' && `text-gray-950 text-3xl/[1.1] lg:text-5xl/[1.1] ${nokora.className}`,
         Element !== 'h2' && 'text-gray-700',
         Element === 'h3' && 'text-xl sm:text-2xl',
         Element === 'h4' && 'text-lg sm:text-xl',

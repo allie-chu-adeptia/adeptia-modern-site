@@ -61,28 +61,34 @@ function renderIcon({
     customIcon?: ImageType,
     dark: boolean
 }) {
-    console.log("customIcon", customIcon)
+
     if (customIcon) {
+        const imageUrl = image(customIcon).width(200).height(200).url();
+        console.log("Icon URL:", imageUrl);
+        
         if (dark) {
             return (
-                <div className="absolute left-1 top-1 flex items-center justify-center size-5 bg-[var(--brand-background-medium)] rounded-md">
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
                     <img
-                        src={image(customIcon).width(20).height(20).url()}
+                        src={imageUrl}
                         alt=""
-                        className="size-5 object-contain"
+                        className="size-8"
                     />
                 </div>
             )
         } else {
             return (
-                <img
-                    src={image(customIcon).width(20).height(20).url()}
-                    alt=""
-                    className="absolute left-1 top-1 size-5 object-contain"
-                />
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        className="size-8"
+                    />
+                </div>
             )
         }
     } else if (icon) {
+        console.log("icon")
         return (
             <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
                 <IconRender
@@ -99,14 +105,13 @@ function renderIcon({
 
 // Build an array of subpoints and return as rendered content blocks
 function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoint>, spacing: spacing, dark: boolean }) {
-    console.log("subPoints", subPoints)
     return (
         <>
             {subPoints?.map((subpoint, index) => (
                 spacing === 'tight' ? (
                     <div key={index} className="relative pl-9">
                         <dt className={clsx("inline font-semibold", dark ? "text-white" : "text-black")}>
-                            {renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark })}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-gray-700")}>{subpoint.subheader}</dd>
@@ -126,7 +131,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 ) : (
                     <div key={index} className="flex flex-col">
                         <dt className={clsx("flex flex-col items-left text-base/7 font-semibold", dark ? "text-white" : "text-gray-800")}>
-                            {renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark })}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>
                         <dd className={clsx("mt-1 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
@@ -174,7 +179,7 @@ function buildHeaderandContent({
     return (
         <>
             <HeaderStyle header={header} style={background} level={3} />
-            {content && <StylePortableText value={content} className={clsx(dark ? 'text-white' : 'text-gray-700', textAlignmentMap[alignment || 'justify-start'])} />}
+            {content && <StylePortableText value={content} styleOverride={clsx(dark ? 'text-white' : ' ', textAlignmentMap[alignment || 'justify-start'])} />}
             {button &&
                 <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
                     <Button
