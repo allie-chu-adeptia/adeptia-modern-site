@@ -9,6 +9,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { FirstMileData } from "@/animations/firstMileData";
 import StylePortableText from "./stylePortableText";
 import { PortableTextBlock } from "@portabletext/react";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 type spacing = 'tight' | 'loose'
 
@@ -65,7 +66,7 @@ function renderIcon({
     if (customIcon) {
         const imageUrl = image(customIcon).width(200).height(200).url();
         console.log("Icon URL:", imageUrl);
-        
+
         if (dark) {
             return (
                 <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
@@ -195,33 +196,48 @@ function buildHeaderandContent({
     )
 }
 
-// function buildImage({
-//     renderImage,
-//     imageSize,
-// }: {
-//     renderImage?: ImageType,
-//     imageSize: ImageSize,
-// }) {
-//     return (
-//         <div className="relative pt-8">
-//             {renderImage && (
-//                 imageSize === 'standard' ? (
-//                     <img
-//                         alt={cleanString(renderImage.altText || '')}
-//                         src={image(renderImage).size(2400, 1800).url()}
-//                         className="rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
-//                     />
-//                 ) : (
-//                     <img
-//                         alt={cleanString(renderImage.altText || '')}
-//                         src={image(renderImage).size(2400, 1800).url()}
-//                         className="max-w-7xl rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
-//                     />
-//                 )
-//             )}
-//         </div>
-//     )
-// }
+function buildImageorAnimation({
+    animation,
+    dark,
+    imageData,
+    lottieURL,
+    animationClassName,
+    imageClassName
+}: {
+    animation?: string,
+    dark?: boolean,
+    imageData?: ImageType,
+    lottieURL?: string,
+    animationClassName?: string
+    imageClassName?: string
+}) {
+    return (
+        animation ? (
+            <div className={clsx(animationClassName)}>
+                {cleanString(animation) === 'lottieAnimation' ? (
+                    lottieURL && <DotLottieReact
+                        src={lottieURL}
+                        autoplay
+                        loop
+                        style={{ height: '100%', width: '100%' }}
+                    />
+                ) : cleanString(animation) === 'firstMileDataTypes' ? (
+                    <FirstMileData dark={dark || false} />
+                ) : null}
+            </div>
+        ) : (
+            imageData && (
+                <div className="relative pt-8">
+                    <img
+                        alt={cleanString(imageData?.altText || '')}
+                        src={image(imageData).size(1800, 1200).url()}
+                        className={clsx(imageClassName)}
+                    />
+                </div>
+            )
+        )
+    )
+}
 
 function OffCenterImage({
     contentSection,
@@ -256,7 +272,15 @@ function OffCenterImage({
                     </div>
                 </div>
                 <div className={clsx("flex items-center justify-end rounded-xl", col_alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
-                    {animation ? (
+                    {buildImageorAnimation({
+                        animation,
+                        dark,
+                        imageData: contentSection.image,
+                        lottieURL: contentSection.lottieURL,
+                        animationClassName: "relative h-80 shrink-0",
+                        imageClassName: "relative pt-8"
+                    })}
+                    {/* {animation ? (
                         <div className="relative h-80 shrink-0">
                             {cleanString(animation) === 'firstMileDataTypes' && (
                                 <FirstMileData dark={dark} />
@@ -272,7 +296,7 @@ function OffCenterImage({
                                 />
                             </div>
                         )
-                    )}
+                    )} */}
                 </div>
             </div>
         </>
