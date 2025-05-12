@@ -14,6 +14,7 @@ type spacing = 'tight' | 'loose'
 
 type Subpoint = {
     icon?: IconPicker
+    customIcon?: ImageType
     header?: string
     subheader?: string
     button?: {
@@ -51,6 +52,57 @@ export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' 
     content?: PortableTextBlock[]
 }
 
+function renderIcon({
+    icon,
+    customIcon,
+    dark
+}: {
+    icon?: IconPicker,
+    customIcon?: ImageType,
+    dark: boolean
+}) {
+
+    if (customIcon) {
+        const imageUrl = image(customIcon).width(200).height(200).url();
+        console.log("Icon URL:", imageUrl);
+        
+        if (dark) {
+            return (
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        className="size-8"
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        className="size-8"
+                    />
+                </div>
+            )
+        }
+    } else if (icon) {
+        console.log("icon")
+        return (
+            <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
+                <IconRender
+                    name={icon.name}
+                    aria-hidden="true"
+                    className={clsx("size-5 flex-none text-white")}
+                />
+            </div>
+        )
+    } else {
+        return null
+    }
+}
+
 // Build an array of subpoints and return as rendered content blocks
 function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoint>, spacing: spacing, dark: boolean }) {
     return (
@@ -59,7 +111,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 spacing === 'tight' ? (
                     <div key={index} className="relative pl-9">
                         <dt className={clsx("inline font-semibold", dark ? "text-white" : "text-black")}>
-                            {subpoint.icon && <IconRender name={subpoint.icon.name} className="absolute left-1 top-1 size-5 text-[var(--primary-blue)]" />}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-gray-700")}>{subpoint.subheader}</dd>
@@ -79,14 +131,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 ) : (
                     <div key={index} className="flex flex-col">
                         <dt className={clsx("flex flex-col items-left text-base/7 font-semibold", dark ? "text-white" : "text-gray-800")}>
-                            {subpoint.icon &&
-                                <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
-                                    <IconRender
-                                        name={subpoint.icon.name}
-                                        aria-hidden="true"
-                                        className={clsx("size-5 flex-none text-white")}
-                                    />
-                                </div>}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>
                         <dd className={clsx("mt-1 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
@@ -134,7 +179,7 @@ function buildHeaderandContent({
     return (
         <>
             <HeaderStyle header={header} style={background} level={3} />
-            {content && <StylePortableText value={content} className={clsx(dark ? 'text-white' : 'text-gray-700', textAlignmentMap[alignment || 'justify-start'])} />}
+            {content && <StylePortableText value={content} styleOverride={clsx(dark ? 'text-white' : ' ', textAlignmentMap[alignment || 'justify-start'])} />}
             {button &&
                 <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
                     <Button
@@ -222,7 +267,7 @@ function OffCenterImage({
                             <div className="relative pt-8">
                                 <img
                                     alt={cleanString(contentSection.image?.altText || '')}
-                                    src={image(contentSection.image).size(2400, 1800).url()}
+                                    src={image(contentSection.image).size(1800, 1200).url()}
                                     className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
                                 />
                             </div>
@@ -301,9 +346,10 @@ function NoImage(
 
     return (
         contentSection.styleAndLayout?.layout === 'center' ? (
-            <div className="noImage contentSection flex flex-col items-center gap-y-8">
+            <div className="noImage contentSection flex flex-col items-center">
                 {buildHeaderandContent({
                     header: contentSection.header,
+                    content: contentSection.content as PortableTextBlock[],
                     button: contentSection.button,
                     background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
                     dark: dark,

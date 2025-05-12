@@ -149,6 +149,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         },
         subPoints[] {
           icon,
+          customIcon {
+            asset->,
+          },
           header,
           subheader,
           button {

@@ -8,6 +8,7 @@ import { Link } from '@/components/link'
 import { buildTable } from "../lib/buildTable";
 import { Heading } from "@/components/text";
 import cleanString from "@/lib/cleanString";
+import clsx from "clsx";
 
 export default function StylePortableText({
   className,
@@ -21,27 +22,27 @@ export default function StylePortableText({
   const components: PortableTextComponents = {
     block: {
       normal: ({ children }) => (
-        <p className={styleOverride || "mt-6 text-base/7 text-gray-700"}>
+        <p className={clsx(styleOverride, "mt-6 text-base/7 text-gray-700")}>
           {children}
         </p>
       ),
       h2: ({ children, index }) => (
-        <Heading as="h2" className={styleOverride || `${index === 0 ? '' : 'mt-16'}`}>
+        <Heading as="h2" className={clsx(styleOverride, `${index === 0 ? '' : 'mt-16'}`)}>
           {children}
         </Heading>
       ),
       h3: ({ children, index }) => (
-        <Heading as="h3" className={styleOverride || `${index === 0 ? '' : 'mt-10'}`}>
+        <Heading as="h3" className={clsx(styleOverride, `${index === 0 ? '' : 'mt-10'}`)}>
           {children}
         </Heading>
       ),
       h4: ({ children, index }) => (
-        <Heading as="h4" className={styleOverride || `${index === 0 ? '' : 'mt-8'}`}>
+        <Heading as="h4" className={clsx(styleOverride, `${index === 0 ? '' : 'mt-8'}`)}>
           {children}
         </Heading>
       ),
       h5: ({ children, index }) => (
-        <Heading as="h5" className={styleOverride || `${index === 0 ? '' : 'mt-6'}`}>
+        <Heading as="h5" className={clsx(styleOverride, `${index === 0 ? '' : 'mt-6'}`)}>
           {children}
         </Heading>
       ),

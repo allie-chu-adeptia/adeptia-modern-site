@@ -197,6 +197,7 @@ export type Cta = {
   _rev: string
   campaignTitle?: string
   header?: HeaderStyle
+  buttonOrForm?: 'button' | 'form'
   buttonText?: string
   displayStyle?: 'primary' | 'secondary' | 'tertiary'
   pageReference?: {
@@ -204,6 +205,12 @@ export type Cta = {
     _type: 'reference'
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: 'page'
+  }
+  formReference?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'hubspotForm'
   }
 }
 
@@ -222,6 +229,7 @@ export type Company = {
   }>
   termsOfService?: PortableText
   privacyPolicy?: PortableText
+  cookieConsent?: PortableText
   socials?: {
     linkedIn?: string
     twitter?: string
@@ -457,6 +465,17 @@ export type ContentSection = {
   }
   subPoints?: Array<{
     icon?: IconPicker
+    customIcon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
     header?: string
     subheader?: string
     button?: Button

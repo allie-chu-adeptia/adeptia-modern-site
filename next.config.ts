@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 import { createClient } from "@sanity/client";
+const { NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, NEXT_PUBLIC_SANITY_API_VERSION } = process.env
 
 const client = createClient({
-  projectId: "5ujtwa6a",
-  dataset: "production",
+  projectId: NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: NEXT_PUBLIC_SANITY_DATASET || "production",
   useCdn: false,
-  apiVersion: "2025-02-26"
+  apiVersion: NEXT_PUBLIC_SANITY_API_VERSION
 });
 
 const nextConfig: NextConfig = {
