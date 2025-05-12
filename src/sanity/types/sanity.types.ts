@@ -456,7 +456,8 @@ export type ContentSection = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  animation?: 'firstMileDataTypes'
+  animation?: 'firstMileDataTypes' | 'lottieAnimation'
+  lottieURL?: string
   button?: Button
   styleAndLayout?: {
     layout?: 'left' | 'right' | 'center'

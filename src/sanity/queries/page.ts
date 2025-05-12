@@ -136,6 +136,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           crop
         },
         animation,
+        lottieURL,
         button {
           _id,
           title,
