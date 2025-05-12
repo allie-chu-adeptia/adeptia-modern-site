@@ -56,6 +56,9 @@ const sections = [
   {
     name: 'Features',
     features: [
+      { name: 'Core Capabilities: Connect, Align, Map, Orchestrate, Validate, Deliver', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Data Mapping Templates: Pre-built, configurable, and automatable', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Connectors: Pre-built for connecting source to target applications', tiers: { Professional: true, Premier: true, Enterprise: true } },
       { name: 'Publish Web Services and APIs', tiers: { Professional: false, Premier: true, Enterprise: true } },
       { name: 'Build Business Solutions with Forms and Custom Data Flows', tiers: { Professional: false, Premier: true, Enterprise: true } },
       { name: 'Create Complex Integration Flows', tiers: { Professional: false, Premier: true, Enterprise: true } },
@@ -74,7 +77,7 @@ const sections = [
     ],
   },
   {
-    name: 'Security and Permissions',
+    name: 'Permissions',
     features: [
       { name: 'Identity Management/SSO', tiers: { Professional: false, Premier: true, Enterprise: true } },
       { name: 'Role based Teams Supporting Custom Roles and Granular Access Control', tiers: { Professional: false, Premier: true, Enterprise: true } },
