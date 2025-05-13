@@ -116,7 +116,7 @@ export function FirstMileData({ dark }: { dark: boolean }) {
     variants={{ active: {} }}
     data-dark={dark ? 'true' : undefined}
     className={clsx(
-      'group relative flex flex-col overflow-hidden rounded-lg py-8 my-8',
+      'group relative flex flex-col overflow-hidden rounded-lg py-8',
       'bg-gradient-to-b from-[#E1ECFF] via-[#B8CEF3] to-[#E1ECFF] shadow-xl ring-1 ring-black/5',
       'data-[dark]:bg-gray-800 data-[dark]:ring-white/15',
     )}
