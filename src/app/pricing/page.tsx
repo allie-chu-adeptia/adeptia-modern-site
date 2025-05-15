@@ -56,39 +56,33 @@ const sections = [
   {
     name: 'Features',
     features: [
-      { name: 'No-Code Automation Wizard', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Marketplace, Connectors and Pre-Built Automations', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'AI Mapping', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'AI Docs (Intelligent Document Processing)', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'EDI Capabilities', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Alerts & Notifications', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Dashboards & Logs', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Usage Reporting', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Custom Dashboards', tiers: { Professional: false, Premier: true, Enterprise: true } },
-      { name: 'Process Designer', tiers: { Professional: false, Premier: true, Enterprise: true } },
-      { name: 'VPN In Adeptia\'s Cloud', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
-      { name: 'External Identity Management / SSO', tiers: { Professional: false, Premier: false, Enterprise: true } },
-      { name: 'External App Credentials / Secrets Management', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'High Availability with Microservices', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
-      { name: 'Run-Time Isolation to Meet SLAs', tiers: { Professional: false, Premier: false, Enterprise: true } },
-      { name: 'Non-US Region Availability', tiers: { Professional: false, Premier: "$", Enterprise: "$" } },
+      { name: 'Core Capabilities: Connect, Align, Map, Orchestrate, Validate, Deliver', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Data Workflow Templates: Pre-built, configurable, and automatable', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Connectors: Pre-built for connecting source to target applications', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Publish Web Services and APIs', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Build Business Solutions with Forms and Custom Data Flows', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Create Complex Integration Flows', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Manage Versioning of Objects', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Performance SLA support with Priority Queues, Tenant Isolation', tiers: { Professional: false, Premier: false, Enterprise: true } },
     ],
   },
   {
     name: 'Deployment',
     features: [
-      { name: 'Multi Tenant', tiers: { Professional: true, Premier: false, Enterprise: false } },
-      { name: 'Adeptia Cloud Hosted', tiers: { Professional: false, Premier: true, Enterprise: true } },
-      { name: 'On Premise', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Deployment Model', tiers: { Professional: "Multi-Tenant", Premier: "Single-Tenant", Enterprise: "Single-Tenant" } },
+      { name: 'On Premise Option', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Adeptia Hosting Option', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Additional Non-Production Environments', tiers: { Professional: false, Premier: "1", Enterprise: "2" } },
+      { name: 'VPN/VNET Access', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Multi-zone HA', tiers: { Professional: false, Premier: false, Enterprise: true } },
     ],
   },
   {
-    name: 'Services',
+    name: 'Permissions',
     features: [
-      { name: 'Product Support', tiers: { Professional: true, Premier: true, Enterprise: true } },
-      { name: 'Implementation Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
-      { name: 'Managed Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
-      { name: 'Infrastructure Services', tiers: { Professional: "$", Premier: "$", Enterprise: "$" } },
+      { name: 'Identity Management/SSO', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Role based Teams Supporting Custom Roles and Granular Access Control', tiers: { Professional: false, Premier: true, Enterprise: true } },
+      { name: 'Extend Self-Service Collaboration to External Users', tiers: { Professional: false, Premier: false, Enterprise: true } },
     ],
   },
 ]
@@ -166,11 +160,12 @@ export default function Example() {
               <col className="w-1/5" />
               <col className="w-1/5" />
             </colgroup>
+
             <thead>
               <tr>
                 <td className="p-0" />
                 {tiers.map((tier) => (
-                  <th key={tier.name} scope="col" className="p-0">
+                  <th key={tier.name} scope="col" className="py-2 px-0 text-center sticky top-20 bg-white/20 backdrop-blur rounded-lg">
                     <Eyebrow>
                       {tier.name}
                     </Eyebrow>
@@ -181,7 +176,7 @@ export default function Example() {
             {sections.map((section) => (
               <tbody key={section.name} className="group">
                 <tr>
-                  <th scope="colgroup" colSpan={4} className="px-0 pb-0 pt-10 group-first-of-type:pt-5">
+                  <th scope="colgroup" colSpan={4} className="px-0 pb-0 group-first-of-type:pt-5">
                     <div className="-mx-4 rounded-lg bg-gray-50 px-4 py-3 text-sm/6 font-semibold text-gray-950">
                       {section.name}
                     </div>
@@ -193,7 +188,7 @@ export default function Example() {
                       {feature.name}
                     </th>
                     {tiers.map((tier) => (
-                      <td key={tier.name} className="p-4 max-sm:text-center">
+                      <td key={tier.name} className="p-4 text-center">
                         {typeof feature.tiers[tier.name as keyof typeof feature.tiers] === 'string' ? (
                           <>
                             <span className="sr-only">{tier.name} includes:</span>
