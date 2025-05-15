@@ -53,7 +53,7 @@ export default async function NewsArticle(props: { params: Promise<sParams> }) {
                 />
               )}
               <div className="mt-10">
-                <Button variant="outline" href="/blog">
+                <Button variant="outline" href="/news">
                   <ChevronLeftIcon className="size-4" />
                   Back to news
                 </Button>
