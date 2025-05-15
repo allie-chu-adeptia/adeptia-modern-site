@@ -69,9 +69,10 @@ const sections = [
   {
     name: 'Deployment',
     features: [
-      { name: 'Hosting Model', tiers: { Professional: "Multi-Tenant", Premier: "Single-Tenant", Enterprise: "Single-Tenant" } },
+      { name: 'Deployment Model', tiers: { Professional: "Multi-Tenant", Premier: "Single-Tenant", Enterprise: "Single-Tenant" } },
       { name: 'On Premise Option', tiers: { Professional: false, Premier: true, Enterprise: true } },
-      { name: 'Non-Production Environments', tiers: { Professional: false, Premier: "1", Enterprise: "2" } },
+      { name: 'Adeptia Hosting Option', tiers: { Professional: true, Premier: true, Enterprise: true } },
+      { name: 'Additional Non-Production Environments', tiers: { Professional: false, Premier: "1", Enterprise: "2" } },
       { name: 'VPN/VNET Access', tiers: { Professional: false, Premier: true, Enterprise: true } },
       { name: 'Multi-zone HA', tiers: { Professional: false, Premier: false, Enterprise: true } },
     ],
@@ -159,11 +160,12 @@ export default function Example() {
               <col className="w-1/5" />
               <col className="w-1/5" />
             </colgroup>
+
             <thead>
               <tr>
                 <td className="p-0" />
                 {tiers.map((tier) => (
-                  <th key={tier.name} scope="col" className="p-0">
+                  <th key={tier.name} scope="col" className="py-2 px-0 text-center sticky top-20 bg-white/20 backdrop-blur rounded-lg">
                     <Eyebrow>
                       {tier.name}
                     </Eyebrow>
@@ -174,7 +176,7 @@ export default function Example() {
             {sections.map((section) => (
               <tbody key={section.name} className="group">
                 <tr>
-                  <th scope="colgroup" colSpan={4} className="px-0 pb-0 pt-10 group-first-of-type:pt-5">
+                  <th scope="colgroup" colSpan={4} className="px-0 pb-0 group-first-of-type:pt-5">
                     <div className="-mx-4 rounded-lg bg-gray-50 px-4 py-3 text-sm/6 font-semibold text-gray-950">
                       {section.name}
                     </div>
@@ -186,7 +188,7 @@ export default function Example() {
                       {feature.name}
                     </th>
                     {tiers.map((tier) => (
-                      <td key={tier.name} className="p-4 max-sm:text-center">
+                      <td key={tier.name} className="p-4 text-center">
                         {typeof feature.tiers[tier.name as keyof typeof feature.tiers] === 'string' ? (
                           <>
                             <span className="sr-only">{tier.name} includes:</span>
