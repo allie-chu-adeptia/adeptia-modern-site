@@ -40,6 +40,7 @@ const PlatformMenu: TopLevelMenu = {
             name: 'Platform', items: [
                 { name: 'How it Works', href: '/products/how-it-works' },
                 { name: 'Why Adeptia Connect', href: '/products/why-adeptia-connect' },
+                { name: 'AI Features', href: '/products/ai-features' },
                 { name: 'Pricing', href: '/pricing' },
             ]
         },

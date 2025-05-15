@@ -12,7 +12,6 @@
     "@apollo/client": "^3.12.4",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
-    "@lottiefiles/dotlottie-react": "^0.13.5",
     "@next/third-parties": "^15.2.2",
     "@portabletext/react": "^3.2.0",
     "@portabletext/to-html": "^2.0.13",

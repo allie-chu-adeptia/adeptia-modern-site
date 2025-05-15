@@ -70,6 +70,7 @@ export type ProductPricing = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -136,6 +137,7 @@ export type PortableText = Array<
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -163,6 +165,7 @@ export type Content = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -305,6 +308,7 @@ export type Testimonial = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -316,6 +320,7 @@ export type Testimonial = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -382,6 +387,7 @@ export type LogoSection = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -434,6 +440,7 @@ export type CtaSection = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -452,12 +459,13 @@ export type ContentSection = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
   }
-  animation?: 'firstMileDataTypes' | 'lottieAnimation'
-  lottieURL?: string
+  animation?: 'firstMileDataTypes' | 'customAnimation'
+  videoURL?: string
   button?: Button
   styleAndLayout?: {
     layout?: 'left' | 'right' | 'center'
@@ -473,6 +481,7 @@ export type ContentSection = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -510,6 +519,7 @@ export type BentoSection = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -548,6 +558,7 @@ export type Page = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -641,6 +652,7 @@ export type Resource = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -667,6 +679,7 @@ export type Resource = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
     }
+    media?: unknown
     _type: 'file'
   }
   video?: VideoEmbed
@@ -694,6 +707,7 @@ export type TeamMember = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -701,12 +715,6 @@ export type TeamMember = {
   displayInManagement?: boolean
   body?: PortableText
   linkedIn?: string
-}
-
-export type Slug = {
-  _type: 'slug'
-  current?: string
-  source?: string
 }
 
 export type VideoEmbed = {
@@ -764,6 +772,7 @@ export type Connector = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -796,6 +805,7 @@ export type Customer = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -807,6 +817,7 @@ export type Customer = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -959,6 +970,21 @@ export type HeaderStyle = {
   anchorID?: string
 }
 
+export type MediaTag = {
+  _id: string
+  _type: 'media.tag'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: Slug
+}
+
+export type Slug = {
+  _type: 'slug'
+  current?: string
+  source?: string
+}
+
 export type IconPicker = {
   _type: 'iconPicker'
   provider?: string
@@ -1000,7 +1026,6 @@ export type AllSanitySchemaTypes =
   | Page
   | Resource
   | TeamMember
-  | Slug
   | VideoEmbed
   | SanityFileAsset
   | HubspotForm
@@ -1016,5 +1041,7 @@ export type AllSanitySchemaTypes =
   | CareerSection
   | Button
   | HeaderStyle
+  | MediaTag
+  | Slug
   | IconPicker
 export declare const internalGroqTypeReferenceTo: unique symbol

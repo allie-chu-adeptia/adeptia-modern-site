@@ -205,14 +205,14 @@ function buildImageorAnimation({
     animation,
     dark,
     imageData,
-    lottieURL,
+    videoURL,
     animationClassName,
     imageClassName
 }: {
     animation?: string,
     dark?: boolean,
     imageData?: ImageType,
-    lottieURL?: string,
+    videoURL?: string,
     animationClassName?: string
     imageClassName?: string
 }) {
@@ -221,7 +221,7 @@ function buildImageorAnimation({
             <AnimationRenderer
                 animation={animation}
                 dark={dark}
-                lottieURL={lottieURL}
+                videoURL={videoURL}
                 animationClassName={animationClassName}
             />
         ) : (
@@ -251,6 +251,7 @@ function OffCenterImage({
 }) {
     const col_alignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
     const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
+    console.log(contentSection)
 
     return (
         <>
@@ -275,9 +276,9 @@ function OffCenterImage({
                         animation,
                         dark,
                         imageData: contentSection.image,
-                        lottieURL: contentSection.lottieURL,
+                        videoURL: contentSection.videoURL,
                         animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
-                        imageClassName: "relative pt-8"
+                        imageClassName: "relative rounded-xl shadow-2xl ring-1 ring-white/10"
                     })}
                     {/* {animation ? (
                         <div className="relative h-80 shrink-0">
@@ -340,7 +341,7 @@ function CenteredImage({
                     animation,
                     dark,
                     imageData: contentSection.image,
-                    lottieURL: contentSection.lottieURL,
+                    videoURL: contentSection.videoURL,
                     animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
                     imageClassName: "rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
                 })}

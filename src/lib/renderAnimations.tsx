@@ -1,42 +1,30 @@
 'use client'
 
-// import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import clsx from 'clsx';
 import cleanString from './cleanString';
 import { FirstMileData } from "@/animations/firstMileData";
 
 export default function AnimationRenderer({
     animation,
-    lottieURL,
+    videoURL,
     animationClassName,
     dark
 }: {
     animation?: string,
-    lottieURL?: string,
+    videoURL?: string,
     animationClassName?: string,
     dark?: boolean
 }) {
     if (!animation) return null;
-    console.log(animationClassName)
+    console.log(videoURL)
 
     return (
         <>
-            {cleanString(animation) === 'lottieAnimation' ? (
+            {cleanString(animation) === 'customAnimation' ? (
                 <div className={clsx(animationClassName)}>
-                    {/* {lottieURL && <DotLottieReact
-                        src={lottieURL}
-                        autoplay
-                        loop
-                        style={{
-                            borderRadius: '0.75rem', // rounded-xl
-                            overflow: 'hidden',
-                            width: '100%',
-                            height: '100%',
-                        }}
-                    />} */}
-                    {lottieURL &&
+                    {videoURL &&
                         <video width="100%" height="100%" autoPlay loop muted playsInline preload="none" style={{ borderRadius: '0.75rem' }}>
-                            <source src={lottieURL} type="video/webm" />
+                            <source src={videoURL} type="video/webm" />
                             Your browser does not support the video tag.
                         </video>
                     }
