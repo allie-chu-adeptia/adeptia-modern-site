@@ -1,15 +1,21 @@
+// Sanity types
 import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker, HeaderStyle as HeaderStyleType, BackgroundStyle } from "../sanity/types/sanity.types";
+import { PortableTextBlock } from "@portabletext/react";
+
+// Components
 import { HeaderStyle } from "../lib/headerStyle";
+import { Button } from "@/components/button";
+import StylePortableText from "./stylePortableText";
 import IconRender from "@/lib/iconRender";
+
+// Utilities
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
 import { image } from '@/sanity/lib/image'
-import { Button } from "@/components/button";
+import AnimationRenderer from "@/lib/renderAnimations";
+
+// Icons
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { FirstMileData } from "@/animations/firstMileData";
-import StylePortableText from "./stylePortableText";
-import { PortableTextBlock } from "@portabletext/react";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 type spacing = 'tight' | 'loose'
 
@@ -65,7 +71,6 @@ function renderIcon({
 
     if (customIcon) {
         const imageUrl = image(customIcon).width(200).height(200).url();
-        console.log("Icon URL:", imageUrl);
 
         if (dark) {
             return (
@@ -213,18 +218,12 @@ function buildImageorAnimation({
 }) {
     return (
         animation ? (
-            <div className={clsx(animationClassName)}>
-                {cleanString(animation) === 'lottieAnimation' ? (
-                    lottieURL && <DotLottieReact
-                        src={lottieURL}
-                        autoplay
-                        loop
-                        style={{ height: '100%', width: '100%' }}
-                    />
-                ) : cleanString(animation) === 'firstMileDataTypes' ? (
-                    <FirstMileData dark={dark || false} />
-                ) : null}
-            </div>
+            <AnimationRenderer
+                animation={animation}
+                dark={dark}
+                lottieURL={lottieURL}
+                animationClassName={animationClassName}
+            />
         ) : (
             imageData && (
                 <div className="relative pt-8">
@@ -277,7 +276,7 @@ function OffCenterImage({
                         dark,
                         imageData: contentSection.image,
                         lottieURL: contentSection.lottieURL,
-                        animationClassName: "relative h-80 shrink-0",
+                        animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
                         imageClassName: "relative pt-8"
                     })}
                     {/* {animation ? (
@@ -337,7 +336,15 @@ function CenteredImage({
                 </div>
             )}
             <div className={`mx-auto ${cleanString(contentSection.imageSize || 'standard') === 'standard' ? 'max-w-5xl px-6 lg:px-8' : 'max-w-7xl'}`}>
-                {animation ? (
+                {buildImageorAnimation({
+                    animation,
+                    dark,
+                    imageData: contentSection.image,
+                    lottieURL: contentSection.lottieURL,
+                    animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
+                    imageClassName: "rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
+                })}
+                {/* {animation ? (
                     // <div className="relative h-80 shrink-0 my-12 shadow-2xl ring-1 ring-white/10">
                     <>
                         {cleanString(animation) === 'firstMileDataTypes' && (
@@ -354,7 +361,7 @@ function CenteredImage({
                             className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
                         />
                     </div>
-                )}
+                )} */}
             </div>
         </>
     )
