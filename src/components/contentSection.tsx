@@ -1,19 +1,27 @@
+// Sanity types
 import { ContentSection, SanityImageCrop, SanityImageHotspot, IconPicker, HeaderStyle as HeaderStyleType, BackgroundStyle } from "../sanity/types/sanity.types";
+import { PortableTextBlock } from "@portabletext/react";
+
+// Components
 import { HeaderStyle } from "../lib/headerStyle";
+import { Button } from "@/components/button";
+import StylePortableText from "./stylePortableText";
 import IconRender from "@/lib/iconRender";
+
+// Utilities
 import cleanString from "@/lib/cleanString";
 import clsx from "clsx";
 import { image } from '@/sanity/lib/image'
-import { Button } from "@/components/button";
+import AnimationRenderer from "@/lib/renderAnimations";
+
+// Icons
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { FirstMileData } from "@/animations/firstMileData";
-import StylePortableText from "./stylePortableText";
-import { PortableTextBlock } from "@portabletext/react";
 
 type spacing = 'tight' | 'loose'
 
 type Subpoint = {
     icon?: IconPicker
+    customIcon?: ImageType
     header?: string
     subheader?: string
     button?: {
@@ -51,6 +59,56 @@ export type ExpandedContentSection = Omit<ContentSection, 'image' | 'subPoints' 
     content?: PortableTextBlock[]
 }
 
+function renderIcon({
+    icon,
+    customIcon,
+    dark
+}: {
+    icon?: IconPicker,
+    customIcon?: ImageType,
+    dark: boolean
+}) {
+
+    if (customIcon) {
+        const imageUrl = image(customIcon).width(200).height(200).url();
+
+        if (dark) {
+            return (
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        className="size-8"
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-background-medium)]">
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        className="size-8"
+                    />
+                </div>
+            )
+        }
+    } else if (icon) {
+        console.log("icon")
+        return (
+            <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
+                <IconRender
+                    name={icon.name}
+                    aria-hidden="true"
+                    className={clsx("size-5 flex-none text-white")}
+                />
+            </div>
+        )
+    } else {
+        return null
+    }
+}
+
 // Build an array of subpoints and return as rendered content blocks
 function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoint>, spacing: spacing, dark: boolean }) {
     return (
@@ -59,7 +117,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 spacing === 'tight' ? (
                     <div key={index} className="relative pl-9">
                         <dt className={clsx("inline font-semibold", dark ? "text-white" : "text-black")}>
-                            {subpoint.icon && <IconRender name={subpoint.icon.name} className="absolute left-1 top-1 size-5 text-[var(--primary-blue)]" />}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>{' '}
                         <dd className={clsx("inline", dark ? "text-gray-300" : "text-gray-700")}>{subpoint.subheader}</dd>
@@ -79,14 +137,7 @@ function BuildSubpoints({ subPoints, spacing, dark }: { subPoints: Array<Subpoin
                 ) : (
                     <div key={index} className="flex flex-col">
                         <dt className={clsx("flex flex-col items-left text-base/7 font-semibold", dark ? "text-white" : "text-gray-800")}>
-                            {subpoint.icon &&
-                                <div className="mb-6 flex size-10 items-center justify-center rounded-lg bg-[var(--primary-blue)]">
-                                    <IconRender
-                                        name={subpoint.icon.name}
-                                        aria-hidden="true"
-                                        className={clsx("size-5 flex-none text-white")}
-                                    />
-                                </div>}
+                            {subpoint.icon || subpoint.customIcon ? renderIcon({ icon: subpoint.icon, customIcon: subpoint.customIcon, dark: dark }) : null}
                             {subpoint.header}
                         </dt>
                         <dd className={clsx("mt-1 flex flex-auto flex-col text-base/7", dark ? "text-white" : "text-gray-700")}>
@@ -134,7 +185,7 @@ function buildHeaderandContent({
     return (
         <>
             <HeaderStyle header={header} style={background} level={3} />
-            {content && <StylePortableText value={content} className={clsx(dark ? 'text-white' : 'text-gray-700', textAlignmentMap[alignment || 'justify-start'])} />}
+            {content && <StylePortableText value={content} styleOverride={clsx(dark ? 'text-white' : ' ', textAlignmentMap[alignment || 'justify-start'])} />}
             {button &&
                 <div className={`mt-6 lg:mt-10 w-full flex ${alignment}`}>
                     <Button
@@ -150,33 +201,42 @@ function buildHeaderandContent({
     )
 }
 
-// function buildImage({
-//     renderImage,
-//     imageSize,
-// }: {
-//     renderImage?: ImageType,
-//     imageSize: ImageSize,
-// }) {
-//     return (
-//         <div className="relative pt-8">
-//             {renderImage && (
-//                 imageSize === 'standard' ? (
-//                     <img
-//                         alt={cleanString(renderImage.altText || '')}
-//                         src={image(renderImage).size(2400, 1800).url()}
-//                         className="rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
-//                     />
-//                 ) : (
-//                     <img
-//                         alt={cleanString(renderImage.altText || '')}
-//                         src={image(renderImage).size(2400, 1800).url()}
-//                         className="max-w-7xl rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
-//                     />
-//                 )
-//             )}
-//         </div>
-//     )
-// }
+function buildImageorAnimation({
+    animation,
+    dark,
+    imageData,
+    videoURL,
+    animationClassName,
+    imageClassName
+}: {
+    animation?: string,
+    dark?: boolean,
+    imageData?: ImageType,
+    videoURL?: string,
+    animationClassName?: string
+    imageClassName?: string
+}) {
+    return (
+        animation ? (
+            <AnimationRenderer
+                animation={animation}
+                dark={dark}
+                videoURL={videoURL}
+                animationClassName={animationClassName}
+            />
+        ) : (
+            imageData && (
+                <div className="relative pt-8">
+                    <img
+                        alt={cleanString(imageData?.altText || '')}
+                        src={image(imageData).size(1800, 1200).url()}
+                        className={clsx(imageClassName)}
+                    />
+                </div>
+            )
+        )
+    )
+}
 
 function OffCenterImage({
     contentSection,
@@ -191,6 +251,7 @@ function OffCenterImage({
 }) {
     const col_alignment = cleanString(contentSection.styleAndLayout?.layout || 'left')
     const alignment = contentSection.header?.layout === 'centered' ? 'justify-center' : 'justify-start'
+    console.log(contentSection)
 
     return (
         <>
@@ -211,7 +272,15 @@ function OffCenterImage({
                     </div>
                 </div>
                 <div className={clsx("flex items-center justify-end rounded-xl", col_alignment === 'right' ? 'lg:order-1' : 'lg:order-2')}>
-                    {animation ? (
+                    {buildImageorAnimation({
+                        animation,
+                        dark,
+                        imageData: contentSection.image,
+                        videoURL: contentSection.videoURL,
+                        animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
+                        imageClassName: "relative rounded-xl shadow-2xl ring-1 ring-white/10"
+                    })}
+                    {/* {animation ? (
                         <div className="relative h-80 shrink-0">
                             {cleanString(animation) === 'firstMileDataTypes' && (
                                 <FirstMileData dark={dark} />
@@ -227,7 +296,7 @@ function OffCenterImage({
                                 />
                             </div>
                         )
-                    )}
+                    )} */}
                 </div>
             </div>
         </>
@@ -268,7 +337,15 @@ function CenteredImage({
                 </div>
             )}
             <div className={`mx-auto ${cleanString(contentSection.imageSize || 'standard') === 'standard' ? 'max-w-5xl px-6 lg:px-8' : 'max-w-7xl'}`}>
-                {animation ? (
+                {buildImageorAnimation({
+                    animation,
+                    dark,
+                    imageData: contentSection.image,
+                    videoURL: contentSection.videoURL,
+                    animationClassName: "relative mt-8 w-full rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]",
+                    imageClassName: "rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]"
+                })}
+                {/* {animation ? (
                     // <div className="relative h-80 shrink-0 my-12 shadow-2xl ring-1 ring-white/10">
                     <>
                         {cleanString(animation) === 'firstMileDataTypes' && (
@@ -285,7 +362,7 @@ function CenteredImage({
                             className={clsx("rounded-xl shadow-2xl ring-1 ring-white/10 aspect-[3/2]")}
                         />
                     </div>
-                )}
+                )} */}
             </div>
         </>
     )
@@ -301,9 +378,10 @@ function NoImage(
 
     return (
         contentSection.styleAndLayout?.layout === 'center' ? (
-            <div className="noImage contentSection flex flex-col items-center gap-y-8">
+            <div className="noImage contentSection flex flex-col items-center">
                 {buildHeaderandContent({
                     header: contentSection.header,
+                    content: contentSection.content as PortableTextBlock[],
                     button: contentSection.button,
                     background: contentSection.styleAndLayout?.background || { _type: 'backgroundStyle', style: 'light' },
                     dark: dark,

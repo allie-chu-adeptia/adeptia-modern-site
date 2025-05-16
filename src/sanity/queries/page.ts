@@ -136,6 +136,7 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
           crop
         },
         animation,
+        videoURL,
         button {
           _id,
           title,
@@ -149,6 +150,9 @@ const PAGE_QUERY = defineQuery(/* groq */ `*[
         },
         subPoints[] {
           icon,
+          customIcon {
+            asset->,
+          },
           header,
           subheader,
           button {

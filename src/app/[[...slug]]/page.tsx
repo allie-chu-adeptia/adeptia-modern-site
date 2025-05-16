@@ -47,7 +47,6 @@ export async function generateStaticParams() {
 
 function PageContent({ page }: { page: ExpandedPage }) {
     const home = page.metadata?.slug?.current === 'home'
-
     const lightBackground: BackgroundStyle = {
         _type: 'backgroundStyle',
         style: 'light'
